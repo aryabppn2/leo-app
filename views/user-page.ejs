@@ -1,0 +1,571 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>daftar produk</title>
+  <style type="text/css">
+    body {
+      background-color: #f5f5dc;
+      background-image: url('/images/leo-logo.jpg');;
+      font-weight: bold;
+      font-family: "arial";
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .btn-bar,
+    .btn-bar-selected {
+      width: 31.3%;
+      height: 50px;
+      border: 0px;
+      font-weight: bold;
+      overflow-x: auto;
+      border-radius: 19px;
+    }
+
+    .btn-bar {
+      background-color: #e1c16e;
+      color: aliceblue;
+    }
+
+    .body-navigator {
+      height: 500px;
+      overflow-y: auto;
+    }
+
+    .btn-bar-selected {
+      background-color: #f5f5dc;
+      color: black;
+    }
+
+    .search-form {
+      width: 92.9%;
+      height: 45px;
+      margin-bottom: 12px;
+      border-radius: 19px;
+      background-color: aliceblue;
+    }
+
+    .text-search,
+    .btn-search {
+      background-color: aliceblue;
+      color: black;
+      font-weight: bold;
+    }
+
+    .text-search {
+      width: 80.8%;
+      height: 45px;
+      border-radius: 19px;
+      border: 0px;
+      font-size: 20px;
+    }
+
+    .btn-search {
+      width: 12%;
+      height: 45px;
+      border: 0px;
+      font-size: 20px;
+    }
+
+    .qoutes-card {
+      width: 98.9%;
+      height: 300px;
+      overflow-y: auto;
+      border-radius: 12px;
+      background-color: aliceblue;
+      text-align: center;
+      margin-top: 19px;
+    }
+
+    .qoutes-information {
+      width: 50%;
+      height: 49px;
+      border: 0px;
+      background-color: aliceblue;
+      color: rgb(74, 74, 100);
+      font-weight: bold;
+    }
+
+    .user-card-sett {
+      background-color: aliceblue;
+      border-radius: 12px;
+      background-image: url('/images/leo-logo.jpg');
+    }
+
+    .description-div {
+      height: 70px;
+      margin-bottom: 15px;
+      overflow-y: auto;
+    }
+
+    .username-fields,
+    .password-fields,
+    .location-field {
+      width: 89.9℅;
+      height: 50px;
+      border-radius: 17px;
+      border: 0px;
+      background-color: #fff4d5;
+      color: blue;
+      overflow-x: auto;
+      margin-top: 9px;
+    }
+
+    table {
+      background-color: #f5f5dc;
+      border: 3px;
+      border-color: orange;
+      margin-top: 12px;
+    }
+
+    th,
+    td {
+      width: 23%;
+      height: 45px;
+      overflow-x: auto;
+      text-align: center;
+      color: orange
+    }
+
+    .btn-des-edit {
+      width: 98px;
+      height: 40px;
+      border: 0px;
+      background-color: #fff4aa;
+      font-size: 20px;
+      border-radius: 19px;
+    }
+
+
+    .des-input {
+      width: 55.7℅;
+      height: 60px;
+      background-color: aliceblue;
+      color: black;
+      border: 0px
+    }
+
+    .btn-des-sub {
+      width: 33.5℅;
+      height: 30px;
+      margin-top: 12px;
+      background-color: yellow;
+      color: black;
+      border: 0px;
+
+
+    }
+
+    .service-field {
+      width: 98.9℅;
+      height: 300px;
+      background-color: #fff4d5;
+      color: blue;
+      border: 0px;
+      border-radius: 19px
+    }
+
+
+    .user-card {
+      height: 100px;
+      margin-top: 17px;
+      border-radius: 19px;
+      background-color: lightyellow;
+      text-align: center;
+    }
+
+    .btn-chatting {
+      background-color: lightgreen;
+      color: black;
+    }
+
+    .bar-bellow {
+      text-align: center;
+    }
+
+    .btn-bar-bellow {
+      width: 47.8%;
+      height: 50px;
+      background-color: #ffc40c;
+      color: black;
+      border: 0px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+ 
+
+    .btn-visitor {
+      width: 43.9%;
+      height: 40px;
+      font-weight: bold;
+      border: 0px;
+      border-radius: 19px;
+      margin-left: 7px;
+      margin-bottom: 7px;
+    }
+    .hobi-text{
+      height: 89px;
+    }
+    .hobi-form-update{
+        width:89.9%;
+        height: 45px;
+        border-radius: 18px;
+        background-color: #fff4d5;
+        margin-top: 12px;
+    }
+    .text-hobi{
+       height:70.3%;
+       height: 44px;
+       border:0px;
+       border-radius:19px;
+       
+    }
+    .btn-hobi-update{
+         width:20.2%;
+         height:44px;
+         border:0px;
+    }
+    .btn-hobi-update,.text-hobi{
+       background-color: #fff4dc;
+       color:blue
+    }
+    .qoutes-share-card{
+        height:200px;
+        overflow-y: auto;
+        background-color: #e1c16e;
+        color:orange
+    }
+   .drop-down,{
+     display:inline-block;
+     position:relative;
+    
+   }
+
+   .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Tombol dropdown */
+        .dropdown a {
+            background-color:#ffc40c;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Daftar dropdown */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Link dalam dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Efek hover untuk menampilkan dropdown */
+       
+
+        /* Efek hover untuk item dropdown */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+  </style>
+</head>
+
+<body>
+  <%if(page=='user-product-list'){%>
+  <form method="post" action="/search-user-product" class="search-form">
+    <input type="hidden" name="user_email" value="<%=user.email%>" />
+    <input type="text" name="search_input" placeholder="cari apa" value="<%=text_search%>" class="text-search" />
+    <button class="btn-search">cari</button>
+  </form>
+  <div class="user-bar">
+    <a href="/get-chat-list/<%=user.email%>">
+      <button class="btn-bar">chat</button>
+    </a>
+    <a href="/create-new-product/<%=user.email%>">
+      <button class="btn-bar">+</button>
+    </a>
+
+    <a href="/product-navigation/<%=user.email%>">
+      <button class="btn-bar">navigasi</button>
+    </a>
+     
+  </div>
+  <div class="body-navigator">
+    <%user_product.forEach(data=>{%>
+      <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
+      <a href="/open-qoutes-user/<%=data.qoutes_id%>">
+        <h1 style="color:<%=data.information.color%>"><%=data.qoutes_value%></h1>
+      </a>
+    </div>
+
+    
+
+    <%})%>
+    <% user_share.forEach(data => { %>
+      <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
+        <div class="qoutes-share-card" style="background-color:<%=data.qoutes_share.qoutes_bg%>">
+          <a href="/qoutes-open/<%=user.email%>/<%=data.qoutes_share.qoutes_id%>">
+            <h2 style="color:<%=data.qoutes_share.qoutes_color%>"><%=data.qoutes_share.qoutes_value%></h2>
+          </a>
+        </div>
+        <a href="/open-qoutes-share-user/<%=data.qoutes_id%>">
+          <h1 style="color:<%=data.information.color%>"><%=data.qoutes_value%></h1>
+        </a>
+      </div>
+    <% }) %>
+
+  </div>
+  <div class="bar-bellow">
+    <a href="/setting-user-data/<%=user.email%>">
+      <button class="btn-bar-bellow" style="background-color: #fff4aa;color:#6655ff"><%=user.username%></button>
+    </a>
+    <a href="/get-my-friend-list/<%=user.email%>">
+      <button class="btn-bar-bellow">temanku</button>
+    </a>
+  </div>
+
+  <%}else if(page=='setting-page' ){%>
+  <fieldset class="user-card-sett">
+
+    <legend style="color:#6655ff" id="user-email"><%=user.email%></legend>
+
+
+    <fieldset class="username-fields" id='username-edit'>
+
+      <legend>username</legend>
+
+      <input type="hidden" id="email" value='<%=user.email%>'>
+      <input type="hidden" id="hobi-data" value="<%=user.hobi%>">
+
+      <b onclick='username_edit()' id='username'><%=user.username%></b>
+
+    </fieldset>
+
+  <div class="nav-2" id="user-bag-2">
+    <table class="sub-fields">
+      <tr>
+        <th>ttg_lahir</th>
+        <th>hobi</th>
+      </tr>
+      <tr>
+        <td><%=user.bird%></td>
+        <td onclick="hobby_change()"><%=user.hobi%></td>
+      </tr>
+    </table>
+  </div>
+
+    <fieldset class='service-field'>
+
+      <legend>daftar langganan</legend>
+
+    </fieldset>
+
+  </fieldset>
+  <a href="/leo.com">
+    <button class="btn-bar" style="background-color: aliceblue; color: red;margin-top: 12px;">
+      log-out
+    </button>
+  </a>
+  <a href="/show-services-list/<%=user.email%>">
+    <button class="btn-bar">layanan</button>
+  </a>
+  <a href="/first-page/<%=user.email%>">
+    <button class="btn-bar" style="background-color:#ffc40c;color:#6655ff;">kembali</button>
+  </a>
+
+
+  <%}else if(page=='langganan' ){%>
+  <form method="post" action="/search-langganan" class="search-form">
+    <input type="hidden" name="user_email" value="<%=user.email%>" />
+    <input type="text" name="search_input" value="<%=text_search%>" placeholder="cari siapa" class="text-search" />
+    <button class="btn-search">cari</button>
+  </form>
+  <div class="dropdown">
+    <a id="dropdownButton">langgananku (<%=user.langganan.length%>)</a>
+    <div class="dropdown-content" id="dropdownContent">
+        <a href="/get-my-friend-list/<%=user.email%>">temanku</a>
+        <a href="/user-pelanggan/<%=user.email%>">pelanggan (<%=user.langganan.length%>)</a>
+        <a href="/first-page/<%=user.email%>">kembali</a>
+    </div>
+
+</div>  
+  <div class="body-navigator">
+    <%langganan.forEach(data=>{%>
+    <div class="user-card">
+
+      <h2 style="margin-left: 20px; color: gray"><%=data.user%></h2>
+      <a href="/open-navigation/<%=user.email %>/<%=data.email%>">
+        <button class="btn-visitor">kunjungi</button>
+      </a>
+      <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
+        <button class="btn-visitor">chat</button>
+      </a>
+    </div>
+    <%})%>
+  </div>
+  <%}else if(page=='pelanggan' ){%>
+  <form method="post" action="/search-pelanggan" class="search-form">
+    <input type="hidden" name="user_email" value="<%=user.email%>" />
+    <input type="text" name="search_input" value="<%=text_search%>" placeholder="cari siapa" class="text-search" />
+    <button class="btn-search">cari</button>
+  </form>
+  <div class="dropdown">
+    <a id="dropdownButton">pelangganku (<%=user.pelanggan.length%>)</a>
+    <div class="dropdown-content" id="dropdownContent">
+        <a href="/get-my-friend-list/<%=user.email%>">temanku</a>
+        <a href="/user-langganan/<%=user.email%>">pelanggan (<%=user.langganan.length%>)</a>
+        <a href="/first-page/<%=user.email%>">kembali</a>
+    </div>
+
+</div>  
+  <div class="body-navigator">
+    <%pelanggan.forEach(data=>{%>
+    <div class="user-card">
+      <div class="user-card">
+
+        <h2 style="margin-left: 20px; color: gray"><%=data.user%></h2>
+        <a href="/open-navigation/<%=user.email %>/<%=data.email%>">
+          <button class="btn-visitor">kunjungi</button>
+        </a>
+        <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
+          <button class="btn-visitor">chat</button>
+        </a>
+      </div>
+      <%})%>
+    </div>
+
+    <%}else if(page=='friends-list'){%>
+      <form method="post" action="/search-friends-list" class="search-form">
+        <input type="hidden" name="user_email" value="<%=user.email%>" />
+        <input type="text" name="search_input" value="<%=search_text%>" placeholder="cari siapa" class="text-search" />
+        <button class="btn-search">cari</button>
+      </form>
+      <div class="dropdown">
+        <a id="dropdownButton">temanku (<%=friends_length%>)</a>
+        <div class="dropdown-content" id="dropdownContent">
+            <a href="/user-langganan/<%=user.email%>" class="dropdown-item">langganan (<%=user.langganan.length%>)</a>
+            <a href="/user-pelanggan/<%=user.email%>" class="dropdown-item">pelanggan (<%=user.pelanggan.length%>)</a>
+            <a href="/first-page/<%=user.email%>" class="dropdown-item">kembali</a>
+        </div>
+  
+    </div>  
+    
+      <div class="body-navigator">
+        <% langganan.forEach(data => { %>
+          <div class="user-card">
+
+            <h2 style="margin-left: 20px; color: gray"><%=data.user%></h2>
+            <a href="/open-navigation/<%=user.email %>/<%=data.email%>">
+              <button class="btn-visitor">kunjungi</button>
+            </a>
+            <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
+              <button class="btn-visitor">chat</button>
+            </a>
+          </div>
+        <% }) %>
+     <% pelanggan.forEach(data => { %>
+      <div class="user-card">
+        <h2 style="margin-left: 20px; color: gray"><%=data.user%></h2>
+        <a href="/open-navigation/<%=user.email %>/<%=data.email%>">
+          <button class="btn-visitor">kunjungi</button>
+        </a>
+        <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
+          <button class="btn-visitor">chat</button>
+        </a>
+      </div>
+     <% }) %>
+
+
+      </div>
+
+    <%}%>
+
+    <script type="text/javascript">
+      function username_edit(){
+		const email=document.getElementById('email')
+		const username=document.getElementById('username')
+		document.getElementById('username-edit').innerHTML=
+		`
+		<form method='post' action='/username-change' class='search-form'>
+
+  <input type='hidden' name='email_input' value=${email.value}>
+  <input type='text' class='text-search' name='username_input' value='${username.innerHTML}' placeholder='nama baru'>
+  <button class='btn-search'>ok</button>
+		</form>
+`
+	}
+	function description_change(){
+		const email=document.getElementById('email')
+		const description=document.getElementById('get-des')
+		document.getElementById('description').innerHTML=
+		`
+    <form method='post' action='/edit-description'class='des-form'>
+     <input type='hidden' value='${email.value}' name='email'>
+     <textarea class='des-input' placeholder='isi deskripsi' name='description_update' >
+       ${description.value}
+     </textarea>
+     <button class='btn-des-sub' type='submit'>ubah</button>
+
+    </form>
+
+
+		`
+	}
+function hobby_change(){
+  const hobi={
+     input:document.getElementById('user-bag-2'),
+     data:document.getElementById('hobi-data')
+  }
+  const user_email=document.getElementById('email')
+  hobi.input.innerHTML=  `
+  <form method='post' action='/change-user-hobi' class='hobi-form-update'>
+    <input type='hidden' value='${user_email.value}' name='user_email'>
+    <input type='text' value='${hobi.data.value}' name='hobi_get' placeholder='hobi baru' class='text-hobi'>
+    <button class='btn-hobi-update'>ok</button>
+    
+  </form>
+  
+  
+  
+  `
+}
+document.getElementById("dropdownButton").addEventListener("click", function(event) {
+            event.preventDefault(); // Mencegah reload jika pakai tag <a>
+            var dropdown = document.getElementById("dropdownContent");
+            dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+        });
+
+        // Tutup dropdown jika klik di luar
+        document.addEventListener("click", function(event) {
+            var dropdown = document.getElementById("dropdownContent");
+            var button = document.getElementById("dropdownButton");
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = "none";
+            }
+        });
+
+
+	
+</script>
+
+</body>
+
+</html>

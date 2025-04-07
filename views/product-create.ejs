@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style type="text/css">
+    body {
+      background-color: #F5F5DC;
+      background-image:url('/images/leo-logo.jpg');
+      font-weight: bold;
+      font-family: 'arial';
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .btn-bar,
+    .btn-bar-selected {
+      width: 31.3%;
+      height: 45px;
+      border: 0px;
+      font-weight: bold;
+    }
+
+    .btn-bar {
+      background-color: #E1C16E;
+      color: black;
+    }
+
+    .btn-bar-selected {
+      background-color: #F5F5DC;
+      color: black;
+    }
+
+    .qoutes-form {
+      text-align: center;
+      margin-top: 11px;
+    }
+
+    .text-input {
+      width: 98%;
+      height: 378px;
+      border: 0px;
+      margin-top: 34px;
+      border-radius: 1px;
+      background-color: lightgray;
+      font-weight: bold;
+      font-size: 33px;
+      text-align: center;
+
+    }
+
+    .num-input {
+      margin-top: 29px;
+      width: 26%;
+      height: 34px;
+      background-color: aliceblue;
+      color: black;
+      border-radius: 0px;
+      font-weight: bold;
+      border: 0px;
+
+    }
+    table{
+      margin-top: 13px;
+      background-color:#F5F5DC ;
+    }
+
+
+    th,td{
+       width:31.2%;
+       text-align: center;
+       color:orange
+        
+    }
+    .btn-running-color{
+   width:98%;
+   height: 45px;
+   border:0px;
+   border-radius: 19px;
+   background-color: #E1C16E;
+   color:black
+    }
+  .color-input{
+      width:100%;
+      height:46px;
+      background-color: #E1C16E;
+      border-radius:19px;
+  }
+    .btn-post-product {
+      width: 78%;
+      height: 45px;
+      background-color: #E1C16E;
+      color: black;
+      font-weight: bold;
+      margin-top: 10px;
+      border-radius:19px;
+      border: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <% if (page=='product-create-page') { %>
+  <div class="">
+    <a href="/first-page/<%=user.email%>">
+      <button class="btn-bar">kembali</button>
+    </a>
+    <a href="/create-new-product/<%=user.email%>">
+      <button class="btn-bar-selected">qoutes</button>
+    </a>
+    <a href="/create-new-quistion/<%=user.email%>">
+      <button class="btn-bar">pertanyaan</button>
+    </a>
+  </div>
+  <div style="text-align: center;">
+  <table>
+    <tr>
+      <th>tulisan</th>
+      <th>latar belakang</th>
+    </tr>
+    <tr>
+      <td><input type="color" id="sign-color-input" class="color-input"></td>
+      <td><input type="color" id="bgcolor-input" class="color-input"></td>
+    </tr>
+  </table>
+  </div>
+  <form class="qoutes-form" method="post" action="/post-qoutes">
+    <input type="hidden" name="email" value="<%=user.email%>">
+    <input type="hidden" name="bg_color" value="" id="bgcolor-output-hidden">
+   <input type="hidden" name="sign_color" value="" id="sign-color-output-hidden">
+    <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"></textarea><br>
+    <button class="btn-post-product">posting</button>
+  </form>
+  <% }else if(page=='qoutes-user-update'){ %>
+  <div class="">
+    <a href="/first-page/<%=user.email%>">
+      <button class="btn-bar">kembali</button>
+    </a>
+    <a href="/create-new-product/<%=user.email%>">
+      <button class="btn-bar-selected">qoutes</button>
+    </a>
+  </div>
+  <div style="text-align: center;">
+    <table>
+      <tr>
+        <th>tulisan</th>
+        <th>latar belakang</th>
+      </tr>
+      <tr>
+        <td><input type="color" id="sign-color-input" class="color-input" value="<%=qoutes.information.color%>"></td>
+        <td><input type="color" id="bgcolor-input" class="color-input" value="<%=qoutes.information.bgcolor%>"></td>
+      </tr>
+    </table>
+    </div>
+  <form class="qoutes-form" method="post" action="/update-qoutes">
+    <input type="hidden" name="email" value="<%=user.email%>">
+    <input type="hidden" name="bgcolor" value="<%=qoutes.information.bgcolor%>" id="bgcolor-output-hidden">
+   <input type="hidden" name="sign_color" value="<%=qoutes.information.color%>" id="sign-color-output-hidden">
+    <input type="hidden" name="qoutes_id" value="<%=qoutes.qoutes_id%>">
+    <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"
+     style="background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></textarea><br>
+    <button class="btn-post-product">update</button>
+  </form>
+  <%}else if(page=='create-qoutes-share'){%>
+    <div class="bar" style="text-align: center;margin-top: 12px;">
+      <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
+        <button class="btn-bar" style="width:32.1%">kembali</button>
+      </a>
+      <a href="/share-qoutes/<%=user.email%>/<%=qoutes.qoutes_id%>">
+        <button class="btn-bar" style="width:32.1%">private</button>
+      </a>
+      <a href="/get-new-public-share/<%=user.email%>/<%=qoutes.qoutes_id%>">
+        <button class="btn-bar-selected" style="width:32.1%">public</button>
+      </a>
+    <div class="qoutes-body" style="background-color: <%=qoutes.information.bgcolor%>;;height:150px;overflow-y:auto">
+   <p style="color:<%=qoutes.information.color%>">creator:<%=user_qoutes.username%></p>
+  <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
+    <h2 style="color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></h2>
+  </a>
+    </div>
+    <div style="text-align: center;">
+      <table>
+        <tr>
+          <th>tulisan</th>
+          <th>latar belakang</th>
+        </tr>
+        <tr>
+          <td><input type="color" id="sign-color-input" class="color-input"></td>
+          <td><input type="color" id="bgcolor-input" class="color-input"></td>
+        </tr>
+      </table>
+      </div>
+    </div>
+   <form action="/post-public-share" method="post" class="qoutes-form">
+    <input type="hidden" value="<%=user.email%>" name="user_email">
+    <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
+    <input type="hidden" value="" id="sign-color-output-hidden" name="sign_color">
+    <input type="hidden" value="" id="bgcolor-output-hidden" name="bg_color">
+    <textarea name="qoutes_value" id="text-input" class="text-input" placeholder="apa pendapatmu" style="width:98.9%; height:280px;border:0px"></textarea>
+    <button class="btn-post-product">posting</button>
+   </form>  
+
+  <%}%>
+  <script>
+   const color={
+       sign:document.getElementById('sign-color-input'),
+       bgcolor:document.getElementById('bgcolor-input')
+   }
+
+color.sign.addEventListener('input',function(){
+   document.getElementById('text-input').style.color=color.sign.value
+   document.getElementById('sign-color-output-hidden').setAttribute('value',color.sign.value)
+
+  })
+color.bgcolor.addEventListener('input',function(){
+  document.getElementById('text-input').style.backgroundColor=color.bgcolor.value
+  document.getElementById('bgcolor-output-hidden').setAttribute('value',color.bgcolor.value)
+})
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+	

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: #F5F5DC;
+      font-weight: bold;
+      font-family: 'arial';
+      text-align: center;
+      background-image: url('/images/leo-logo.jpg');;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .search-form {
+      width: 92.9%;
+      height: 49px;
+      margin-bottom: 12px;
+      border-radius: 19px;
+      background-color: aliceblue;
+
+    }
+
+    .search-text {
+      width: 80.8%;
+      height: 45px;
+      border-radius: 19px;
+      border: 0px;
+      font-size: 20px;
+    }
+
+    .body-navigator {
+      height: 500px;
+      overflow-y: auto;
+    }
+
+    .btn-src {
+      width: 12%;
+      height: 45px;
+      border: 0px;
+      font-size: 20px;
+    }
+
+    .search-text,
+    .btn-src {
+      background-color: aliceblue;
+      color: black;
+      font-weight: bold;
+    }
+
+    .btn-bar,
+    .btn-bar-selected {
+      width: 32.3%;
+      height: 50px;
+      border: 0px;
+      overflow-x: auto;
+      margin-top: 10px;
+      font-size: 20px;
+
+    }
+
+    .btn-bar {
+      background-color: #E1C16E;
+      color: blue
+    }
+
+    .btn-bar-selected {
+      background-color: aliceblue;
+      color: blue;
+    }
+
+    .qoutes-card {
+      width: 98.9%;
+      height: 300px;
+      overflow-y: auto;
+      border-radius: 12px;
+      background-color: aliceblue;
+      text-align: center;
+      margin-top: 19px;
+    }
+
+    
+
+    .user-card {
+      background-color: lightyellow;
+      text-align: left;
+      border-radius: 19px;
+
+
+
+
+    }
+
+    .btn-visitor {
+      width: 43.9%;
+      height: 40px;
+      font-weight: bold;
+      border: 0px;
+      border-radius: 19px;
+      margin-left: 19px;
+      background-color: orange;
+      color: blue;
+      margin-bottom: 7px;
+
+    }
+
+    .qoutes-share-card {
+      height: 200px;
+      overflow-y: auto;
+      background-color: #e1c16e;
+      color: orange
+    }
+  </style>
+</head>
+
+<body>
+  <% if (page=='qoutes-nav' ) { %>
+    <form action="/search-product-navigation" method="post" class="search-form">
+      <input type="hidden" value="<%=user.email%>" name="user_email">
+      <input type="text" name="search_input" class="search-text" placeholder="cari apa" value="<%=search_text%>">
+      <button class="btn-src">cari</button>
+    </form>
+    <div>
+      <a href="/product-navigation/<%=user.email%>">
+        <button class="btn-bar-selected" style="border-radius:19px">semua</button>
+      </a>
+      <a href="/qoutes-short-list/<%=user.email%>">
+     <button class="btn-bar" style="border-radius:19px">qoutes</button>   
+      </a>
+      <a href="/qoutes-share-list/<%=user.email%>">
+        <button class="btn-bar" style="border-radius:19px">share</button>
+      </a>
+      
+    </div>
+    <div class="body-navigator">
+      <% product_data.forEach(qoutes=> { %>
+        <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
+          <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
+            <h1 style="color:<%=qoutes.information.color%>">
+              <%=qoutes.qoutes_value%>
+            </h1>
+          </a>
+        </div>
+              <% }) %>
+              <% qoutes_share.forEach(data => { %>
+                <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
+                  <div class="qoutes-share-card" style="background-color:<%=data.qoutes_share.qoutes_bg%>">
+                      <h2 style="<%=data.qoutes_share.qoutes_color%>"><%=data.qoutes_share.qoutes_value%></h2>
+                  </div>
+               <a href='/qoutes-share-open/<%=user.email%>/<%=data.qoutes_id%>'>
+                <h1 style="color:<%=data.information.color%>"><%=data.qoutes_value%></h1>
+               </a>
+                </div>
+
+              <% }) %>
+            
+    </div>
+    <div class="bar-bellow">
+      <a href="/first-page/<%=user.email%>">
+        <button class="btn-bar" style="font-size:19px;font-weight:bold;color:aliceblue;overflow-x: auto;"><%=user.username%></button>
+      </a>
+      <a href="/others-user/<%=user.email%>">
+        <button class="btn-bar">orang</button>
+      </a>
+      <a href="/get-my-friend-list/<%=user.email%>">
+        <button class="btn-bar">temanku</button>
+      </a>
+    </div>
+    <% } else if (page=='qoutes-list') { %>
+      <form action="/search-qoutes-list" method="post" class="search-form">
+        <input type="hidden" value="<%=user.email%>" name="user_email">
+        <input type="text" name="search_input" class="search-text" placeholder="cari apa" value="<%=search_text%>">
+        <button class="btn-src">cari</button>
+      </form>
+      <div>
+        <a href="/product-navigation/<%=user.email%>">
+          <button class="btn-bar" style="border-radius:19px">semua</button>
+        </a>
+        <a href="/qoutes-short-list/<%=user.email%>">
+       <button class="btn-bar-selected" style="border-radius:19px">qoutes</button>   
+        </a>
+        <a href="/qoutes-share-list/<%=user.email%>">
+          <button class="btn-bar" style="border-radius:19px">share</button>
+        </a>
+        
+      </div>
+    <div class="body-navigator">
+      <% product_data.forEach(qoutes=> { %>
+        <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
+          <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
+            <h1 style="color:<%=qoutes.information.color%>">
+              <%=qoutes.qoutes_value%>
+            </h1>
+          </a>
+        </div>
+              <% }) %>
+    </div>
+<% } else if (page=='qoutes-share-list') { %>
+  <form action="/search-qoutes-share" method="post" class="search-form" value="<%=search_text%>">
+    <input type="hidden" value="<%=user.email%>" name="user_email">
+    <input type="text" name="search_input" class="search-text" placeholder="cari apa" value="<%=search_text%>">
+    <button class="btn-src">cari</button>
+  </form>
+  <div>
+    <a href="/product-navigation/<%=user.email%>">
+      <button class="btn-bar" style="border-radius:19px">semua</button>
+    </a>
+    <a href="/qoutes-short-list/<%=user.email%>">
+   <button class="btn-bar" style="border-radius:19px">qoutes</button>   
+    </a>
+    <a href="/qoutes-share-list/<%=user.email%>">
+      <button class="btn-bar-selected" style="border-radius:19px">share</button>
+    </a>
+  </div>
+  <div class="body-navigator">
+    <% qoutes_list.forEach(data => { %>
+      <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
+        <div class="qoutes-share-card" style="background-color:<%=data.qoutes_share.qoutes_bg%>">
+          <a href="/qoutes-open/<%=user.email%>/<%=data.qoutes_share.qoutes_id%>">
+            <h1 style="color:<%=data.qoutes_share.qoutes_color%>"><%=data.qoutes_share.qoutes_value%></h1>
+          </a>
+        </div>
+        <a href="/qoutes-share-open/<%=user.email%>/<%=data.qoutes_id%>">
+          <h2 style="color:<%=data.information.color%>"><%=data.qoutes_value%></h2>
+        </a>
+      </div>
+
+    <% }) %>
+  </div>
+    <% }else if(page=='user-nav' ){%>
+      <form action="/search-user-list" method="post" class="search-form">
+        <input type="hidden" value="<%=user.email%>" name="user_email">
+        <input type="text" name="search_input" class="search-text" placeholder="cari siapa">
+        <button class="btn-src">cari</button>
+      </form>
+      <div>
+        <a href="/first-page/<%=user.email%>">
+          <button class="btn-bar">kembali</button>
+        </a>
+        <a href="/product-navigation/<%=user.email%>">
+          <button class="btn-bar">qoutes</button>
+        </a>
+        <a href="/others-user/<%=user.email%>">
+          <button class="btn-bar-selected">orang lain</button>
+        </a>
+      </div>
+      <div class="body-navigator">
+        <% user_data.forEach(data=> { %>
+          <div class="user-card">
+            <h2>
+              <%=data.username%>
+            </h2>
+            <div style='height:50px;overflow-y: auto;margin-left: 20px;'>
+              <p>
+                <%=data.description%>
+              </p>
+            </div>
+            <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
+              <button class="btn-visitor">kunjungi</button>
+            </a>
+          </div>
+          <% }) %>
+      </div>
+      <%}else if(page=='market-navigation' ){%>
+        <div>
+          <a href="/others-user/<%=user.email%>">
+            <button class="btn-bar">kembali</button>
+          </a>
+          <a href="/get-new-chat/<%=user.email%>/<%=user_data.email%>">
+            <button class="btn-bar" style="overflow-x: auto;">
+              <%=user_data.username%>
+            </button>
+          </a>
+          <% if (status=='langganan' ) { %>
+            <a href="/delete-langganan-user/<%=user.email%>/<%=user_data.email%>">
+              <button class="btn-bar" style="background-color: lightgrey;color:blue">tinggalkan</button>
+            </a>
+            <% }else if(status=='no-langganan' ){ %>
+              <a href="/get-langganan/<%=user.email%>/<%=user_data.email%>">
+                <button class="btn-bar" style="background-color: aliceblue;color:gray">langganan</button>
+              </a>
+              <%}%>
+        </div>
+        <div class="body-navigator">
+          <% market_qoutes.forEach(qoutes=> { %>
+            <div class="qoutes-card" style="background-color: <%=qoutes.information.bgcolor%>">
+              <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
+                <h1 style="color:<%=qoutes.information.color%>">
+                  <%=qoutes.qoutes_value%>
+                </h1>
+              </a>
+            </div>
+            <% }) %>
+
+        </div>
+
+        <%}%>
+</body>
+
+</html>
