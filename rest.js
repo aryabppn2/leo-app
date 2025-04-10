@@ -8,7 +8,7 @@ const path=require('path');
 //configurasi port//
 dotenv.config();
 const port =process.env.port;
-const {users,admin}=require(process.env.router)
+const {users}=require(process.env.router)
 http.set("view engine", "ejs");
 http.use(express.urlencoded({ extended: true }));
 http.use(express.static(path.join(__dirname, "public")));
@@ -56,9 +56,6 @@ const {
    get_chatList,
    delete_chat
 } = require(process.env.chat_coment_server)
-
-const {Create_adminAcc,admin_get}=require(process.env.admin_server)
-
 //open-app//
 http.get("/leo.com", function (input, output) {
   output.render("login-page", {
@@ -723,107 +720,6 @@ http.post('/send-chat',function(input,output){
 http.get('/delete-chat/:user/:room',function(input,output){
   delete_chat(input.params)
   output.redirect(`/get-chat-list/${input.params.user}`)
-})
-
-//admin packahge//
-//get//
-http.get('/admin-register',function(input,output){
-   output.render('admin-page',{
-    page:'register-admin-page'
-   })
-})
-
-http.get('/admin-login',function(input,output){
-  output.render('admin-page',{
-    page:'admin-login-page'
-  })
-})
-
-http.get('/first-admin-page/:admin',function(input,output){
-  output.render('admin-page',{
-    page:'admin-page',
-    admin:admin_get(input.params.admin)[0],
-    search_input:'',
-    users,
-  })
-})
-
-
-
-
-//post method//
-http.post('/create-admin-data',function(input,output){
-  const data=input.body;
-  const user_address=users.some(user=>user.email==data.admin_email)
-  if(data.admin_email==""|| data.admin_password==""){
-    output.render('admin-page',{
-      page:'register-admin-error',
-      error_messeage:"email dan password masih kosong"
-    })
-  }
-  else if(user_address==false){
-    output.render('admin-page',{
-      page:'register-admin-error',
-      error_messeage:"email belum terdaftar di leo.com"
-    })
-  }
-  else {
-    Create_adminAcc(data)
-    output.redirect('/admin-login')
-  }
-})
-
-http.get('/admin-setting/:admin',function(input,output){
-  output.render('admin-page',{
-    page:'setting-admin-page',
-    admin:admin_get(input.params.admin)[0]
-  })
-})
-
-
-
-
-
-http.post('/return-to-password',function(input,output){
-  const data=input.body
-   const admin_regist=admin.some(admin=>admin.email==data.admin_email_input)
-   const admin_data=admin_get(data.admin_email_input)[0]
-
-   if(data.admin_email_input==""){
-      output.render('admin-page',{
-        page:'admin-login-error',
-        error_messeage:"email masih kosong"
-      })
-
-   }
-   else if(admin_regist==false){
-        output.render('admin-page',{
-          page:'admin-login-error',
-          error_messeage:"email berlum terdaftar di admin"
-        })
-   }
-   else{
-      output.render('admin-page',{ page:'password-admin-page',admin_data})
-   }
-})
-
-http.post('/admin-password-check',function(input,output){
-  const admin_data=admin_get(input.body.admin_email)[0]
-  if(input.body.admin_password==""){
-    output.render('admin-page',{
-      page:'password-error',admin_data,
-      error_message:'password belum di isi'
-    })
-  }
-else if(input.body.admin_password !=admin_data.password){
-  output.render('admin-page',{
-    page:'password-error',
-    error_message:'password tidak sesuai',admin_data
-  })
-}
-else{
-   output.redirect(`/first-admin-page/${admin_data.email}`)
-}
 })
 
 

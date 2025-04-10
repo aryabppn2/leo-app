@@ -99,6 +99,16 @@
       border-radius:19px;
       border: 0px;
     }
+
+
+    #font-size-input,#font-family-input{
+      width:40%;
+      height:50px;
+      border:0px;
+       font-size:20px;
+       background-color: aliceblue;
+    
+    }
   </style>
 </head>
 
@@ -125,11 +135,40 @@
       <td><input type="color" id="sign-color-input" class="color-input"></td>
       <td><input type="color" id="bgcolor-input" class="color-input"></td>
     </tr>
+    <tr>
+      <th>ukuran tulisan</th>
+      <th>font famili</th>
+    </tr>
+    <tr>
+      <td>
+        <select  id="font-size-input">
+         <option value="33">normal</option>
+          <option value="12">12</option>
+          <option value="18">18</option>
+          <option value="22">22</option>
+          <option value="28">28</option>
+          <option value="34">34</option>
+          <option value="38">38</option>
+        </select>
+      </td>
+      <td>
+        <select  id="font-family-input">
+          <option value="Arial">normal</option>
+          <option value="Times New Roman" style="font-family:Times New Roman">times new roman</option>
+          <option value="Rockwell" style="font-family:Rockwell">rockwell</option>
+          <option value="Courier" style="font-family: Courier;">courier</option>
+          <option value="Impact" style="font-family: Impact;">impact</option>
+          <option value="MV Boli" style="font-family: MV Boli;">mv boli</option>
+        </select>
+      </td>
+    </tr>
   </table>
   </div>
   <form class="qoutes-form" method="post" action="/post-qoutes">
     <input type="hidden" name="email" value="<%=user.email%>">
     <input type="hidden" name="bg_color" value="" id="bgcolor-output-hidden">
+    <input type="hidden" name="fontSize" value="" id="font-size-output-hidden">
+    <input type="hidden" name="fontFamily" valu="" id="font-family-output-hidden">
    <input type="hidden" name="sign_color" value="" id="sign-color-output-hidden">
     <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"></textarea><br>
     <button class="btn-post-product">posting</button>
@@ -219,6 +258,22 @@ color.bgcolor.addEventListener('input',function(){
   document.getElementById('text-input').style.backgroundColor=color.bgcolor.value
   document.getElementById('bgcolor-output-hidden').setAttribute('value',color.bgcolor.value)
 })
+
+const style={
+    size:document.getElementById('font-size-input'),
+    family:document.getElementById('font-family-input')
+}
+style.size.addEventListener('input',function(){
+  document.getElementById('text-input').style.fontSize=style.size.value+'px'
+  docuemnt.getElementById('font-size-output-hidden').setAttribute('value',style.size.value)
+
+})
+
+style.family,addEventListener('input',function(){
+  document.getElementById('text-input').style.fontFamily=style.family.value;
+  document.getElementById('font-family-output-hidden').setAttribute('value',style.family.value)
+})
+
   </script>
 </body>
 </html>

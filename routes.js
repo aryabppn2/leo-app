@@ -15,11 +15,8 @@ const chats_list=JSON.parse(chat_list_conn)
 const share_db_conn=url.readFileSync(process.env.share_db)
 const share_datas=JSON.parse(share_db_conn)
 
-const admin_db_conn=url.readFileSync(process.env.admin_db)
-const admin=JSON.parse(admin_db_conn)
 
-
-module.exports={users,qoutes,share_datas,coments,chats,chats_list,admin,url}
+module.exports={users,qoutes,share_datas,coments,chats,chats_list,url}
 
 
 

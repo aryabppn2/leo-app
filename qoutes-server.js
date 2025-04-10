@@ -15,11 +15,27 @@ function post_qoutes(data,type){
        day: `${day.d}/${day.m}/${day.y}`,
        color:data.sign_color,
        bgcolor:data.bg_color,
+       font_size:data.fontSize,
+       font_family:data.fontFamily,
        type:'qoutes-short'
     },
     qoutes_value:data.qoutes_value
   }
+
+if(data.sign_color==""){
+  qoutes_data.information.color='orange'
+  qoutes.push(qoutes_data)
+}
+else if(data.bg_color==""){
+  qoutes_data.information.bgcolor='yellow'
+  qoutes.push(qoutes_data)
+}
+
+else{
 qoutes.push(qoutes_data)
+}
+
+
 url.writeFileSync(process.env.qoutes_db,JSON.stringify(qoutes))
 }
 
