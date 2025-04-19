@@ -312,13 +312,13 @@
     <%user_product.forEach(data=>{%>
       <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
       <a href="/open-qoutes-user/<%=data.qoutes_id%>">
-        <h1 style="color:<%=data.information.color%>"><%=data.qoutes_value%></h1>
+        <h1 style="color:<%=data.information.color%>;font-size:<%=data.information.font_size%>px;font-family:<%=data.information.font_family%>"><%=data.qoutes_value%></h1>
       </a>
     </div>
 
     
 
-    <%})%>
+    <%})%> 
     <% user_share.forEach(data => { %>
       <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
         <div class="qoutes-share-card" style="background-color:<%=data.qoutes_share.qoutes_bg%>">

@@ -142,7 +142,7 @@
       <% product_data.forEach(qoutes=> { %>
         <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
           <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-            <h1 style="color:<%=qoutes.information.color%>">
+            <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
               <%=qoutes.qoutes_value%>
             </h1>
           </a>
@@ -151,7 +151,7 @@
               <% qoutes_share.forEach(data => { %>
                 <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
                   <div class="qoutes-share-card" style="background-color:<%=data.qoutes_share.qoutes_bg%>">
-                      <h2 style="<%=data.qoutes_share.qoutes_color%>"><%=data.qoutes_share.qoutes_value%></h2>
+                      <h2 style="color:<%=data.qoutes_share.qoutes_color%>"><%=data.qoutes_share.qoutes_value%></h2>
                   </div>
                <a href='/qoutes-share-open/<%=user.email%>/<%=data.qoutes_id%>'>
                 <h1 style="color:<%=data.information.color%>"><%=data.qoutes_value%></h1>
@@ -194,7 +194,7 @@
       <% product_data.forEach(qoutes=> { %>
         <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
           <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-            <h1 style="color:<%=qoutes.information.color%>">
+            <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
               <%=qoutes.qoutes_value%>
             </h1>
           </a>

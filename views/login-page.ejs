@@ -57,28 +57,27 @@
 
     }
     .num-input{
-      width:98%;
+      width:45%;
       height: 45px;
+      margin-top: 19px;
+      border-radius: 19px;
       border: 0px;
       background-color:lightyellow;
       color:orange;
       font-size: 20px
 
     }
-    table{
-      background-color: #f5f5dc;
-      border: 3px;
-      border-color: orange;
-      margin-top: 12px;
-    }
-    th,td{
-       width:23%;
-       height: 45px;
-       overflow-x: auto;
-       text-align: center;
-       color:orange;
-       font-size: 20px;
-    }
+    
+nav{
+    display: flex;
+
+}
+nav.div{
+   width:50%;
+  
+}
+
+
     .btn-login-form {
       width: 56.7%;
       height: 49px;
@@ -102,40 +101,39 @@
       <button class="btn-login-selected">daftar</button>
     </a>
   </div>
-  <form method="post" action="/create-account" class="login-form">
-    <input type="text" name="email_input" placeholder='masukan email' class="text-input"><br>
-    <input type="text" name="password_input" placeholder='masukan password' class="text-input"><br>
-   <table>
-    <tr>
-      <th>ttg_lahir</th>
-      <th>hobi</th>
-    </tr>
-    <tr>
-      <td><input type="date" name="ttg_lahir" class="num-input"></td>
-      <td><input type="text" name="hobby" class="num-input" placeholder="hobi"></td>
-    </tr>
-   </table>
+  <form  id="register-form" class="login-form">
+    <h1 id="error-messeage" style="color:red;background-color: aliceblue;"></h1>
+    <input type="text" id="email-input" name="email_input" placeholder="email" class="text-input"><br>
+    <input type="text" id="password-input" name="password_input" placeholder="password" class="text-input"><br>
+     
+        <input type="date" class="num-input" id="date-input" name="ttg_lahir" placeholder="tanggal lahir">
 
-    <button class="btn-login-form">daftarkan</button>
+        <input type="text" class="num-input" name="hobby" placeholder="hobi"><br>
+      
+    <button onclick="check_validationRegistered(
+      {
+        email:document.getElementById('email-input'),
+        password:document.getElementById('password-input'),
+        ttg_lahir:document.getElementById('date-input'),
+        hobby:document.getElementById('hobby')
+      },
+      {
+        form:document.getElementById('register-form'),
+        error:document.getElementById('error-messeage')
+      }
+    )" class="btn-login-form">daftar</button>
   </form>
+ 
 
-  <%}else if(page=='error'){%>
-  <div class="login-bar">
-    <a href="/login-page-open">
-      <button class="btn-login-bar">login</button>
-    </a>
-    <a href="/register-page">
-      <button class="btn-login-selected">daftar</button>
-    </a>
-  </div>
-  <h1 style='color:red'><%=error_messeage%></h1>
-  <form method="post" action="/create-account" class="login-form">
-    <input type="text" name="email_input" placeholder='masukan email' class="text-input"><br>
-    <input type="text" name="password_input" placeholder='masukan password' class="text-input"><br>
-    <input type="date" class="num-input-text" placeholder="tanggal lahir" name="ttg_lahir">
-    <input type="text" class="num-input-text" placeholder="hobi" name="hobby_input"><br>
-    <button class="btn-login-form">daftarkan</button>
-  </form>
+  <%}else if(page=='register-error'){%>
+    <div class="login-form">
+    <h1 style="color:red;background-color:aliceblue;"><%=error_messeage%></h1>
+     <a href="/register-page">
+      <button class="text-input"><%=input%></button>
+     </a>
+
+
+    </div>
 
 
   <%}else if(page=='login-form'){%>
@@ -147,57 +145,80 @@
       <button class="btn-login-bar">daftar</button>
     </a>
   </div>
-  <form method="post" action="/get-account" class="login-form">
-    <input type="text" name="email_input" placeholder='masukan email.com' class="text-input"><br>
-    <button class="btn-login-form">lanjut</button>
-  </form>
+ 
+<form id="form-login-validation" class="login-form">
+  <h1 id="error-messeage" style="color:red;background-color:aliceblue"></h1>
+ <input type="text" id="email-input" name="email_input" placeholder="email" class="text-input"><br>
+ <input type="password" class="text-input" id="password-input" name="password_input" placeholder="password"><br>
+<button onclick="validation_loginData(
+  {
+    email:document.getElementById('email-input'),
+    password:document.getElementById('password-input')
+  },
+  {
+    form:document.getElementById('form-login-validation'),
+    error:document.getElementById('error-messeage')
+  }
+)" class="btn-login-form">masuk</button>
+</form>
 
 
-  <%}else if(page=='login-error'){%>
-  <div class="login-bar">
-    <a href="/login-page-open">
-      <button class="btn-login-selected">login</button>
-    </a>
-    <a href="/register-page">
-      <button class="btn-login-bar">daftar</button>
-    </a>
-  </div>
-  <a href="/register-page">
-    <h1 style='color:red'><%=error_messeage%></h1>
-  </a>
+  <%}else if(page=='validation-login-error'){%>
+    <div class="login-form">
+     <h1 style="color:red;background-color: aliceblue;"><%=error_messeage%></h1>
 
-  <form method="post" action="/get-account" class="login-form">
-    <input type="text" name="email_input" placeholder='masukan email.com' class="text-input"><br>
-    <button class="btn-login-form">lanjut</button>
-  </form>
+      <a href="/login-page-open">
+        <button class="text-input" style="background-color: lightgoldenrodyellow;color:red"><%=input%></button>
+      </a>
+    </div>
+  
+    <%}%>
+  
 
-  <%}else if(page=='password-page'){%>
-  <div class="login-bar">
-    <a href="/login-page-open">
-      <button class="btn-login-selected"><%=email%></button>
-    </a>
-  </div>
-  <form method="post" action="/password-check" class="login-form">
-    <h1>password</h1>
-    <input type="hidden" name="email_get" value='<%=email%>'>
-    <input type="password" name="password_input" placeholder='masukan password' class="text-input"><br>
-    <button class="btn-login-form">lanjut</button>
-  </form>
+  <script>
+   
+//register form
+function check_validationRegistered(input,output){
+  if(input.email.value==""){
+    output.error.innerHTML='email  janagn kossong !!!'
+    
+  }
+  else if(input.email.value==""){
+    output.error.innerHTML="password jangan kosong !!!"
+  }
+  else if(input.ttg_lahir.value==""){
+    output.error.innerHTML="tanggal lahir  tidak boleh kosong"
+  }
 
-  <%}else if(page=='pass-error'){%>
-  <div class="login-bar">
-    <a href="/login-page-open">
-      <button class="btn-login-selected"><%=email%></button>
-    </a>
-  </div>
-  <h1 style='color:red'><%=error_messeage%></h1>
-  <form method="post" action="/password-check" class="login-form">
-    <h1>password</h1>
-    <input type="hidden" name="email_get" value='<%=email%>'>
-    <input type="password" name="password_input" placeholder='masukan password' class="text-input"><br>
-    <button class="btn-login-form">lanjut</button>
-  </form>
-  <%}%>
+  else{
+    output.form.setAttribute('method','post')
+    output.form.setAttribute('action','/create-account')
+  }
+
+
+}
+
+
+//login form//
+
+function validation_loginData(input,output){
+  if(input.email.value==""){
+    output.error.innerHTML='email harus di isi'
+  }
+  else if(input.password.value==""){
+    output.error.innerHTML='password harus diisi'
+  }
+  else {
+     output.form.setAttribute('method','post')
+     output.form.setAttribute('action','/get-account-data')
+  }
+}
+
+
+
+
+
+  </script>
 
 </body>
 </html>

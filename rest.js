@@ -76,62 +76,54 @@ http.get("/register-page", function (input, output) {
 });
 
 http.post("/create-account", function (input, output) {
-  const data = input.body;
-  if (data.email_input == "") {
-    output.render("login-page", {
-      page: "error",
-      error_messeage: "email harus diisi",
-    });
-  } else if (data.password_input == "") {
-    output.render("login-page", {
-      page: "error",
-      error_messeage: "password harus ada untuk aman",
-    });
-  } else if (data.location_input == "") {
-    output.render("login-page", {
-      page: "error",
-      error_messeage: "lokasinya diisi",
-    });
-  } else {
-    account_registered(data);
-    output.redirect(`/login-page-open`);
+  const data ={
+      input:input.body,
+      email_exits:users.some((user)=>user.email === input.body.email_input)
   }
+  if(data.email_exits==false){
+     account_registered(data.input)
+    output.redirect('/login-page-open')
+  }
+  else if(data.email_exits==true){
+    output.render('login-page',{
+      page:'register-error',
+      error_messeage:`mohon maaf email ${data.input.email_input} sudah terdaftar`,
+      input:data.input.email_input
+    })
+  }
+ 
 });
 
-http.post("/get-account", function (input, output) {
-  const data = input.body;
-  const EmailExist = users.some((user) => user.email === data.email_input);
-  if (data.email_input == "") {
-    output.render("login-page", {
-      page: "login-error",
-      error_messeage: "belum  isi email",
-    });
-  } else if (EmailExist == false) {
-    output.render("login-page", {
-      page: "login-error",
-      error_messeage: "email belum terdaftar",
-    });
-  } else {
-    output.render("login-page", {
-      page: "password-page",
-      email: data.email_input,
-    });
+http.post('/get-account-data',function(input,output){
+  const data_get=input.body
+  const email_check={
+       exits:users.some((user)=>user.email ===data_get.email_input),
+       data:user_get(data_get.email_input)[0]
   }
-});
+  if(email_check.exits==false){
+      output.render('login-page',{
+      page:'validation-login-error',
+       error_messeage:'email belum terdaftar',
+       input:data_get.email_input
+       
 
-http.post("/password-check", function (input, output) {
-  const data = input.body;
-  const acc_get = user_get(data.email_get)[0];
-  if (data.password_input != acc_get.password) {
-    output.render("login-page", {
-      page: "pass-error",
-      error_messeage: "password tidak sesuai",
-      email: data.email_get,
-    });
-  } else {
-    output.redirect(`/product-navigation/${acc_get.email}`);
+      })
+    
   }
-});
+
+  else if(data_get.password_input != email_check.data.password){
+    output.render('login-page',{
+      page:'validation-login-error',
+      error_messeage:'password salah',
+      input:data_get.password_input
+    })
+  }
+  else{
+    output.redirect(`/first-page/${email_check.data.email}`)
+  }
+
+})
+
 
 http.get("/setting-user-data/:user", function (input, output) {
   output.render("user-page", {
@@ -522,7 +514,8 @@ http.get('/show-coment/:qoutes',function(input,output){
   output.render('product-open',{
     page:'user-coment-open',qoutes,
     user:user_get(qoutes.qoutes_email)[0],
-    coment_list:get_coments(qoutes.qoutes_id)
+    coment_list:get_coments(qoutes.qoutes_id),
+    coment_length:get_coments(qoutes.qoutes_id).length
   })
 })
 
@@ -539,7 +532,8 @@ http.get('/show-coment/:user/:qoutes',function(input,output){
     page:'coment-page',qoutes,
     user:user_get(input.params.user)[0],
     user_qoutes:user_get(qoutes.qoutes_email)[0],
-    coment_list:get_coments(input.params.qoutes)
+    coment_list:get_coments(input.params.qoutes),
+    coment_length:get_coments(input.params.qoutes).length
   })
 })
 

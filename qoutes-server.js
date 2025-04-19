@@ -4,12 +4,12 @@ dotenv.config
 
 const {qoutes,share_datas,coments,url}=require(process.env.router)
 const {hours,day}=require(process.env.time)
+const {ambilTigaKataPertama}=require(process.env.teks)
 
-
-function post_qoutes(data,type){
+function post_qoutes(data){
   const qoutes_data={
     qoutes_email:data.email,
-    qoutes_id:`writeQoutes${data.qoutes_value}WrBy${data.email}`,
+    qoutes_id:`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}}WrBy${data.email}`,
     information:{
        time:`${hours.h}:${hours.m}`,
        day: `${day.d}/${day.m}/${day.y}`,
@@ -38,6 +38,10 @@ qoutes.push(qoutes_data)
 
 url.writeFileSync(process.env.qoutes_db,JSON.stringify(qoutes))
 }
+
+
+
+
 
 function post_qoutesShare(user){
   const qoutes_sh=qoutes.filter(data=>data.qoutes_id.includes(user.qoutes_id))[0]
@@ -76,12 +80,15 @@ function delete_qoutesShare(qoute){
   url.writeFileSync(process.env.share_db,JSON.stringify(qoutes_data))
 }
 function update_qoutes(qoute) {
-  const product_data = qoutes.filter((data) =>
+  const qoutes_data = qoutes.filter((data) =>
     data.qoutes_id.includes(qoute.qoutes_id)
   )[0];
-  product_data.qoutes_value=qoute.qoutes_value;
-  product_data.information.color=qoute.sign_color;
-  product_data.information.bgcolor=qoute.bgcolor
+  qoutes_data.qoutes_id=`writeQoutes${ambilTigaKataPertama(qoute.qoutes_value)}}WrBy${qoute.email}`
+  qoutes_data.qoutes_value=qoute.qoutes_value;
+  qoutes_data.information.color=qoute.sign_color;
+  qoutes_data.information.bgcolor=qoute.bgcolor;
+  qoutes_data.information.font_size=qoute.fontSize;
+  qoutes_data.information.font_family=qoute.fontFamily;
   url.writeFileSync(process.env.qoutes_db,JSON.stringify(qoutes));
 }
 

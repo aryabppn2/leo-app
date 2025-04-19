@@ -43,7 +43,7 @@
       width: 98%;
       height: 378px;
       border: 0px;
-      margin-top: 34px;
+      margin-top:4px;
       border-radius: 1px;
       background-color: lightgray;
       font-weight: bold;
@@ -121,8 +121,8 @@
     <a href="/create-new-product/<%=user.email%>">
       <button class="btn-bar-selected">qoutes</button>
     </a>
-    <a href="/create-new-quistion/<%=user.email%>">
-      <button class="btn-bar">pertanyaan</button>
+    <a href="/create-new-slides/<%=user.email%>">
+      <button class="btn-bar">slides</button>
     </a>
   </div>
   <div style="text-align: center;">
@@ -143,12 +143,14 @@
       <td>
         <select  id="font-size-input">
          <option value="33">normal</option>
-          <option value="12">12</option>
-          <option value="18">18</option>
-          <option value="22">22</option>
-          <option value="28">28</option>
-          <option value="34">34</option>
-          <option value="38">38</option>
+          <option value="19">6</option>
+          <option value="24">10</option>
+          <option value="34">12</option>
+          <option value="38">14</option>
+          <option value="44">18</option>
+          <option value="48">22</option>
+          <option value="54">26</option>
+          <option value="58">30</option>
         </select>
       </td>
       <td>
@@ -167,9 +169,9 @@
   <form class="qoutes-form" method="post" action="/post-qoutes">
     <input type="hidden" name="email" value="<%=user.email%>">
     <input type="hidden" name="bg_color" value="" id="bgcolor-output-hidden">
-    <input type="hidden" name="fontSize" value="" id="font-size-output-hidden">
-    <input type="hidden" name="fontFamily" valu="" id="font-family-output-hidden">
    <input type="hidden" name="sign_color" value="" id="sign-color-output-hidden">
+   <input type="hidden" name="fontSize" value="" id="font-size-output">
+   <input type="hidden" name="fontFamily" value="" id="font-family-output-hidden">
     <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"></textarea><br>
     <button class="btn-post-product">posting</button>
   </form>
@@ -192,15 +194,48 @@
         <td><input type="color" id="sign-color-input" class="color-input" value="<%=qoutes.information.color%>"></td>
         <td><input type="color" id="bgcolor-input" class="color-input" value="<%=qoutes.information.bgcolor%>"></td>
       </tr>
+      <tr>
+        <th>ukuran tulisan</th>
+        <th>font famili</th>
+      </tr>
+      <tr>
+        <td>
+          <select  id="font-size-input">
+           <option value="<%=qoutes.information.font_size%>">normal</option>
+            <option value="19">6</option>
+            <option value="24">10</option>
+            <option value="34">12</option>
+            <option value="38">14</option>
+            <option value="44">18</option>
+            <option value="48">22</option>
+            <option value="54">26</option>
+            <option value="58">30</option>
+          </select>
+        </td>
+        <td>
+          <select  id="font-family-input">
+            <option value="<%=qoutes.information.font_family%>1">normal</option>
+            <option value="Times New Roman" style="font-family:Times New Roman">times new roman</option>
+            <option value="Rockwell" style="font-family:Rockwell">rockwell</option>
+            <option value="Courier" style="font-family: Courier;">courier</option>
+            <option value="Impact" style="font-family: Impact;">impact</option>
+            <option value="MV Boli" style="font-family: MV Boli;">mv boli</option>
+          </select>
+        </td>
+      </tr>
     </table>
     </div>
   <form class="qoutes-form" method="post" action="/update-qoutes">
     <input type="hidden" name="email" value="<%=user.email%>">
     <input type="hidden" name="bgcolor" value="<%=qoutes.information.bgcolor%>" id="bgcolor-output-hidden">
    <input type="hidden" name="sign_color" value="<%=qoutes.information.color%>" id="sign-color-output-hidden">
+   <input type="hidden" name="fontSize" value="<%=qoutes.information.font_size%>" id="font-size-output" >
+   <input type="hidden" name="fontFamily" value="<%=qoutes. information.font_family%>" id="font-family-output-hidden">
     <input type="hidden" name="qoutes_id" value="<%=qoutes.qoutes_id%>">
     <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"
-     style="background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></textarea><br>
+     style="background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
+     font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>;text-align:left">
+     <%=qoutes.qoutes_value%></textarea><br>
     <button class="btn-post-product">update</button>
   </form>
   <%}else if(page=='create-qoutes-share'){%>
@@ -264,8 +299,19 @@ const style={
     family:document.getElementById('font-family-input')
 }
 style.size.addEventListener('input',function(){
-  document.getElementById('text-input').style.fontSize=style.size.value+'px'
-  docuemnt.getElementById('font-size-output-hidden').setAttribute('value',style.size.value)
+  if(style.size.value<=30){
+    document.getElementById('text-input').style.fontSize=style.size.value+'px'
+    document.getElementById('text-input').style.textAlign='left'
+    document.getElementById('font-size-output').setAttribute('value',style.size.value)    
+  }
+  else{
+    document.getElementById('text-input').style.fontSize=style.size.value+'px'
+    document.getElementById('text-input').style.textAlign='center'
+    document.getElementById('font-size-output').setAttribute('value',style.size.value)
+  }
+
+
+
 
 })
 
