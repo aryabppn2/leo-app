@@ -9,7 +9,7 @@ const {ambilTigaKataPertama}=require(process.env.teks)
 function post_qoutes(data){
   const qoutes_data={
     qoutes_email:data.email,
-    qoutes_id:`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}}WrBy${data.email}`,
+    qoutes_id:`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}WrBy${data.email}`,
     information:{
        time:`${hours.h}:${hours.m}`,
        day: `${day.d}/${day.m}/${day.y}`,
@@ -17,25 +17,23 @@ function post_qoutes(data){
        bgcolor:data.bg_color,
        font_size:data.fontSize,
        font_family:data.fontFamily,
-       type:'qoutes-short'
+       market_share:data.market_share,
+       type:data.type_get
     },
     qoutes_value:data.qoutes_value
   }
 
+
 if(data.sign_color==""){
   qoutes_data.information.color='orange'
-  qoutes.push(qoutes_data)
 }
-else if(data.bg_color==""){
-  qoutes_data.information.bgcolor='yellow'
-  qoutes.push(qoutes_data)
+else if(data.market_share==""){
+  qoutes_data.information.market_share=='semua'
 }
-
-else{
+else if(data.type_get==""){
+  qoutes_data.information.type="bebas"
+}
 qoutes.push(qoutes_data)
-}
-
-
 url.writeFileSync(process.env.qoutes_db,JSON.stringify(qoutes))
 }
 

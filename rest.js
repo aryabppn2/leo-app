@@ -263,18 +263,8 @@ http.get('/qoutes-share-delete/:qoutes',function(input,output){
 })
 
 http.post("/post-qoutes", function (input, output) {
-   const data=input.body
-   
-   if(data.qoutes_value==""){
-      output.render('qoutes-post-error',{
-        page:'qoutes-error',
-        user:user_get(input.body.email)[0]
-      })
-   }
-   else{
-   post_qoutes(data)
-   output.redirect('/first-page/'+data.email)
-   }
+   post_qoutes(input.body)
+   output.redirect(`/first-page/${input.body.email}`)
    
 
 });

@@ -37,6 +37,8 @@
     .qoutes-form {
       text-align: center;
       margin-top: 11px;
+      height: 450px;
+      overflow-y: auto;
     }
 
     .text-input {
@@ -100,6 +102,14 @@
       border: 0px;
     }
 
+    .option-input{
+        width:32.3%;
+        height: 40px;
+        background-color: aliceblue;
+        color:orange;
+        border:0px;
+        font-size: 19px;
+    }
 
     #font-size-input,#font-family-input{
       width:40%;
@@ -166,14 +176,32 @@
     </tr>
   </table>
   </div>
-  <form class="qoutes-form" method="post" action="/post-qoutes">
+  <form class="qoutes-form" id="qoutes-form">
     <input type="hidden" name="email" value="<%=user.email%>">
     <input type="hidden" name="bg_color" value="" id="bgcolor-output-hidden">
    <input type="hidden" name="sign_color" value="" id="sign-color-output-hidden">
    <input type="hidden" name="fontSize" value="" id="font-size-output">
    <input type="hidden" name="fontFamily" value="" id="font-family-output-hidden">
     <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"></textarea><br>
-    <button class="btn-post-product">posting</button>
+    <select name="market_share" class="option-input" id="market-share-input">
+      <option value="">untuk kalangan</option>
+      <option value="all-users">semua</option>
+      <option value="child-users">anak anak</option>
+      <option value="daugther-users">remaja</option>
+      <option value="dault-users">dewasa/tua</option>
+    </select>
+    <input type="text" name="type_get" id='catagory-input'class="option-input" placeholder="katagori">
+    <button class="btn-post-product" onclick="get_ValidationPost(
+      {
+        text:document.getElementById('text-input'),
+        market:document.getElementById('market-share-input'),
+        catagories:document.getElementById('catagory-input')
+
+      },
+      {
+        form:document.getElementById('qoutes-form')
+      }
+    )">posting</button>
   </form>
   <% }else if(page=='qoutes-user-update'){ %>
   <div class="">
@@ -319,6 +347,18 @@ style.family,addEventListener('input',function(){
   document.getElementById('text-input').style.fontFamily=style.family.value;
   document.getElementById('font-family-output-hidden').setAttribute('value',style.family.value)
 })
+
+
+function get_ValidationPost(input,output){
+  if(input.text.value==""){
+    input.text.style.backgroundColor='lightred'
+    input.text.setAttribute('placeholder','maaf tidak bisa kirim text kosong')
+  }
+  else{
+    output.form.setAttribute('method','post')
+    output.form.setAttribute('action','/post-qoutes')
+  }
+}
 
   </script>
 </body>

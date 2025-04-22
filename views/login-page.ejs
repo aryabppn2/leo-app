@@ -108,14 +108,14 @@ nav.div{
      
         <input type="date" class="num-input" id="date-input" name="ttg_lahir" placeholder="tanggal lahir">
 
-        <input type="text" class="num-input" name="hobby" placeholder="hobi"><br>
+        <input type="text" class="num-input" id="age-output" name="get_age" placeholder="usia"  ><br>
       
     <button onclick="check_validationRegistered(
       {
         email:document.getElementById('email-input'),
         password:document.getElementById('password-input'),
         ttg_lahir:document.getElementById('date-input'),
-        hobby:document.getElementById('hobby')
+        hobby:document.getElementById('age-output')
       },
       {
         form:document.getElementById('register-form'),
@@ -153,7 +153,7 @@ nav.div{
 <button onclick="validation_loginData(
   {
     email:document.getElementById('email-input'),
-    password:document.getElementById('password-input')
+    password:document.getElementById('password-input'),
   },
   {
     form:document.getElementById('form-login-validation'),
@@ -208,12 +208,25 @@ function validation_loginData(input,output){
   else if(input.password.value==""){
     output.error.innerHTML='password harus diisi'
   }
+else if(input.age<=5){
+  output.error.innerHTML='mohon maaf anda masih dibawah umur'
+}
+
   else {
      output.form.setAttribute('method','post')
      output.form.setAttribute('action','/get-account-data')
   }
 }
 
+document.getElementById('date-input').addEventListener('input',function(){
+ const  age={
+     bird:document.getElementById('date-input'),
+     now: new Date().getFullYear()
+ }
+ document.getElementById('age-output').setAttribute('value',age.now-new Date(age.bird.value).getFullYear())
+
+
+})
 
 
 

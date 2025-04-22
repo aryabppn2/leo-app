@@ -7,12 +7,14 @@ function account_registered(account){
     	  email:account.email_input,
     	  password:account.password_input,
     	  location:account.location_input,
-          bird:account.ttg_lahir,
-          hobby:account.hobby,
+          bord:account.ttg_lahir,
+          age:account.get_age,
           langganan:[],
           pelanggan:[],
           service_list:[]
     }
+
+
 
 users.push(account_data)
 url.writeFileSync(process.env.user_db,JSON.stringify(users))
