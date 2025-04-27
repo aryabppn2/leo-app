@@ -11,7 +11,7 @@
       font-weight: bold;
       font-family: 'arial';
       text-align: center;
-      background-image: url('/images/leo-logo.jpg');;
+      
     }
 
     a {
@@ -36,9 +36,46 @@
     }
 
     .body-navigator {
-      height: 500px;
-      overflow-y: auto;
+      height:500px;
+      width:100%;
+     display: flex;
+      text-align:left;
+      overflow-x: auto;
     }
+   .body-navigator>div{
+    width:650px;
+      height: 480px;
+      overflow-y:auto;
+      scrollbar-width:none;
+     text-align: center;
+     margin-left: 50px;
+   }
+   .qoutes-body-navigator{
+    display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; /* jarak antar kotak */
+   }
+   .qoutes-body-navigator>.qoutes-card{
+    background-color: lightblue;
+    width:300px;
+    height: 300px;
+  border-radius: 10px;
+   }
+
+    .qoutes-card {
+      width:500px;
+      overflow-y: auto;
+      height: 300px;
+      border-radius: 12px;
+      background-color:rgb(195, 195, 171);
+      color:orange;
+      text-align: center;
+      margin-top: 19px;
+      scrollbar-width:none;
+    }
+   
+
+
 
     .btn-src {
       width: 12%;
@@ -62,6 +99,8 @@
       overflow-x: auto;
       margin-top: 10px;
       font-size: 20px;
+      color:orange;
+      font-weight: bold;
 
     }
 
@@ -75,29 +114,23 @@
       color: blue;
     }
 
-    .qoutes-card {
-      width: 98.9%;
-      height: 300px;
-      overflow-y: auto;
-      border-radius: 12px;
-      background-color:rgb(195, 195, 171);
+    
+    .user-body-navigator{
+        text-align: center;
+        display:block;
+
+
+    }
+    .user-body-navigator>div{
+      width:950px;
+      height: 190px;
+      background-color:aliceblue;
+      border-radius: 19px;
       color:orange;
-      text-align: center;
-      margin-top: 19px;
+   
     }
 
     
-
-    .user-card {
-      background-color: lightyellow;
-      text-align: left;
-      border-radius: 19px;
-
-
-
-
-    }
-
     .btn-visitor {
       width: 43.9%;
       height: 40px;
@@ -115,8 +148,59 @@
       height: 200px;
       overflow-y: auto;
       background-color: #e1c16e;
-      color: orange
+      color: orange;
+      scrollbar-width:none;
     }
+    @media screen and (max-width: 600px) {
+  .body-navigator{
+    height: 490px;
+    display: block;
+    overflow-y: auto;
+    
+  }   
+  .body-navigator>div{
+     width:100%;
+     margin-left:0px;
+     overflow-y:auto;
+
+  }
+  .qoutes-card{
+    width:100%;
+
+  }
+  .qoutes-body-navigator{
+    display: block;
+    height: 490px;
+    overflow-y: auto;
+    width:100%;
+    
+  }
+  .body-navigator>.qoutes-card{
+    width:100%;
+    height:300px;
+   margin-left: 0px;
+     overflow-y: auto;
+
+  }
+  .user-body-navigator{
+        text-align: center;
+        display:block;
+        height: 510px;
+        overflow-y: auto;
+
+
+    }
+    .user-body-navigator>div{
+      width:100%;
+      height: 100px;
+      background-color:aliceblue;
+      border-radius: 19px;
+      color:orange;
+   
+    }
+
+}
+
   </style>
 </head>
 
@@ -140,6 +224,7 @@
       
     </div>
     <div class="body-navigator">
+      <div>
       <% product_data.forEach(qoutes=> { %>
         <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
           <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
@@ -149,6 +234,8 @@
           </a>
         </div>
               <% }) %>
+      </div>
+      <div>
               <% qoutes_share.forEach(data => { %>
                 <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
                   <div class="qoutes-share-card" style="background-color:<%=data.qoutes_share.qoutes_bg%>">
@@ -160,7 +247,7 @@
                 </div>
 
               <% }) %>
-            
+              </div>
     </div>
     <div class="bar-bellow">
       <a href="/first-page/<%=user.email%>">
@@ -191,7 +278,7 @@
         </a>
         
       </div>
-    <div class="body-navigator">
+    <div class="qoutes-body-navigator">
       <% product_data.forEach(qoutes=> { %>
         <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
           <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
@@ -219,7 +306,7 @@
       <button class="btn-bar-selected" style="border-radius:19px">share</button>
     </a>
   </div>
-  <div class="body-navigator">
+  <div class="qoutes-body-navigator">
     <% qoutes_list.forEach(data => { %>
       <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
         <div class="qoutes-share-card" style="background-color:<%=data.qoutes_share.qoutes_bg%>">
@@ -251,19 +338,18 @@
           <button class="btn-bar-selected">orang lain</button>
         </a>
       </div>
-      <div class="body-navigator">
+      <div class="user-body-navigator">
         <% user_data.forEach(data=> { %>
           <div class="user-card">
             <h2>
               <%=data.username%>
             </h2>
-            <div style='height:50px;overflow-y: auto;margin-left: 20px;'>
-              <p>
-                <%=data.description%>
-              </p>
-            </div>
+            
             <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
               <button class="btn-visitor">kunjungi</button>
+            </a>
+            <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
+              <button class="btn-visitor" style="background-color: rgb(147, 166, 182);">chat</button>
             </a>
           </div>
           <% }) %>
@@ -288,7 +374,7 @@
               </a>
               <%}%>
         </div>
-        <div class="body-navigator">
+        <div class="qoutes-body-navigator">
           <% market_qoutes.forEach(qoutes=> { %>
             <div class="qoutes-card" style="background-color: <%=qoutes.information.bgcolor%>">
               <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">

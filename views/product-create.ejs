@@ -7,7 +7,6 @@
   <style type="text/css">
     body {
       background-color: #F5F5DC;
-      background-image:url('/images/leo-logo.jpg');
       font-weight: bold;
       font-family: 'arial';
     }
@@ -33,98 +32,120 @@
       background-color: #F5F5DC;
       color: black;
     }
-
-    .qoutes-form {
-      text-align: center;
-      margin-top: 11px;
-      height: 450px;
-      overflow-y: auto;
-    }
-
-    .text-input {
-      width: 98%;
-      height: 378px;
-      border: 0px;
-      margin-top:4px;
-      border-radius: 1px;
-      background-color: lightgray;
-      font-weight: bold;
-      font-size: 33px;
-      text-align: center;
-
-    }
-
-    .num-input {
-      margin-top: 29px;
-      width: 26%;
-      height: 34px;
-      background-color: aliceblue;
-      color: black;
-      border-radius: 0px;
-      font-weight: bold;
-      border: 0px;
-
-    }
-    table{
-      margin-top: 13px;
-      background-color:#F5F5DC ;
-    }
-
-
-    th,td{
-       width:31.2%;
-       text-align: center;
-       color:orange
-        
-    }
-    .btn-running-color{
-   width:98%;
-   height: 45px;
-   border:0px;
-   border-radius: 19px;
-   background-color: #E1C16E;
-   color:black
-    }
-  .color-input{
-      width:100%;
-      height:46px;
-      background-color: #E1C16E;
-      border-radius:19px;
+  .form-create{
+    display: flex;
+    width: 100%;
   }
-    .btn-post-product {
-      width: 78%;
-      height: 45px;
-      background-color: #E1C16E;
-      color: black;
-      font-weight: bold;
-      margin-top: 10px;
-      border-radius:19px;
-      border: 0px;
-    }
 
-    .option-input{
-        width:32.3%;
-        height: 40px;
-        background-color: aliceblue;
-        color:orange;
-        border:0px;
-        font-size: 19px;
-    }
+  .form-create>.qoutes-style{
+     width:200px;
+     height: 450px;
+     background-color: #E1C16E;
 
-    #font-size-input,#font-family-input{
-      width:40%;
+  }
+  .form-create-qoutes-form{
+     width:540px;
+     height: 500px;
+     overflow-y: auto;
+  }
+  .text-input{
+  width:660px;
+  height:450px;
+  background-color: aliceblue;
+  border:0px;
+  margin-top:0px;
+
+  }
+  .color-input{
+    width:90px;
+    height:50px;
+    margin-top:10px;
+  }
+  .qoutes-style>select{
+   width:90px;
+   height: 34px;
+   border:0px;
+   background-color: aliceblue;
+   color:orange;
+   margin-top: 10px;
+  }
+
+  .topic-input-text{
+      width:200px;
       height:50px;
+      margin-top: 10px;
+      margin-left: 20px;
       border:0px;
-       font-size:20px;
-       background-color: aliceblue;
-    
+      font-size: 20px;
+      background-color: aliceblue;
+      color:orange
+
+  }
+  .qoutes-form>.topic-input-text,.qoutes-form>.market-share-class{
+    display: none;
+  }
+  .market-share-class{
+    width:200px;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 20px;
+    border:0px;
+    background-color: aliceblue;
+    color:orange
+  }
+  .btn-post-product{
+     width:200px;
+     height: 50px;
+     border:0px;
+     background-color: #E1C16E;
+     color:#F5F5DC;
+     border-radius: 20px;
+     margin-top: 10px;
+  }
+
+
+  @media screen and (max-width:600px) {
+    .form-create{
+      width:100%;
+      height:500px;
+      overflow-y: auto;
+      display:block;
     }
+    .form-create>.qoutes-style{
+      width:100%;
+      height:78px;
+      background-color: #E1C16E;
+
+    }
+  .color-input,.qoutes-style>select{
+    width:22.2%;
+    height: 50px;
+  }
+
+
+
+    .text-input{
+      height: 500px;
+      width:100%
+    }
+    .topic-input-text,.market-share-class{
+      display: none;
+    }
+    .qoutes-form>.topic-input-text,.qoutes-form>.market-share-class{
+    display:block;
+    margin-left:100px;
+    margin-bottom:12px;
+    }
+    
+  
+  }
   </style>
 </head>
 
 <body>
   <% if (page=='product-create-page') { %>
-  <div class="">
+  <div class="create-page-bar">
     <a href="/first-page/<%=user.email%>">
       <button class="btn-bar">kembali</button>
     </a>
@@ -135,62 +156,48 @@
       <button class="btn-bar">slides</button>
     </a>
   </div>
-  <div style="text-align: center;">
-  <table>
-    <tr>
-      <th>tulisan</th>
-      <th>latar belakang</th>
-    </tr>
-    <tr>
-      <td><input type="color" id="sign-color-input" class="color-input"></td>
-      <td><input type="color" id="bgcolor-input" class="color-input"></td>
-    </tr>
-    <tr>
-      <th>ukuran tulisan</th>
-      <th>font famili</th>
-    </tr>
-    <tr>
-      <td>
-        <select  id="font-size-input">
-         <option value="33">normal</option>
-          <option value="19">6</option>
-          <option value="24">10</option>
-          <option value="34">12</option>
-          <option value="38">14</option>
-          <option value="44">18</option>
-          <option value="48">22</option>
-          <option value="54">26</option>
-          <option value="58">30</option>
-        </select>
-      </td>
-      <td>
-        <select  id="font-family-input">
-          <option value="Arial">normal</option>
-          <option value="Times New Roman" style="font-family:Times New Roman">times new roman</option>
-          <option value="Rockwell" style="font-family:Rockwell">rockwell</option>
-          <option value="Courier" style="font-family: Courier;">courier</option>
-          <option value="Impact" style="font-family: Impact;">impact</option>
-          <option value="MV Boli" style="font-family: MV Boli;">mv boli</option>
-        </select>
-      </td>
-    </tr>
-  </table>
+  <div class='form-create'style="text-align: center;">
+  <div class="qoutes-style">
+      <input type="color" id="sign-color-input" class="color-input" value="">
+      <input type="color" id="bgcolor-input" class="color-input" value="">
+
+      <select  id="font-size-input">
+        <option value="11">normal</option>
+         <option value="19">6</option>
+         <option value="24">10</option>
+         <option value="34">12</option>
+         <option value="38">14</option>
+         <option value="44">18</option>
+         <option value="48">22</option>
+         <option value="54">26</option>
+         <option value="58">30</option>
+       </select>
+      <select  id="font-family-input">
+        <option value="Arial">normal</option>
+        <option value="Times New Roman" style="font-family:Times New Roman">times new roman</option>
+        <option value="Rockwell" style="font-family:Rockwell">rockwell</option>
+        <option value="Courier" style="font-family: Courier;">courier</option>
+        <option value="Impact" style="font-family: Impact;">impact</option>
+        <option value="MV Boli" style="font-family: MV Boli;">mv boli</option>
+      </select>
   </div>
   <form class="qoutes-form" id="qoutes-form">
     <input type="hidden" name="email" value="<%=user.email%>">
     <input type="hidden" name="bg_color" value="" id="bgcolor-output-hidden">
    <input type="hidden" name="sign_color" value="" id="sign-color-output-hidden">
-   <input type="hidden" name="fontSize" value="" id="font-size-output">
+   <input type="hidden" name="fontSize" value="11" id="font-size-output">
    <input type="hidden" name="fontFamily" value="" id="font-family-output-hidden">
+   <input type="hidden" name="type_get" id="topic-output" value="">
+   <input type="hidden" name="market_share" id="market-share-output" value="">
     <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"></textarea><br>
-    <select name="market_share" class="option-input" id="market-share-input">
-      <option value="">untuk kalangan</option>
+    <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
+    <select  id="market-input" class="market-share-class">
+      <option value="">kalangan</option>
       <option value="all-users">semua</option>
-      <option value="child-users">anak anak</option>
+      <option value="adult-users">dewasa</option>
       <option value="daugther-users">remaja</option>
-      <option value="dault-users">dewasa/tua</option>
+      <option value="child-users">anak anak</option>
     </select>
-    <input type="text" name="type_get" id='catagory-input'class="option-input" placeholder="katagori">
     <button class="btn-post-product" onclick="get_ValidationPost(
       {
         text:document.getElementById('text-input'),
@@ -203,6 +210,18 @@
       }
     )">posting</button>
   </form>
+  <div class="qoutes-completer-form">
+    <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
+    <select  id="market-input" class="market-share-class">
+      <option value="">kalangan</option>
+      <option value="all-users">semua</option>
+      <option value="adult-users">dewasa</option>
+      <option value="daugther-users">remaja</option>
+      <option value="child-users">anak anak</option>
+    </select>
+  </div>
+  </div>
+    
   <% }else if(page=='qoutes-user-update'){ %>
   <div class="">
     <a href="/first-page/<%=user.email%>">
@@ -241,13 +260,16 @@
           </select>
         </td>
         <td>
-          <select  id="font-family-input">
-            <option value="<%=qoutes.information.font_family%>1">normal</option>
-            <option value="Times New Roman" style="font-family:Times New Roman">times new roman</option>
-            <option value="Rockwell" style="font-family:Rockwell">rockwell</option>
-            <option value="Courier" style="font-family: Courier;">courier</option>
-            <option value="Impact" style="font-family: Impact;">impact</option>
-            <option value="MV Boli" style="font-family: MV Boli;">mv boli</option>
+          <select  id="font-size-input">
+           <option value="<%=qoutes.information.font_size%>">normal</option>
+            <option value="19">6</option>
+            <option value="24">10</option>
+            <option value="34">12</option>
+            <option value="38">14</option>
+            <option value="44">18</option>
+            <option value="48">22</option>
+            <option value="54">26</option>
+            <option value="58">30</option>
           </select>
         </td>
       </tr>
@@ -302,6 +324,7 @@
     <input type="hidden" value="" id="sign-color-output-hidden" name="sign_color">
     <input type="hidden" value="" id="bgcolor-output-hidden" name="bg_color">
     <textarea name="qoutes_value" id="text-input" class="text-input" placeholder="apa pendapatmu" style="width:98.9%; height:280px;border:0px"></textarea>
+    
     <button class="btn-post-product">posting</button>
    </form>  
 
@@ -346,6 +369,20 @@ style.size.addEventListener('input',function(){
 style.family,addEventListener('input',function(){
   document.getElementById('text-input').style.fontFamily=style.family.value;
   document.getElementById('font-family-output-hidden').setAttribute('value',style.family.value)
+})
+
+const qoutes_atribut={
+     topic:document.getElementById('topic-input'),
+     market:document.getElementById('market-input')
+}
+
+
+qoutes_atribut.topic.addEventListener('input',function(){
+  document.getElementById('topic-output').value=qoutes_atribut.topic.value
+})
+
+qoutes_atribut.market.addEventListener('input',function(){
+  document.getElementById('market-share-output').value=qoutes_atribut.market.value
 })
 
 

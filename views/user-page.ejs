@@ -7,7 +7,6 @@
   <style type="text/css">
     body {
       background-color: #f5f5dc;
-      background-image: url('/images/leo-logo.jpg');;
       font-weight: bold;
       font-family: "arial";
     }
@@ -32,10 +31,33 @@
     }
 
     .body-navigator {
-      height: 500px;
-      overflow-y: auto;
+      height:500px;
+      width:100%;
+     display: flex;
+      text-align:left;
+      overflow-x: auto;
     }
-
+    .body-navigator>div{
+      width:650px;
+      height: 480px;
+      overflow-y:scroll;
+      scrollbar-width:none;
+     text-align: center;
+     margin-left: 50px;
+    }
+    .qoutes-card {
+      width:500px;
+      overflow-y: auto;
+      height: 300px;
+      border-radius: 12px;
+      background-color:rgb(195, 195, 171);
+      color:orange;
+      text-align: center;
+      margin-top: 19px;
+      scrollbar-width:none;
+     
+    }
+ 
     .btn-bar-selected {
       background-color: #f5f5dc;
       color: black;
@@ -71,17 +93,7 @@
       font-size: 20px;
     }
 
-    .qoutes-card {
-      width: 98.9%;
-      height: 300px;
-      overflow-y: auto;
-      border-radius: 12px;
-      background-color:rgb(195, 195, 171);
-      color:orange;
-      text-align: center;
-      margin-top: 19px;
-    }
-
+   
     .qoutes-information {
       width: 50%;
       height: 49px;
@@ -162,12 +174,12 @@
     }
 
     .service-field {
-      width: 98.9℅;
+      width:100℅;
       height: 300px;
       background-color: #fff4d5;
       color: blue;
       border: 0px;
-      border-radius: 19px
+      border-radius: 0px
     }
 
 
@@ -238,54 +250,76 @@
         height:200px;
         overflow-y: auto;
         background-color: #e1c16e;
-        color:orange
+        color:orange;
     }
-   .drop-down,{
-     display:inline-block;
-     position:relative;
-    
-   }
-
-   .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Tombol dropdown */
-        .dropdown a {
-            background-color:#ffc40c;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: block;
-        }
-
+   
         /* Daftar dropdown */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 150px;
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-            z-index: 1;
+
+
+      .friends-bar{
+        text-align: left;
+
+      }
+     .fr-bar{
+         width:48%;
+         height: 50px;
+         border:0px;
+         background-color: #b9b4a5;
+         color:orange;
+         font-weight: bold;
+     }
+   
+   
+
+        .friends-body-navigator{
+          height:500px;
+      width:100%;
+     display: flex;
+      text-align:left;
+      overflow-x: auto;
+
+        }
+        .friends-body-navigator>div{
+          width:560px;
+          height: 500px;
+          overflow-y: auto;
+          margin-right:15px;
+          scrollbar-width:none;
+          text-align: center;
         }
 
-        /* Link dalam dropdown */
-        .dropdown-content a {
-            color: black;
-            padding: 10px;
-            text-decoration: none;
-            display: block;
-        }
 
-        /* Efek hover untuk menampilkan dropdown */
-       
 
-        /* Efek hover untuk item dropdown */
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
+      .nav-2{
+        display: flex;
+        background-color: #f1f1f1;
+        border-radius: 12px;
+        width:200px;
+        height:100px;
+        margin-top: 12px;
+      }
+    .nav-2>div{
+        color:orange;
+        margin-left: 12px;
+    }
+    @media screen and (max-width: 600px) {
+  .body-navigator{
+    display: block;
+  }   
+  .body-navigator>div{
+     width:100%;
+     margin-left:0px;
+     overflow-y: auto;
 
+  }
+  .qoutes-card{
+    width:100%;
+
+  }
+    }
+    @media screen  and(max-width:600px) {
+      
+    }
   </style>
 </head>
 
@@ -310,6 +344,7 @@
      
   </div>
   <div class="body-navigator">
+    <div class="qoutes-short-body">
     <%user_product.forEach(data=>{%>
       <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
       <a href="/open-qoutes-user/<%=data.qoutes_id%>">
@@ -319,7 +354,9 @@
 
     
 
-    <%})%> 
+    <%})%>
+  </div> 
+  <div class="qoutes-all-body">
     <% user_share.forEach(data => { %>
       <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
         <div class="qoutes-share-card" style="background-color:<%=data.qoutes_share.qoutes_bg%>">
@@ -332,6 +369,7 @@
         </a>
       </div>
     <% }) %>
+    </div>
 
   </div>
   <div class="bar-bellow">
@@ -361,18 +399,17 @@
     </fieldset>
 
   <div class="nav-2" id="user-bag-2">
-    <table class="sub-fields">
-      <tr>
-        <th>ttg_lahir</th>
-        <th>hobi</th>
-      </tr>
-      <tr>
-        <td><%=user.bird%></td>
-        <td onclick="hobby_change()"><%=user.hobi%></td>
-      </tr>
-    </table>
+   <div>
+    <h3>tanggal lahir</h3>
+    <hr/>
+    <b><%=user.bord%></b>
+   </div>
+  <div>
+    <h3>usia</h3>
+ <hr/>
+    <b><%=user.age%></b>
   </div>
-
+  </div>
     <fieldset class='service-field'>
 
       <legend>daftar langganan</legend>
@@ -399,19 +436,19 @@
     <input type="text" name="search_input" value="<%=text_search%>" placeholder="cari siapa" class="text-search" />
     <button class="btn-search">cari</button>
   </form>
-  <div class="dropdown">
-    <a id="dropdownButton">langgananku (<%=user.langganan.length%>)</a>
-    <div class="dropdown-content" id="dropdownContent">
-        <a href="/get-my-friend-list/<%=user.email%>">temanku</a>
-        <a href="/user-pelanggan/<%=user.email%>">pelanggan (<%=user.langganan.length%>)</a>
-        <a href="/first-page/<%=user.email%>">kembali</a>
-    </div>
-
+  <div class="friends-bar">
+    <a href="/first-page/<%=user.email%>">
+      <button class="fr-bar">kembali</button>
+    </a>
+    <a href="/get-my-friend-list/<%=user.email%>">
+      <button class="fr-bar" style="background-color: aliceblue;color:orange">temanku</button>
+    </a>
 </div>  
-  <div class="body-navigator">
+  <div class="friends-body-navigator">
+    <div style="width:100%">
+      <h3 style="color:orange">langganan (<%=langganan.length %>)</h3>
     <%langganan.forEach(data=>{%>
-    <div class="user-card">
-
+    <div class="user-card" style="width:100%">
       <h2 style="margin-left: 20px; color: gray"><%=data.user%></h2>
       <a href="/open-navigation/<%=user.email %>/<%=data.email%>">
         <button class="btn-visitor">kunjungi</button>
@@ -422,25 +459,27 @@
     </div>
     <%})%>
   </div>
+  </div>
   <%}else if(page=='pelanggan' ){%>
   <form method="post" action="/search-pelanggan" class="search-form">
     <input type="hidden" name="user_email" value="<%=user.email%>" />
     <input type="text" name="search_input" value="<%=text_search%>" placeholder="cari siapa" class="text-search" />
     <button class="btn-search">cari</button>
   </form>
-  <div class="dropdown">
-    <a id="dropdownButton">pelangganku (<%=user.pelanggan.length%>)</a>
-    <div class="dropdown-content" id="dropdownContent">
-        <a href="/get-my-friend-list/<%=user.email%>">temanku</a>
-        <a href="/user-langganan/<%=user.email%>">pelanggan (<%=user.langganan.length%>)</a>
-        <a href="/first-page/<%=user.email%>">kembali</a>
-    </div>
-
+  <div class="friends-bar">
+    <a href="/first-page/<%=user.email%>">
+      <button class="fr-bar">kembali</button>
+    </a>
+    <a href="/get-my-friend-list/<%=user.email%>">
+      <button class="fr-bar" style="background-color: aliceblue;color:orange">temanku</button>
+    </a>
 </div>  
-  <div class="body-navigator">
+  <div class="friends-body-navigator">
+    <div style="width:100%">
+      <h3 style="color:orange">pelanggan (<%=pelanggan.length %>)</h3>
     <%pelanggan.forEach(data=>{%>
     <div class="user-card">
-      <div class="user-card">
+      <div class="user-card" style="width:100%;">
 
         <h2 style="margin-left: 20px; color: gray"><%=data.user%></h2>
         <a href="/open-navigation/<%=user.email %>/<%=data.email%>">
@@ -451,6 +490,7 @@
         </a>
       </div>
       <%})%>
+      </div>
     </div>
 
     <%}else if(page=='friends-list'){%>
@@ -459,17 +499,23 @@
         <input type="text" name="search_input" value="<%=search_text%>" placeholder="cari siapa" class="text-search" />
         <button class="btn-search">cari</button>
       </form>
-      <div class="dropdown">
-        <a id="dropdownButton">temanku (<%=friends_length%>)</a>
-        <div class="dropdown-content" id="dropdownContent">
-            <a href="/user-langganan/<%=user.email%>" class="dropdown-item">langganan (<%=user.langganan.length%>)</a>
-            <a href="/user-pelanggan/<%=user.email%>" class="dropdown-item">pelanggan (<%=user.pelanggan.length%>)</a>
-            <a href="/first-page/<%=user.email%>" class="dropdown-item">kembali</a>
-        </div>
+      <div class="friends-bar">
+        <a href="/first-page/<%=user.email%>">
+          <button class="fr-bar">kembali</button>
+        </a>
+        <a href="/get-my-friend-list/<%=user.email%>">
+          <button class="fr-bar" style="background-color: aliceblue;color:orange">temanku</button>
+        </a>
+        
+        
   
     </div>  
     
-      <div class="body-navigator">
+      <div class="friends-body-navigator">
+        <div>
+          <a href="/user-langganan/<%=user.email%>">
+            <h3 style="color:orange">langganan(<%=langganan.length %>)</h3>
+          </a>
         <% langganan.forEach(data => { %>
           <div class="user-card">
 
@@ -480,8 +526,13 @@
             <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
               <button class="btn-visitor">chat</button>
             </a>
-          </div>
+          </div> 
         <% }) %>
+        </div>
+        <div>
+          <a href="/user-pelanggan/<%=user.email%>">
+            <h3 style="color:orange">pelanggan (<%=pelanggan.length %>)</h3>
+          </a>
      <% pelanggan.forEach(data => { %>
       <div class="user-card">
         <h2 style="margin-left: 20px; color: gray"><%=data.user%></h2>
@@ -493,8 +544,7 @@
         </a>
       </div>
      <% }) %>
-
-
+    </div>
       </div>
 
     <%}%>

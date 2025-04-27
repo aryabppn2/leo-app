@@ -81,7 +81,7 @@ function update_qoutes(qoute) {
   const qoutes_data = qoutes.filter((data) =>
     data.qoutes_id.includes(qoute.qoutes_id)
   )[0];
-  qoutes_data.qoutes_id=`writeQoutes${ambilTigaKataPertama(qoute.qoutes_value)}}WrBy${qoute.email}`
+  qoutes_data.qoutes_id=`writeQoutes${ambilTigaKataPertama(qoute.qoutes_value)}WrBy${qoute.email}`
   qoutes_data.qoutes_value=qoute.qoutes_value;
   qoutes_data.information.color=qoute.sign_color;
   qoutes_data.information.bgcolor=qoute.bgcolor;

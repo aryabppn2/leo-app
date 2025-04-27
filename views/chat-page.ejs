@@ -8,7 +8,7 @@
   <title>Document</title>
   <style>
     body {
-      background-image:url('/images/leo-logo.jpg');
+      background-color: #F5F5DC;
       font-weight: bold;
       font-family: "arial";
     }
@@ -93,9 +93,16 @@
       margin-bottom: 7px;
 
     }
-    .body-navigator{
-      height:490px;
-      overflow-y: auto;
+    .chat-body-navigator{
+     display: flex;
+
+    }
+    .chat-body-navigator>div{
+       width:540px;
+       height: 500px;
+       overflow-y: auto;
+       margin-left:19px;
+       scrollbar-width:none;
     }
     .btn-chat-bar{
       width:48.6%;
@@ -106,7 +113,7 @@
       overflow-x: auto;
     }
     .chat-body{
-      height:540px;
+      height:500px;
       overflow-y: auto;
       background-color: lightyellow;
     }
@@ -146,6 +153,21 @@
       overflow-y: auto;
       text-align: center;
     }
+   @media screen and (max-width: 600px) {
+    .chat-body-navigator{
+     display: block;
+     height: 500px;
+
+    }
+    .chat-body-navigator>div{
+       width:98.1%;
+       height: 250px;
+       margin-left:0px;
+       overflow-y: auto;
+       margin-left:19px;
+       scrollbar-width:none;
+    }
+   }
 
   </style>
 </head>
@@ -157,7 +179,8 @@
     <input type="text" value="<%=search_text%>" class="search-text" name="search_input" placeholder="cari siapa" />
     <button class="btn-search">cari</button>
   </form>
-  <div class="body-navigator">
+  <div class="chat-body-navigator">
+    <div>
     <% pelanggan.forEach(user_data => { %>
     <div class="user-card">
       <h2><%=user_data.user%></h2>
@@ -165,14 +188,18 @@
         <button class="btn-chat">mulai obrolan</button>
       </a>
     </div>
-    <% }) %> <%langganan.forEach(user_data => { %>
-    <div class="user-card">
+    <% }) %> 
+    </div>
+    <div>
+    <%langganan.forEach(user_data => { %>
+    <div class="user-card" style='background-color: #fffffb;'>
       <h2><%=user_data.user%></h2>
       <a href="/get-new-chat/<%=user.email%>/<%=user_data.email%>">
         <button class="btn-chat">mulai obrolan</button>
       </a>
     </div>
     <% }) %>
+  </div>
   </div>
   <div style="text-align:right;margin-top: 9px;">
   <a href="/get-chat-list/<%=user.email%>">
@@ -217,7 +244,8 @@
       <button class="btn-bar">masuk</button>
     </a>
   </div>
-  <div class="body-navigator">
+  <div class="chat-body-navigator">
+    <div>
     <% chat.send.forEach(data=> { %>
      <% if (data.information.type=='chat-text') { %>
       <div class="user-card">
@@ -237,12 +265,13 @@
     <%}%>
 
     <% }) %>
-
-
+    </div>
+ 
+   <div>
     <% chat.accept.forEach(data=> { %>
       <% if (data.information.type=='chat-text') { %>
         <div class="reciepent-card">
-          <h3><%=data.reciepent.name%></h3>
+          <h3><%=data.user.name%></h3>
           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>">
             <p><%=data.chat.chat_value%></p>
           </a>
@@ -250,7 +279,7 @@
     
        <% }else{ %>
         <div class="reciepent-card" style="background-color:gray;">
-          <h3><%=data.reciepent.name%></h3>
+          <h3><%=data.user.name%></h3>
           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>">
             <p style="color:aqua">share qoutes</p>
           </a>
@@ -258,6 +287,7 @@
       <%}%>
 
      <% }) %>
+        </div>
   </div>
   <div style="text-align: center;">
   <a href="/get-chat-open/<%=user.email%>">

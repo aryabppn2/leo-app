@@ -49,90 +49,7 @@
     overflow-y: auto;
   }
 
-    .qoutes-body {
-      margin-top:9px;
-      width:97.9%;
-      height: 545px;
-      background-color: aliceblue;
-      overflow-y: auto;
-      color: gray;
-    }
-
-    .btn-information{
-       width:98.9%;
-       height:50px;
-       background-color:#F5F5DC;
-       border:6px;
-       border-color: orange;
-       margin-top: 5px;
-       font-weight: bold;
-       font-size: 25px;
-       color:rgb(185, 169, 1);
-    }
-    .coment-form{
-        width:91.2%;
-        height:50px;
-        border-radius: 19px;
-        background-color: aliceblue;
-        text-align: center;
-        
-    }
-    .text-coment{
-       width:84.4%;
-       height:50px;
-       border:0px;
-       background-color: aliceblue;
-       color:orange;
-       font-weight: bold;
-       font-size: 15px;
-   border-radius: 19px;
-
-    }
-    .coment-send-btn{
-       width:11.1%;
-       height: 50px;
-       background-color:aliceblue;
-       color:black;
-       border:0px;
-      border-radius: 19px;
-    }
-    .coment-nav{
-       height: 200px;
-       overflow-y: auto;
-       background-color:lightyellow;
-    }
-    .coment-card{
-      height: 100px;
-      overflow-y: auto;
-      background-color: aliceblue;
-      color:blue;
-      margin-top: 19px;
-      border-radius: 15px;
-    }
-    .qoutes-share-card{
-      width:87.9%;
-      height:200px;
-      overflow-y: auto;
-      margin-left: 19px;
-      margin-top: 19px;
-    }
-    .btn-bellow{
-      width:48.3%;
-     height: 49px; 
-     border:0px;
-     font-weight: bold;
-       
-    }
-    .coment-bar{
-      display: flex;
-
-
-    }
-    .tag-coment{
-      color: orange;
-    margin-right:19px;
-    font-size: 19px;
-    }
+    
   
   </style>
 </head>
@@ -140,54 +57,9 @@
 <body>
 
   <% if (page=='qoutes-user-page') { %>
-  <div>
-    <a href="/first-page/<%=user.email%>">
-      <button class="btn-username">kembali</button>
-    </a>
-    <a href="/qoutes-update-open/<%=qoutes.qoutes_id%>/">
-      <button class="btn-update">update</button>
-    </a>
-    
-  </div>
-   <% if (qoutes.information.font_size<=30) { %>
-    <a href="/show-coment/<%=qoutes.qoutes_id%>">
-      <textarea class="qoutes-body" style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
-        font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>;text-align:left" disabled>
-        <%=qoutes.qoutes_value %>
-        </textarea>
-    </a>
-
-   <% }else {%>
-    <div class="qoutes-body" style='background-color:<%=qoutes.information.bgcolor%>;text-align:center'>
-      <a href="/show-coment/<%=qoutes.qoutes_id%>">
-       <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>"><%=qoutes.qoutes_value %></h1>
-      </a>
-     </div>
-  <%}%>
-  <div style="text-align:center;height: 50px;overflow-y: auto;">
-  <% if (title=='qoutes-user-body') { %>
-    <a href="/qoutes-information/<%=qoutes.qoutes_id%>">
-      <h3 style="color:orange">informasi qoutes</h3>
-    </a>
+    <div style="background-color:<%=qoutes.information.bgcolor%>;">
+      <a href="/first-page/<%=user.email%>"></a>
     </div>
-    <div class="bar-bellow">
-      <a href="/qoutes-delete/<%=qoutes.qoutes_id%>">
-        <button style="width:67px;border:0px;background-color: bisque;">🗑️</button>
-      </a>
-      </div>
-  <% }else if(title=='qoutes-information-user'){%>
-     <button class="btn-information">creator:<%=user.username%></button><br>
-     <button class="btn-information">jam:<%=qoutes.information.time%></button><br>
-     <button class="btn-information">tanggal:<%=qoutes.information.day%></button>
-  <a href="/open-qoutes-user/<%=qoutes.qoutes_id%>">
-    <button class="btn-information" style="background-color: aliceblue;">kembali</button>
-  </a>
-   <a href="/show-coment/<%=qoutes.qoutes_id%>">
-    <button class="btn-information">komentar</button>
-   </a>
-    <%}%>
-    
-  </div>
   <% } else if (page=='qoutes-share-user') { %>
     <div>
       <a href="/first-page/<%=user.email%>">
