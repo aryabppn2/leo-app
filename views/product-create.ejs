@@ -68,6 +68,7 @@
    background-color: aliceblue;
    color:orange;
    margin-top: 10px;
+   font-size: 20px;
   }
 
   .topic-input-text{
@@ -121,6 +122,7 @@
   .color-input,.qoutes-style>select{
     width:22.2%;
     height: 50px;
+    font-size: 20px;
   }
 
 
@@ -206,7 +208,8 @@
 
       },
       {
-        form:document.getElementById('qoutes-form')
+        form:document.getElementById('qoutes-form'),
+        action:'/post-qoutes'
       }
     )">posting</button>
   </form>
@@ -223,112 +226,90 @@
   </div>
     
   <% }else if(page=='qoutes-user-update'){ %>
-  <div class="">
-    <a href="/first-page/<%=user.email%>">
-      <button class="btn-bar">kembali</button>
-    </a>
-    <a href="/create-new-product/<%=user.email%>">
-      <button class="btn-bar-selected">qoutes</button>
-    </a>
-  </div>
-  <div style="text-align: center;">
-    <table>
-      <tr>
-        <th>tulisan</th>
-        <th>latar belakang</th>
-      </tr>
-      <tr>
-        <td><input type="color" id="sign-color-input" class="color-input" value="<%=qoutes.information.color%>"></td>
-        <td><input type="color" id="bgcolor-input" class="color-input" value="<%=qoutes.information.bgcolor%>"></td>
-      </tr>
-      <tr>
-        <th>ukuran tulisan</th>
-        <th>font famili</th>
-      </tr>
-      <tr>
-        <td>
-          <select  id="font-size-input">
-           <option value="<%=qoutes.information.font_size%>">normal</option>
-            <option value="19">6</option>
-            <option value="24">10</option>
-            <option value="34">12</option>
-            <option value="38">14</option>
-            <option value="44">18</option>
-            <option value="48">22</option>
-            <option value="54">26</option>
-            <option value="58">30</option>
-          </select>
-        </td>
-        <td>
-          <select  id="font-size-input">
-           <option value="<%=qoutes.information.font_size%>">normal</option>
-            <option value="19">6</option>
-            <option value="24">10</option>
-            <option value="34">12</option>
-            <option value="38">14</option>
-            <option value="44">18</option>
-            <option value="48">22</option>
-            <option value="54">26</option>
-            <option value="58">30</option>
-          </select>
-        </td>
-      </tr>
-    </table>
-    </div>
-  <form class="qoutes-form" method="post" action="/update-qoutes">
-    <input type="hidden" name="email" value="<%=user.email%>">
-    <input type="hidden" name="bgcolor" value="<%=qoutes.information.bgcolor%>" id="bgcolor-output-hidden">
-   <input type="hidden" name="sign_color" value="<%=qoutes.information.color%>" id="sign-color-output-hidden">
-   <input type="hidden" name="fontSize" value="<%=qoutes.information.font_size%>" id="font-size-output" >
-   <input type="hidden" name="fontFamily" value="<%=qoutes. information.font_family%>" id="font-family-output-hidden">
-    <input type="hidden" name="qoutes_id" value="<%=qoutes.qoutes_id%>">
-    <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"
-     style="background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
-     font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>;text-align:left">
-     <%=qoutes.qoutes_value%></textarea><br>
-    <button class="btn-post-product">update</button>
-  </form>
-  <%}else if(page=='create-qoutes-share'){%>
-    <div class="bar" style="text-align: center;margin-top: 12px;">
-      <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-        <button class="btn-bar" style="width:32.1%">kembali</button>
+    <div class="create-page-bar">
+      <a href="/first-page/<%=user.email%>">
+        <button class="btn-bar">kembali</button>
       </a>
-      <a href="/share-qoutes/<%=user.email%>/<%=qoutes.qoutes_id%>">
-        <button class="btn-bar" style="width:32.1%">private</button>
+      <a href="/create-new-product/<%=user.email%>">
+        <button class="btn-bar-selected">qoutes</button>
       </a>
-      <a href="/get-new-public-share/<%=user.email%>/<%=qoutes.qoutes_id%>">
-        <button class="btn-bar-selected" style="width:32.1%">public</button>
+      <a href="/create-new-slides/<%=user.email%>">
+        <button class="btn-bar">slides</button>
       </a>
-    <div class="qoutes-body" style="background-color: <%=qoutes.information.bgcolor%>;;height:150px;overflow-y:auto">
-   <p style="color:<%=qoutes.information.color%>">creator:<%=user_qoutes.username%></p>
-  <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-    <h2 style="color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></h2>
-  </a>
     </div>
-    <div style="text-align: center;">
-      <table>
-        <tr>
-          <th>tulisan</th>
-          <th>latar belakang</th>
-        </tr>
-        <tr>
-          <td><input type="color" id="sign-color-input" class="color-input"></td>
-          <td><input type="color" id="bgcolor-input" class="color-input"></td>
-        </tr>
-      </table>
-      </div>
-    </div>
-   <form action="/post-public-share" method="post" class="qoutes-form">
-    <input type="hidden" value="<%=user.email%>" name="user_email">
-    <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
-    <input type="hidden" value="" id="sign-color-output-hidden" name="sign_color">
-    <input type="hidden" value="" id="bgcolor-output-hidden" name="bg_color">
-    <textarea name="qoutes_value" id="text-input" class="text-input" placeholder="apa pendapatmu" style="width:98.9%; height:280px;border:0px"></textarea>
+    <div class='form-create'style="text-align: center;">
+      <div class="qoutes-style">
+          <input type="color" id="sign-color-input" class="color-input" value="<%=qoutes.information.color%>">
+          <input type="color" id="bgcolor-input" class="color-input" value="<%=qoutes.information.bgcolor%>">
     
-    <button class="btn-post-product">posting</button>
-   </form>  
+          <select  id="font-size-input">
+            <option value="<%=qoutes.information.font_size%>">normal</option>
+             <option value="19">6</option>
+             <option value="24">10</option>
+             <option value="34">12</option>
+             <option value="38">14</option>
+             <option value="44">18</option>
+             <option value="48">22</option>
+             <option value="54">26</option>
+             <option value="58">30</option>
+           </select>
+          <select  id="font-family-input">
+            <option value="<%=qoutes.information.font_family%>">normal</option>
+            <option value="Times New Roman" style="font-family:Times New Roman">times new roman</option>
+            <option value="Rockwell" style="font-family:Rockwell">rockwell</option>
+            <option value="Courier" style="font-family: Courier;">courier</option>
+            <option value="Impact" style="font-family: Impact;">impact</option>
+            <option value="MV Boli" style="font-family: MV Boli;">mv boli</option>
+          </select>
+      </div>
+      <form class="qoutes-form" id="qoutes-form">
+        <input type="hidden" name="email" value="<%=user.email%>">
+        <input type="hidden" name="bg_color" value="<%=qoutes.information.bgcolor%>" id="bgcolor-output-hidden">
+       <input type="hidden" name="sign_color" value="<%=qoutes.information.color %>" id="sign-color-output-hidden">
+       <input type="hidden" name="fontSize" value="<%=qoutes.information.font_size %>" id="font-size-output">
+       <input type="hidden" name="fontFamily" value="<%=qoutes.information.font_family %>" id="font-family-output-hidden">
+       <input type="hidden" name="type_get" id="topic-output" value="">
+       <input type="hidden" name="market_share" id="market-share-output" value="">
+        <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input" 
+        style="background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
+        font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px">
+        <%=qoutes.qoutes_value%>
+      </textarea><br>
+        <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
+        <select  id="market-input" class="market-share-class">
+          <option value="">kalangan</option>
+          <option value="all-users">semua</option>
+          <option value="adult-users">dewasa</option>
+          <option value="daugther-users">remaja</option>
+          <option value="child-users">anak anak</option>
+        </select>
+        <button class="btn-post-product" onclick="get_ValidationPost(
+          {
+            text:document.getElementById('text-input'),
+            market:document.getElementById('market-share-input'),
+            catagories:document.getElementById('catagory-input')
+    
+          },
+          {
+            form:document.getElementById('qoutes-form'),
+            action:'/update-qoutes'
+          }
+        )">update</button>
+      </form>
+      <div class="qoutes-completer-form">
+        <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
+        <select  id="market-input" class="market-share-class">
+          <option value="">kalangan</option>
+          <option value="all-users">semua</option>
+          <option value="adult-users">dewasa</option>
+          <option value="daugther-users">remaja</option>
+          <option value="child-users">anak anak</option>
+        </select>
+      </div>
+      </div>
 
   <%}%>
+    
   <script>
    const color={
        sign:document.getElementById('sign-color-input'),
@@ -393,7 +374,7 @@ function get_ValidationPost(input,output){
   }
   else{
     output.form.setAttribute('method','post')
-    output.form.setAttribute('action','/post-qoutes')
+    output.form.setAttribute('action',output.action)
   }
 }
 

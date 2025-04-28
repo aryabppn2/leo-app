@@ -48,213 +48,231 @@
     height: 50px;
     overflow-y: auto;
   }
-
-    
+  .qoutes-container{
+    width:100%;
+    height: 100%;
+    display: flex;
+  }
+  .back-btn-open{
+    width:100px;
+    height: 100px;
+    border-radius: 40px;
+    border:12px;
+    border-color: aliceblue;
+    font-size: 20px;
+    background-color: aliceblue;
+    color:orange
+  }
   
+  .qoutes-container>div{
+    justify-content: center;
+    height: 500px;
+    overflow-y: auto;
+
+  }
+.qoutes-sign{
+   width:670px;
+   height: 500px;
+   overflow-y: auto;
+
+}
+.qoutes-information{
+  text-align:left;
+}
+.qoutes-information>.back-btn-open{
+  width:78px;
+  height:78px;
+}
+.information-sign{
+  width:100%;
+  height: 200px;
+   border:20px;
+   text-align: left;
+   margin-left: 20px;
+   scrollbar-width:none;
+}
+.information-sign>h3,.information-sign>p{
+  margin-left: 20px;
+  font-size: 19px;
+}
+  .btn-update{
+    width:100px;
+    height: 50px;
+    border:0px;
+    background-color: aliceblue;
+    color:orange;
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 500px;
+  }
+  .coment-form{
+    text-align: center;
+  }
+  .coment-form>input{
+    width:300px;
+    height: 45px;
+    border:0px;
+    background-color: aliceblue;
+    color:orange;
+    font-size: 20px;
+  }
+  .coment-form>button{
+    width:78px;
+    height:45px;
+    border:0px;
+    background-color: orange;
+    color:aliceblue;
+    font-size: 20px;
+  }
+  .coment-card{
+    width:92%;
+    height:89px;
+    background-color: aliceblue;
+    color:orange;
+    font-size: 20px;
+    border-radius: 20px;
+    margin-left: 20px;
+    overflow-y: auto;
+    margin-top: 12px;
+
+
+  }
+  @media screen and (max-width:600px){
+  .qoutes-container{
+    display: block;
+    width:100%;
+    height:550px;
+    overflow-y: auto;
+  } 
+  .qoutes-container>div{
+    width:100%;
+    height:500px;
+    overflow-y: auto;
+  }
+  .information-sign{
+    width:100%;
+    height: 200px;
+    text-align: left;
+    margin-left: 1px;
+   overflow-y: none;
+  }
+  .coment-form>input{
+    width:200px;
+   
+  }
+  .btn-update{
+    margin-left: 280px;
+  }
+  }
   </style>
 </head>
 
 <body>
 
   <% if (page=='qoutes-user-page') { %>
-    <div style="background-color:<%=qoutes.information.bgcolor%>;">
-      <a href="/first-page/<%=user.email%>"></a>
-    </div>
-  <% } else if (page=='qoutes-share-user') { %>
-    <div>
+    <div style="background-color:<%=qoutes.information.bgcolor%>;text-align:left">
       <a href="/first-page/<%=user.email%>">
-        <button class="btn-username">kembali</button>
-      </a>
-      <a href="/share-update-open/<%=qoutes.qoutes_id%>">
-        <button class="btn-update">update</button>
+        <button class="back-btn-open" style='color: <%=qoutes.information.bgcolor%>;
+        background-color:<%=qoutes.information.color%>;'>keluar</button>
       </a>
     </div>
-    <div class="qoutes-body" style="background-color:<%=qoutes.information.bgcolor%>">
-    <div class="qoutes-share-card" style="background-color:<%=qoutes.qoutes_share.qoutes_bg%>">
-      <a href="/open-navigation/<%=user.email%>/<%=user_qoutes.email%>">
-        <b style="color:<%=qoutes.qoutes_share.qoutes_color%>">creator:<%=user_qoutes.username%></b>
-      </a>
-      <a href="/qoutes-open/<%=user.email%>/<%=qoutes_share.qoutes_id%>">
-        <h3 style="color:<%=qoutes.qoutes_share.qoutes_color%>"><%=qoutes_share.qoutes_value%></h3>
-      </a>
-    </div>
-      <h1 style="color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></h1>
-    </div>
-    <div class="bar-bellow">
-      <button class="btn-information">creator:<%=user.username%></button><br>
-      <button class="btn-information">jam:<%=qoutes.information.time%></button><br>
-      <button class="btn-information">tanggal:<%=qoutes.information.day%></button>
-      <a href="/qoutes-share-delete/<%=user.email%>/<%=qoutes.qoutes_id%>">
-        <button class="btn-information" style="color:red">hapus</button>
-      </a>
-    </div>
-    
-  <% } else if(page=='user-coment-open') { %>
-   <% if (qoutes.information.font_size<=30) { %>
-    <textarea class="qoutes-body" style="height: 350px;background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
-      font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>;text-align:left "disabled>
-    <%=qoutes.qoutes_value%>
-    </textarea>
+    <div class="qoutes-container">
+   <% if (qoutes.information.font_size<=14) { %>
+      <textarea class="qoutes-sign"  style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
+      font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px" >
+        <%=qoutes.qoutes_value%>
+      </textarea>
    <% }else{%>
-    <div class="qoutes-body" style="height: 350px;background-color: <%=qoutes.information.bgcolor%>">
-      <a href="/open-qoutes-user/<%=qoutes.qoutes_id%>">
-        <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>"><%=qoutes.qoutes_value%></h1>
-      </a>
-     </div>
-    
- 
-  <%}%>
-
-   <form action="/post-coment" method="post" class="coment-form">
-    <input type="hidden" value="<%=user.email%>" name="user_email">
-    <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
-    <input type="text" name="coment_input" class="text-coment" placeholder="tulis komentarmu">
-    <button class="coment-send-btn">kirim</button>
-   </form>
-   <div class="coment-bar">
-    <a href="/open-qoutes-user/<%=qoutes.qoutes_email%>">
-      <h3 class="tag-coment">kembali</h3>
-    </a>
-  <h3 class="tag-coment">komentar</h3>
-  <h3 class="tag-coment"><%=coment_length%> coment</h3>
-
-   </div>
-    <div class="coment-nav">
-  <% coment_list.forEach(data => { %>
-    <% if (qoutes.qoutes_email==data.email) { %>
-     <div class="coment-card" style="text-align: left;background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>">
-      <h2><%=data.username%></h2>
-      <p><%=data.value%></p>
-     </div>
-    <% }else { %>
-      <div class="coment-card" style="text-align:right;background-color:<%=qoutes.information.color%>;color:<%=qoutes.information.bgcolor%>">
-      <h2><%=data.username%></h2>
-      <p><%=data.value%></p>
-     </div>
-
-    <%}%>
-
-
-  <% }) %>
-  </div>
-
-  <% }else if(page=='qoutes-open'){%>
-  <div>
-    <a href="/product-navigation/<%=user.email%>">
-      <button class="btn-username">kembali</button>
-    </a>
-    <a href="/open-navigation/<%=user.email%>/<%=user_qoutes.email%>">
-      <button class="btn-username" style="background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;overflow-x: auto;"><%=user_qoutes.username%></button>
-    </a>
-    
-  </div>
-
-<% if (qoutes.information.font_size<=30) { %>
-  <textarea class="qoutes-body" style="background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>
-  ;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>;text-align:left" disabled>
-  <%=qoutes.qoutes_value%>
-  </textarea>
-<% }else { %>
-  <div class="qoutes-body" style="background-color:<%=qoutes.information.bgcolor%>">
-    <a href="/show-coment/<%=user.email%>/<%=qoutes.qoutes_id%>">
+    <div class="qoutes-sign" id="sign" style="background-color: <%=qoutes.information.bgcolor%>">
       <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>"><%=qoutes.qoutes_value%></h1>
-    </a>
-  </div>
+    </div>
+    <%}%>
+      
+      <div class="qoutes-information" id='qoutes-information'>
+        <div class="information-sign" style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
+        font-family:<%=qoutes.information.font_family%>">
+          <h3>informasi</h3>
+          <p>topik:<%=qoutes.information.type%></p>
+          <p>target:<%=qoutes.information.market_share%></p>
+          <p>tanggal:<%=qoutes.information.day%></p>
+        </div>
+       <div class="div-option">
+        <a href="/qoutes-update-open/<%=qoutes.qoutes_id%>">
+          <button class="btn-update">update</button>
+         </a>
+         <a href="/qoutes-delete/<%=qoutes.qoutes_id%>">
+           <button class="btn-update" style="background-color:aliceblue;color:red">hapus</button>
+         </a>
+       </div>
+        <h1 style="color:orange">komentar <%=coment_list.length %></h1>
+        <form action="/post-coment" method="post" class="coment-form">
+          <input type="hidden" value="<%=user.email%>" name="user_email">
+          <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
+          <input type="text" name="coment_input" class="text-coment" placeholder="tulis komnetarmu">
+          <button class="btn-post-coment" type="submit">kirim</button>
+        </form>
+        <div class="coment-list" style="margin-top:60px;">
+        <% coment_list.forEach(coment => { %>
+         <div class="coment-card">
+          <h3><%=coment.username%></h3>
+          <p><%=coment.value%></p>
+         </div>
 
-<%}%>
-  
-
-  <div class="bar-bellow">
-<% if (title=='qoutes-body') { %>
-  <a href="/share-qoutes/<%=user.email%>/<%=qoutes.qoutes_id%>">
-    <button class="btn-bellow" style="background-color: antiquewhite;color:gray">share</button>
-  </a>
-  <a href="/qoutes-information/<%=qoutes.qoutes_id%>/<%=user.email%>">
-    <button class="btn-bellow">informasi</button>
-  </a>
-
-<% }else if(title=='qoutes-information-data'){%>
-  <button class="btn-information">creator:<%=user_qoutes.username%></button><br>
-  <button class="btn-information">jam:<%=qoutes.information.time%></button><br>
-  <button class="btn-information">tanggal:<%=qoutes.information.day%></button>
-<a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-  <button class="btn-information" style="background-color: aliceblue;color:orange">kembali</button>
-</a>
-<a href="/show-coment/<%=user.email%>/<%=qoutes.qoutes_id%>">
-  <button class="btn-information">komentar</button>
-</a>
-  <%}%>
-  </div>
-<% } else if(page=='qoutes-open-share') { %>
-  <div>
-    <a href="/product-navigation/<%=user.email%>">
-      <button class="btn-username">kembali</button>
-    </a>
-    <a href="/open-navigation/<%=user.email%>/<%=user_qoutes.email%>">
-      <button class="btn-username" style="background-color: aliceblue;overflow-x: auto;"><%=user_qoutes.username%></button>
-    </a>
-    
-  </div>
-<div class="qoutes-body" style="background-color:<%=qoutes.information.bgcolor%>">
-  <div class="qoutes-share-card" style="background-color:<%=qoutes.qoutes_share.qoutes_bg%>">
-   <a href="/open-navigation/<%=user.email%>/<%=user_qoutes_share.email%>">
-    <p style="color:<%=qoutes.qoutes_share.qoutes_color%>">creator:<%=user_qoutes_share.username%></p>
-   </a>
-   <a href="/qoutes-open/<%=user.email%>/<%=qoutes_share.qoutes_id%>">
-    <h3 style="color:<%=qoutes.qoutes_share.qoutes_color%>  "><%=qoutes_share.qoutes_value%></h3>
-   </a>
-  </div>
-  <h1 style="color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></h1>
-</div>
-<div class="bar-bellow">
-  <button class="btn-information">creator:<%=user_qoutes.username%></button><br>
-  <button class="btn-information">jam:<%=qoutes.information.time%></button><br>
-  <button class="btn-information">tanggal:<%=qoutes.information.day%></button>
-</div>
-
-  <%}else if(page=='coment-page'){%>
-   <% if (qoutes.information.font_size<=30) { %>
-    <textarea class="qoutes-body" style="height: 272px;background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
-    font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>;text-align:left" disabled>
+        <% }) %>
+        </div>
+      </div>
+    </div>
+  <% }else if(page=='qoutes-open'){%>
+    <div style="background-color:<%=qoutes.information.bgcolor%>;text-align:left">
+      <a href="/product-navigation/<%=user.email%>">
+        <button class="back-btn-open" style='color: <%=qoutes.information.bgcolor%>;
+        background-color:<%=qoutes.information.color%>;'>keluar</button>
+      </a>
+    </div> 
+  <div class="qoutes-container">
+<% if (qoutes.information.font_size<=14) { %>
+  <textarea class="qoutes-sign"  style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
+    font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px" >
       <%=qoutes.qoutes_value%>
     </textarea>
-   <% }else{ %>
-    <div class="qoutes-body" style="height: 272px;background-color: <%=qoutes.information.bgcolor%>">
-      <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-        <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>"><%=qoutes.qoutes_value%></h1>
-      </a>
-     </div>
-  <%}%>
-     <form action="/post-coment-data" method="post" class="coment-form">
-      <input type="hidden" value="<%=user.email%>" name="user_email">
-      <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
-      <input type="text" name="coment_input" class="text-coment" placeholder="tulis komentarmu <%=user.username%>">
-      <button class="coment-send-btn">kirim</button>
-     </form>
-     <div class="coment-bar">
-      <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-        <h3 class="tag-coment">kembali</h3>
-      </a>
-    <h3 class="tag-coment">komentar</h3>
-    <h3 class="tag-coment"><%=coment_length%> coment</h3>
-  
-     </div>
-    <div class="coment-nav">
-      <% coment_list.forEach(data => { %>
-        <% if (qoutes.qoutes_email==data.email) { %>
-          <div class="coment-card" style="text-align: left;background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;">
-           <h2><%=data.username%></h2>
-           <p><%=data.value%></p>
-          </div>
-         <% }else { %>
-           <div class="coment-card" style="text-align:right;background-color:<%=qoutes.information.color%>;color:<%=qoutes.information.bgcolor%>">
-           <h2><%=data.username%></h2>
-           <p><%=data.value%></p>
-          </div>
+<% }else { %>
+  <div class="qoutes-sign" id="sign" style="background-color: <%=qoutes.information.bgcolor%>">
+    <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>"><%=qoutes.qoutes_value%></h1>
+  </div>
+<%}%>
+  <div class="qoutes-information">
+    <div class="information-sign" style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
+      font-family:<%=qoutes.information.font_family%>;height:230px">
+        <h3>informasi</h3>
+        <p>creator:<%=user_qoutes.username%></p>
+        <p>topik:<%=qoutes.information.type%></p>
+        <p>target:<%=qoutes.information.market_share%></p>
+        <p>tanggal:<%=qoutes.information.day%></p>
+      </div>
+      <h2 style="color:orange">komentar: <%=coment_list.length  %></h3>
+      <form action="/post-coment-data" method="post" class="coment-form" style="margin-top: 100px;">
+        <input type="hidden" value="<%=user.email%>" name="user_email">
+        <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
+        <input type="text" name="coment_input" class="text-coment" placeholder="tulis komnetarmu">
+        <button class="btn-post-coment" type="submit">kirim</button>
+      </form>
+      <div class="coment-list" style="margin-top:60px;">
+        <% coment_list.forEach(coment => { %>
+         <div class="coment-card">
+          <h3><%=coment.username%></h3>
+          <p><%=coment.value%></p>
+         </div>
+
+        <% }) %>
+        </div>
+  </div>
+  </div>
+ 
+<% }%>
+ 
+    <script>
      
-         <%}%>
-       <% }) %>
-    </div>
-    <%}%>
+    </script>
 </body>
 </html>

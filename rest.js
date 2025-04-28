@@ -274,42 +274,12 @@ http.get('/open-qoutes-user/:qoutes',function(input,output){
   output.render('product-open',{
     page:'qoutes-user-page',qoutes,
     title:"qoutes-user-body",
+    coment_list:get_coments(qoutes.qoutes_id),
     user:user_get(qoutes.qoutes_email)[0]
     
   })
 })
 
-http.get('/qoutes-information/:qoutes',function(input,output){
-  const qoutes=qoutes_get(input.params.qoutes)[0]
-  output.render('product-open',{
-    page:'qoutes-user-page',
-    title:'qoutes-information-user',
-  user:user_get(qoutes.qoutes_email)[0],qoutes
-
-  })
-})
-
-http.get('/qoutes-information/:qoutes/:user',function(input,output){
-  output.render('product-open',{
-    page:'qoutes-open',
-    title:'qoutes-information-data',
-    user:user_get(input.params.user)[0],
-    qoutes:qoutes_get(input.params.qoutes)[0],
-    user_qoutes:user_get(qoutes_get(input.params.qoutes)[0].qoutes_email)[0]
-  })
-})
-
-
-http.get('/open-qoutes-share-user/:qoutes',function(input,output){
-  const qoutes=share(input.params.qoutes)[0]
-  const qoutes_share=qoutes_get(qoutes.qoutes_share.qoutes_id)[0]
-  output.render('product-open',{
-    page:'qoutes-share-user',qoutes,qoutes_share,
-    user:user_get(qoutes.qoutes_email)[0],
-    user_qoutes:user_get(qoutes_share.qoutes_email)[0]
-  })
-
-})
 
 
 http.get('/qoutes-update-open/:qoutes',function(input,output){
@@ -320,14 +290,7 @@ http.get('/qoutes-update-open/:qoutes',function(input,output){
 
   })
 })
-http.get('/qoutes-share-update/:qoutes',function(input,output){
-  const qoutes=share(input.params.qoutes)[0]
-  output.render('product-create',{
-    page:'share-update',qoutes,
-    user:user_get(qoutes.qoutes_email)[0]
 
-  })
-})
 
 http.post("/update-qoutes", function (input, output) {
   const update = input.body;
@@ -342,20 +305,11 @@ http.get("/qoutes-open/:user/:qoutes", function (input, output) {
     title:'qoutes-body',qoutes,
     user: user_get(input.params.user)[0],
     user_qoutes:user_get(qoutes.qoutes_email)[0],
+    coment_list:get_coments(qoutes.qoutes_id)
   });
 });
 
-http.get('/qoutes-share-open/:email/:qoutes',function(input,output){
-  const qoutes=share(input.params.qoutes)[0]
-  const qoutes_share=qoutes_get(qoutes.qoutes_share.qoutes_id)[0]
-  output.render('product-open',{
-    page:'qoutes-open-share',qoutes,qoutes_share,
-    user:user_get(input.params.email)[0],
-    user_qoutes:user_get(qoutes.qoutes_email)[0],
-    user_qoutes_share:user_get(qoutes_share.qoutes_email)[0]
 
-  })
-})
 
 //navigation  page//
 
@@ -457,91 +411,26 @@ http.get("/open-navigation/:user/:market", function (input, output) {
 });
 
 
-//qoutes-share//
-http.get('/share-qoutes/:user/:qoutes',function(input,output){
-  output.render('chat-page',{
-    page:'qoutes-share',
-    user:user_get(input.params.user)[0],
-    qoutes:qoutes_get(input.params.qoutes)[0],
-    user_qoutes:user_get(qoutes_get(input.params.qoutes)[0].qoutes_email)[0],
-    text_search:""
-  })
-})
 
-
-http.get('/get-share-qoutes/:user/:reciepent/:qoutes',function(input,output){
-  const qoutes=qoutes_get(input.params.qoutes)[0]
-    output.render('chat-page',{
-      page:'qoutes-share-chat',qoutes,
-      user:user_get(input.params.user)[0],
-      reciepent:user_get(input.params.reciepent)[0],
-      user_qoutes:user_get(qoutes.qoutes_email)[0]
-
-    })
-})
-http.post('/create-chat-share',function(input,output){
-  const new_data=input.body
-  create_newChat(new_data,'chat-qoutes-share',new_data.qoutes_id)
-  output.redirect(`/get-chat-list/${new_data.user_email}`)
-})
-
-http.get('/get-new-public-share/:user/:qoutes',function(input,output){
-  const qoutes=qoutes_get(input.params.qoutes)[0]
-  output.render('product-create',{
-    page:'create-qoutes-share',qoutes,
-    user:user_get(input.params.user)[0],
-  user_qoutes:user_get(qoutes.qoutes_email)[0]
-  })
-})
-http.post('/post-public-share',function(input,output){
-post_qoutesShare(input.body)
-output.redirect(`/first-page/${input.body.user_email}`)
-})
 
 //coment-data//
-http.get('/show-coment/:qoutes',function(input,output){
-  const qoutes=qoutes_get(input.params.qoutes)[0]
-  output.render('product-open',{
-    page:'user-coment-open',qoutes,
-    user:user_get(qoutes.qoutes_email)[0],
-    coment_list:get_coments(qoutes.qoutes_id),
-    coment_length:get_coments(qoutes.qoutes_id).length
-  })
-})
+
 
 
 
 http.post('/post-coment',function(input,output){
   const data=input.body
   post_coment(data)  
-  output.redirect(`/show-coment/${data.qoutes_id}`)
+  output.redirect(`/open-qoutes-user/${data.qoutes_id}`)
 })
-http.get('/show-coment/:user/:qoutes',function(input,output){
-  const qoutes=qoutes_get(input.params.qoutes)[0]
-  output.render('product-open',{
-    page:'coment-page',qoutes,
-    user:user_get(input.params.user)[0],
-    user_qoutes:user_get(qoutes.qoutes_email)[0],
-    coment_list:get_coments(input.params.qoutes),
-    coment_length:get_coments(input.params.qoutes).length
-  })
-})
-
 
 
 http.post('/post-coment-data',function(input,output){
   const data=input.body
   post_coment(data)
-  output.redirect(`/show-coment/${data.user_email}/${data.qoutes_id}`)
+  output.redirect(`/qoutes-open/${data.email_input}/${data.qoutes_id}`)
 })
 
-http.get('/new-private-coment/:user/:qoutes',function(input,output){
-  output.render('coment-chat',{
-    page:'private-coment',
-    user:user_get(input.params.user)[0],
-    qoutes:qoutes_get(input.params.qoutes)[0]
-  })
-})
 //chat//
 http.get('/get-chat-open/:user',function(input,output){
   const user=user_get(input.params.user)[0]
