@@ -156,7 +156,6 @@ http.get("/first-page/:user_address", function (input, output) {
 
 http.post("/search-user-product", function (input, output) {
   const product_user = get_userProductList(input.body.user_email);
-  const user_shared=get_userShareList(input.body.user_email)
   output.render("user-page", {
     page: "user-product-list",
     text_search: input.body.search_input,
@@ -321,17 +320,7 @@ http.get('/qoutes-share-list/:user',function(input,output){
     qoutes_list:qoutesShare_nav(input.params.user)
     })
 })
-http.post("/search-product-navigation", function (input, output) {
-  const product_nav = get_productNav(input.body.user_email);
-  const qoutes_share=qoutesShare_nav(input.body.user_email)
-  output.render("navigation-page", {
-    page: "qoutes-nav",
-    user: user_get(input.body.user_email)[0],
-    product_data: get_searchUserProduct(product_nav,input.body.search_input),
-    qoutes_share: get_searchUserProduct(qoutes_share,input.body.search_input),
-    search_text: input.body.search_input,
-  });
-});
+
 http.post('/search-qoutes-list',function(input,output){
   const qoutes_list=get_productNav(input.body.user_email)
   output.render('navigation-page',{

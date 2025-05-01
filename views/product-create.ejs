@@ -82,9 +82,7 @@
       color:orange
 
   }
-  .qoutes-form>.topic-input-text,.qoutes-form>.market-share-class{
-    display: none;
-  }
+
   .market-share-class{
     width:200px;
     height: 50px;
@@ -109,7 +107,7 @@
   @media screen and (max-width:600px) {
     .form-create{
       width:100%;
-      height:500px;
+      height:550px;
       overflow-y: auto;
       display:block;
     }
@@ -131,14 +129,15 @@
       height: 500px;
       width:100%
     }
-    .topic-input-text,.market-share-class{
-      display: none;
-    }
-    .qoutes-form>.topic-input-text,.qoutes-form>.market-share-class{
-    display:block;
-    margin-left:100px;
-    margin-bottom:12px;
-    }
+   .qoutes-completer-form>select,.qoutes-completer-form>input{
+   width:100%;
+   height: 70px;
+   margin-bottom:20px;
+   margin-left: 0px;
+   font-size: 27px;
+
+   }  
+   
     
   
   }
@@ -159,7 +158,8 @@
     </a>
   </div>
   <div class='form-create'style="text-align: center;">
-  <div class="qoutes-style">
+  <form class="form-create" id="qoutes-form">
+    <div class="qoutes-style">
       <input type="color" id="sign-color-input" class="color-input" value="">
       <input type="color" id="bgcolor-input" class="color-input" value="">
 
@@ -182,8 +182,8 @@
         <option value="Impact" style="font-family: Impact;">impact</option>
         <option value="MV Boli" style="font-family: MV Boli;">mv boli</option>
       </select>
-  </div>
-  <form class="qoutes-form" id="qoutes-form">
+    </div>
+    <div class="qoutes-form">
     <input type="hidden" name="email" value="<%=user.email%>">
     <input type="hidden" name="bg_color" value="" id="bgcolor-output-hidden">
    <input type="hidden" name="sign_color" value="" id="sign-color-output-hidden">
@@ -191,38 +191,33 @@
    <input type="hidden" name="fontFamily" value="" id="font-family-output-hidden">
    <input type="hidden" name="type_get" id="topic-output" value="">
    <input type="hidden" name="market_share" id="market-share-output" value="">
-    <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"></textarea><br>
-    <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
-    <select  id="market-input" class="market-share-class">
-      <option value="">kalangan</option>
-      <option value="all-users">semua</option>
-      <option value="adult-users">dewasa</option>
-      <option value="daugther-users">remaja</option>
-      <option value="child-users">anak anak</option>
-    </select>
-    <button class="btn-post-product" onclick="get_ValidationPost(
-      {
-        text:document.getElementById('text-input'),
-        market:document.getElementById('market-share-input'),
-        catagories:document.getElementById('catagory-input')
-
-      },
-      {
-        form:document.getElementById('qoutes-form'),
-        action:'/post-qoutes'
-      }
-    )">posting</button>
+    <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"></textarea>
+    </div>
+    <div class="qoutes-completer-form">
+      <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
+      <select  id="market-input" class="market-share-class">
+        <option value="">kalangan</option>
+        <option value="all-users">semua</option>
+        <option value="adult-users">dewasa</option>
+        <option value="daugther-users">remaja</option>
+        <option value="child-users">anak anak</option>
+      </select><br>
+      <button class="btn-post-product" onclick="get_ValidationPost(
+        {
+          text:document.getElementById('text-input'),
+          market:document.getElementById('market-share-input'),
+          catagories:document.getElementById('catagory-input')
+  
+        },
+        {
+          form:document.getElementById('qoutes-form'),
+          action:'/post-qoutes'
+        }
+      )">posting</button>
+    </div>
+  
+   
   </form>
-  <div class="qoutes-completer-form">
-    <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
-    <select  id="market-input" class="market-share-class">
-      <option value="">kalangan</option>
-      <option value="all-users">semua</option>
-      <option value="adult-users">dewasa</option>
-      <option value="daugther-users">remaja</option>
-      <option value="child-users">anak anak</option>
-    </select>
-  </div>
   </div>
     
   <% }else if(page=='qoutes-user-update'){ %>
