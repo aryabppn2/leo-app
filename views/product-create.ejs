@@ -264,12 +264,13 @@
       </div>
       <form class="qoutes-form" id="qoutes-form">
         <input type="hidden" name="email" value="<%=user.email%>">
+        <input type="hidden" name="qoutes_id" value="<%qoutes.qoutes_id%>">
         <input type="hidden" name="bg_color" value="<%=qoutes.information.bgcolor%>" id="bgcolor-output-hidden">
        <input type="hidden" name="sign_color" value="<%=qoutes.information.color %>" id="sign-color-output-hidden">
        <input type="hidden" name="fontSize" value="<%=qoutes.information.font_size %>" id="font-size-output">
        <input type="hidden" name="fontFamily" value="<%=qoutes.information.font_family %>" id="font-family-output-hidden">
-       <input type="hidden" name="type_get" id="topic-output" value="">
-       <input type="hidden" name="market_share" id="market-share-output" value="">
+       <input type="hidden" name="type_get" id="topic-output" value="<%=qoutes.information.type %>">
+       <input type="hidden" name="market_share" id="market-share-output" value="<%=qoutes.information.market_share %>">
         <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input" 
         style="background-color:<%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
         font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px">
@@ -292,7 +293,7 @@
           },
           {
             form:document.getElementById('qoutes-form'),
-            action:'/update-qoutes'
+            action:'/update-qoutes/<%=qoutes.qoutes_id%>'
           }
         )">update</button>
       </form>

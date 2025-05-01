@@ -78,6 +78,7 @@
 }
 .qoutes-information{
   text-align:left;
+  scrollbar-width:none;
 }
 .qoutes-information>.back-btn-open{
   width:78px;
@@ -127,7 +128,7 @@
   }
   .coment-card{
     width:92%;
-    height:89px;
+    height:100px;
     background-color: aliceblue;
     color:orange;
     font-size: 20px;
@@ -135,7 +136,7 @@
     margin-left: 20px;
     overflow-y: auto;
     margin-top: 12px;
-
+    scrollbar-width:none;
 
   }
   @media screen and (max-width:600px){
@@ -180,7 +181,7 @@
     <div class="qoutes-container">
    <% if (qoutes.information.font_size<=14) { %>
       <textarea class="qoutes-sign"  style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
-      font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px" >
+      font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px" disabled>
         <%=qoutes.qoutes_value%>
       </textarea>
    <% }else{%>
@@ -231,9 +232,9 @@
       </a>
     </div> 
   <div class="qoutes-container">
-<% if (qoutes.information.font_size<=14) { %>
+<% if (qoutes.information.font_size<=30) { %>
   <textarea class="qoutes-sign"  style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
-    font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px" >
+    font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px" disabled>
       <%=qoutes.qoutes_value%>
     </textarea>
 <% }else { %>

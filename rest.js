@@ -30,17 +30,13 @@ const {
 } = require(process.env.user_server);
 const {
   post_qoutes,
-  post_qoutesShare,
   delete_product,
-  delete_qoutesShare,
   update_qoutes,
   qoutes_get,
-  share,
   get_userProductList,
   get_userShareList,
   get_searchUserProduct,
   get_productNav,
-  qoutesShare_nav
 } = require(process.env.qoutes_server);
 
 const {
@@ -155,7 +151,6 @@ http.get("/first-page/:user_address", function (input, output) {
     text_search: "",
     user: user_get(input.params.user_address)[0],
     user_product: get_userProductList(input.params.user_address),
-    user_share:get_userShareList(input.params.user_address)
   });
 });
 
@@ -167,7 +162,6 @@ http.post("/search-user-product", function (input, output) {
     text_search: input.body.search_input,
     user: user_get(input.body.user_email)[0],
     user_product: get_searchUserProduct(product_user, input.body.search_input),
-    user_share:get_searchUserProduct(user_shared,input.body.search_input)
   });
 });
 http.get("/get-langganan/:user/:market", function (input, output) {
@@ -257,14 +251,11 @@ http.get("/qoutes-delete/:qoutes", function (input, output) {
   output.redirect(`/first-page/${user.email}`);
 });
 
-http.get('/qoutes-share-delete/:qoutes',function(input,output){
-  delete_qoutesShare(input.params.qoutes)
-  output.redirect(`/first-page/${input.params.user}`)
-})
+
 
 http.post("/post-qoutes", function (input, output) {
-   post_qoutes(input.body)
-   output.redirect(`/first-page/${input.body.email}`)
+  post_qoutes(input.body);
+  output.redirect(`/first-page/${input.body.email}`)
    
 
 });
@@ -292,9 +283,9 @@ http.get('/qoutes-update-open/:qoutes',function(input,output){
 })
 
 
-http.post("/update-qoutes", function (input, output) {
-  const update = input.body;
-  update_qoutes(update);
+http.post("/update-qoutes/:qoutes", function (input, output) {
+  const update =input.body;
+  update_qoutes(update,input.params.qoutes);
   output.redirect(`/first-page/${update.email}`);
 });
 
@@ -315,21 +306,13 @@ http.get("/qoutes-open/:user/:qoutes", function (input, output) {
 
 http.get("/product-navigation/:user", function (input, output) {
   output.render("navigation-page", {
-    page: "qoutes-nav",
+    page: "qoutes-list",
     product_data: get_productNav(input.params.user),
-    qoutes_share:qoutesShare_nav(input.params.user),
     user: user_get(input.params.user)[0],
     search_text: "",
   });
 });
-http.get('/qoutes-short-list/:user',function(input,output){
-  output.render('navigation-page',{
-    page:'qoutes-list',
-    user:user_get(input.params.user)[0],
-    product_data:get_productNav(input.params.user),
-    search_text:""
-  })
-})
+
 http.get('/qoutes-share-list/:user',function(input,output){
   output.render('navigation-page',{
     page:'qoutes-share-list',
@@ -356,16 +339,6 @@ http.post('/search-qoutes-list',function(input,output){
     user:user_get(input.body.user_email)[0],
     search_text:input.body.search_input,
     product_data:get_searchUserProduct(qoutes_list,input.body.search_input)
-  })
-})
-
-http.post('/search-qoutes-share',function(input,output){
-  const qoutes_share=qoutesShare_nav(input.body.user_email)
-  output.render('navigation-page',{
-    page:'qoutes-share-list',
-    user:user_get(input.body.user_email)[0],
-    search_text:input.body.search_input,
-    qoutes_list:get_searchUserProduct(qoutes_share,input.body.search_input )
   })
 })
 
@@ -428,7 +401,7 @@ http.post('/post-coment',function(input,output){
 http.post('/post-coment-data',function(input,output){
   const data=input.body
   post_coment(data)
-  output.redirect(`/qoutes-open/${data.email_input}/${data.qoutes_id}`)
+  output.redirect(`/qoutes-open/${data.user_email}/${data.qoutes_id}`)
 })
 
 //chat//
