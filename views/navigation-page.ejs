@@ -93,15 +93,16 @@
       border: 0px;
       overflow-x: auto;
       margin-top: 10px;
-      font-size: 20px;
-      color:orange;
+      font-size: 25px;
+      color:rgb(243, 232, 211);
       font-weight: bold;
+    
 
     }
 
     .btn-bar {
       background-color: #E1C16E;
-      color:orange
+      color:rgb(229, 226, 219)
     }
 
     .btn-bar-selected {
@@ -172,7 +173,8 @@
       background-color:aliceblue;
       border-radius: 19px;
       color:orange;
-      margin-left: 48px;
+      margin-left:0px;
+
    
     }
 
@@ -197,18 +199,35 @@
         <button class="btn-bar-selected">navigasi</button>
       </a>
       <a href="/others-user/<%=user.email%>">
-        <button class="btn-bar">orang lain</button>
+        <button class="btn-bar">orang </button>
       </a>
      </div>
     <div class="qoutes-body-navigator">
       <% product_data.forEach(qoutes=> { %>
-        <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
-          <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-            <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
-              <%=qoutes.qoutes_value%>
-            </h1>
-          </a>
-        </div>
+        <% if (qoutes.information.qoutes_type=="qoutes") { %>
+          <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
+            <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
+              <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
+                <%=qoutes.qoutes_value%>
+              </h1>
+            </a>
+          </div>
+        <% }else if(qoutes.information.qoutes_type=="qoutes-coment-share") {%>
+          <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>;border-radius:0px">
+            <a href="/qoutes-share-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
+              <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
+                <%=qoutes.qoutes_value%>
+              </h1>
+            </a>
+          </div>
+
+
+        <%}%>
+
+
+
+
+
               <% }) %>
     </div>
   
@@ -226,7 +245,7 @@
           <button class="btn-bar">qoutes</button>
         </a>
         <a href="/others-user/<%=user.email%>">
-          <button class="btn-bar-selected">orang lain</button>
+          <button class="btn-bar-selected">orang</button>
         </a>
       </div>
       <div class="user-body-navigator">

@@ -232,11 +232,11 @@
         <button class="btn-bar">slides</button>
       </a>
     </div>
-    <div class='form-create'style="text-align: center;">
-      <div class="qoutes-style">
+     
+      <form class="form-create" id="qoutes-form">
+        <div class="qoutes-style">
           <input type="color" id="sign-color-input" class="color-input" value="<%=qoutes.information.color%>">
           <input type="color" id="bgcolor-input" class="color-input" value="<%=qoutes.information.bgcolor%>">
-    
           <select  id="font-size-input">
             <option value="<%=qoutes.information.font_size%>">normal</option>
              <option value="19">6</option>
@@ -256,8 +256,7 @@
             <option value="Impact" style="font-family: Impact;">impact</option>
             <option value="MV Boli" style="font-family: MV Boli;">mv boli</option>
           </select>
-      </div>
-      <form class="qoutes-form" id="qoutes-form">
+        </div>
         <input type="hidden" name="email" value="<%=user.email%>">
         <input type="hidden" name="qoutes_id" value="<%qoutes.qoutes_id%>">
         <input type="hidden" name="bg_color" value="<%=qoutes.information.bgcolor%>" id="bgcolor-output-hidden">
@@ -271,14 +270,15 @@
         font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes.information.font_size%>px">
         <%=qoutes.qoutes_value%>
       </textarea><br>
-        <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
+        <div class="qoutes-completer-form">
+          <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
         <select  id="market-input" class="market-share-class">
           <option value="">kalangan</option>
           <option value="all-users">semua</option>
           <option value="adult-users">dewasa</option>
           <option value="daugther-users">remaja</option>
           <option value="child-users">anak anak</option>
-        </select>
+        </select><br>
         <button class="btn-post-product" onclick="get_ValidationPost(
           {
             text:document.getElementById('text-input'),
@@ -290,19 +290,9 @@
             form:document.getElementById('qoutes-form'),
             action:'/update-qoutes/<%=qoutes.qoutes_id%>'
           }
-        )">update</button>
+        )">update</button>  
+      </div>
       </form>
-      <div class="qoutes-completer-form">
-        <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
-        <select  id="market-input" class="market-share-class">
-          <option value="">kalangan</option>
-          <option value="all-users">semua</option>
-          <option value="adult-users">dewasa</option>
-          <option value="daugther-users">remaja</option>
-          <option value="child-users">anak anak</option>
-        </select>
-      </div>
-      </div>
 
   <%}%>
     

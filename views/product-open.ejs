@@ -90,9 +90,11 @@
    border:20px;
    text-align: left;
    margin-left: 20px;
+   margin-top: 12px;
    scrollbar-width:none;
+   overflow-y: auto;
 }
-.information-sign>h3,.information-sign>p{
+.information-sign>h3,.information-sign>p,.information-sign>a{
   margin-left: 20px;
   font-size: 19px;
 }
@@ -111,7 +113,7 @@
     text-align: center;
   }
   .coment-form>input{
-    width:300px;
+    width:70%;
     height: 45px;
     border:0px;
     background-color: aliceblue;
@@ -139,6 +141,70 @@
     scrollbar-width:none;
 
   }
+  .chat-body{
+    width:100%;
+    height:350px;
+    overflow-y: auto;
+  }
+  .btn-bar,.btn-bar-selected{
+    width:45%;
+    height: 45px;
+    border:0px;
+    font-size:20px;
+  }
+  .bar-btn{
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .btn-bar{
+    background-color: orange;
+    color:aliceblue
+  }
+  .btn-bar-selected{
+    background-color: aliceblue;
+    color:orange;
+  }
+  .chat-user,.chat-others{
+        height:67px;
+        width:100%;
+        scrollbar-width: none;
+        overflow-y: auto;
+        border-radius: 19px;
+        margin-top:19px;
+    }
+    .chat-user{
+      text-align:left;
+      background-color: lightgreen;
+      color:blue
+    }
+    .chat-others{
+      background-color: orange;
+      color:aliceblue;
+      text-align: right;
+    }
+    .btn-user,.btn-others{
+      width:45%;
+      height: 49px;
+      border:0px;
+      font-size: 20px;
+    }
+    .btn-user{
+      background-color: lightgreen;
+      color:black
+    }
+    .btn-others{
+      background-color: orange;
+      color:black1
+    }
+    .qoutes-share-body{
+       width:92.9%;
+       height: 300px;
+       overflow-y: auto;
+       border-radius: 19px;
+       text-align: center;
+       margin-top:12px;
+       margin-left: 12px;
+    }
   @media screen and (max-width:600px){
   .qoutes-container{
     display: block;
@@ -156,15 +222,48 @@
     height: 200px;
     text-align: left;
     margin-left: 1px;
-   overflow-y: none;
+   overflow-y:auto;
+
   }
-  .coment-form>input{
-    width:200px;
-   
-  }
+  
   .btn-update{
     margin-left: 280px;
   }
+  }
+  .coment-text-public{
+    width:90.2%;
+    height:300px;
+    border-radius:19px;
+    border:0px;
+    font-size:25px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+
+  }
+  .bar-styling>input{
+     width:45.5%;
+     height: 45px;
+     border:0px
+  }
+
+
+  .qoutes-card,.qoutes-coment-card{
+    width:92.9%;
+    height: 300px;
+    overflow-y: auto;
+    margin-top: 12px;
+    text-align: center;
+    scrollbar-width:none;
+    margin-left: 14px;
+
+  }
+  .qoutes-card{
+     border-radius: 19px;
+  }
+  .qoutes-coment-card{
+    border-radius: 0px;
   }
   </style>
 </head>
@@ -239,10 +338,13 @@
     </textarea>
 <% }else { %>
   <div class="qoutes-sign" id="sign" style="background-color: <%=qoutes.information.bgcolor%>">
+   <a href="/qoutes-open/<%=user.email %>/<%=qoutes.qoutes_id %>">
     <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>"><%=qoutes.qoutes_value%></h1>
+   </a>
   </div>
 <%}%>
   <div class="qoutes-information">
+    <% if (title=='qoutes-body') { %>
     <div class="information-sign" style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
       font-family:<%=qoutes.information.font_family%>;height:230px">
         <h3>informasi</h3>
@@ -250,6 +352,16 @@
         <p>topik:<%=qoutes.information.type%></p>
         <p>target:<%=qoutes.information.market_share%></p>
         <p>tanggal:<%=qoutes.information.day%></p>
+      </div>
+      <div>
+        <a href="/qoutes-private-coment/<%=user.email %>/<%=qoutes.qoutes_id %>">
+          <button class="btn-update">balas</button>
+         </a>
+         
+         <a href="/qoutes-navigation-in/<%=user.email %>/<%=qoutes.qoutes_id %>">
+          <button class="btn-update">navigasi</button>
+         </a>
+         
       </div>
       <h2 style="color:orange">komentar: <%=coment_list.length  %></h3>
       <form action="/post-coment-data" method="post" class="coment-form" style="margin-top: 100px;">
@@ -267,13 +379,316 @@
 
         <% }) %>
         </div>
+  
+
+  <% }else if(title=='qoutes-private-coment'){%>
+<div class="bar-btn">
+  <a href="/qoutes-private-coment/<%=user.email %>/<%=qoutes.qoutes_id %>">
+    <button class="btn-bar-selected">chat pribadi</button>
+  </a>
+  <a href="/qoutes-public-coment/<%=user.email %>/<%=qoutes.qoutes_id %>">
+    <button class="btn-bar">publik</button>
+  </a>
+</div>
+<div class="chat-body">
+
+</div>
+<form action="/send-chat-qoutes" method="post" class="coment-form">
+  <input type="hidden" value="<%=user.email%>" name="user_email">
+  <input type="hidden" name="qoutes_id" value="<%=qoutes.qoutes_id %>">
+  <input type="hidden" name="reciepent_email" value="<%=user_qoutes.email %>">
+  <input type="text" class="text-coment" name="chat_text" placeholder="tulis komentar">
+  <button class="btn-post-coment">kirim</button>
+</form>
+<% } else if (title=="qoutes-chat-body") { %>
+  <div class="bar-btn">
+    <% if (chat.user.address==user.email) { %>
+     <a href="/get-chat-list/<%=user.email %>">
+      <button class="btn-user"><%=user.username %></button>
+     </a>
+     <a href="/open-navigation/<%=user.email%>/<%=user_qoutes.email %>">
+      <button class="btn-others"><%=user_qoutes.username%></button>
+     </a>
+    <% }else{ %>
+      <a href="/open-navigation/<%=user.email %>/<%=chat.user.address%>">
+        <button class="btn-user"><%=chat.user.name %></button>
+       </a>
+       <a href="/get-chat-list/<%=user.email%>">
+        <button class="btn-others"><%=user.username%></button>
+       </a>
+
+    <%}%>
+  </div>
+  <div class="chat-body">
+  <% if (chat.user.address==user.email) { %>
+   <div class="chat-user" >
+    <h2><%=chat.chat.chat_value %></h2>
+   </div>
+  <% }else { %>
+ <div class="chat-others">
+  <h2><%=chat.chat.chat_value %></h2>
+ </div>
+<%}%>
+<% chat_list.forEach(chat => { %>
+  <% if (chat.email==user.email){ %>
+    <div class="chat-user" >
+     <h2><%=chat.value %></h2>
+    </div>
+   <% }else { %>
+  <div class="chat-others">
+   <h2><%=chat.value %></h2>
+  </div>
+ <%}%> 
+
+
+<% }) %>
+
+
+
+  </div>
+
+  <form action="/send-chat" method="post" class="coment-form">
+    <input type="hidden" value="<%=user.email%>" name="user_email">
+    <input type="hidden" value="<%=chat.chat.room%>" name="room">
+    <input type="hidden" value="<%=chat.chat.qoutes_id%>" name="qoutes_id">
+    <input type="text" name="chat_text" placeholder="isi chat" class="text-coment">
+    <button class="btn-post-coment">kirim</button>
+  </form>
+  
+  
+
+<%}else if(title=='qoutes-public-coment'){%>
+  <div class="bar-btn">
+    <a href="/qoutes-private-coment/<%=user.email %>/<%=qoutes.qoutes_id %>">
+      <button class="btn-bar">chat pribadi</button>
+    </a>
+    <a href="/qoutes-public-coment/<%=user.email %>/<%=qoutes.qoutes_id %>">
+      <button class="btn-bar-selected">publik</button>
+    </a>
+  </div>
+  <form method="post" action="/share-qoutes-public" class="coment-form">
+  
+<div class="bar-styling">
+  <input type="color" id="color-input" name="sign_color" class="color-input" value="<%=qoutes.information.color %>">
+  <input type="color" id="bgcolor-share-input" name="bg_color" class="color-input" value="<%=qoutes.information.bgcolor %>">
+</div>
+<input type="hidden" name="fontSize" value="<%=qoutes.information.font_size %>" id="font-size-output">
+<input type="hidden" name="fontFamily" value="<%=qoutes.information.font_family %>" id="font-family-output-hidden">
+<input type="hidden" name="type_get" id="topic-output" value="<%=qoutes.information.type %>">
+<input type="hidden" name="market_share" id="market-share-output" value="<%=qoutes.information.market_share %>">
+<input type="hidden" name="qoutes_id" value="<%=qoutes.qoutes_id %>">
+<input type="hidden" name="email" value="<%=user.email %>">
+<textarea name="qoutes_value" id="text-input" placeholder="isi komen" class="coment-text-public" 
+style="color:<%=qoutes.information.color%>;background-color:<%=qoutes.information.bgcolor%>"></textarea><br>
+<button class="btn-post-coment" style="width:98.9%;height: 40px;">kirim</button>
+
+
+
+
+  </form>
+
+
+<% } else if(title=='qoutes-nav-in') { %>
+ <% qoutes_list.forEach(data => { %>
+  <% if (data.information.qoutes_type=='qoutes') { %>
+   <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
+   <a href="/qoutes-open/<%=user.email %>/<%=data.qoutes_id %>">
+    <h2 style="color:<%=data.information.color%>;
+    font-family:<%=data.information.font_family%>;
+    font-size:<%=data.information.font_size%>px">
+    <%=data.qoutes_value %></h2>
+   </a>
+
+   </div>
+
+  <% }else {%>
+    <div class="qoutes-coment-card" style="background-color:<%=data.information.bgcolor%>;">
+      <a href="/qoutes-open/<%=user.email %>/<%=data.qoutes_id %>">
+       <h2 style="color:<%=data.information.color%>;
+       font-family:<%=data.information.font_family%>;
+       font-size:<%=data.information.font_size%>px">
+       <%=data.qoutes_value %></h2>
+      </a>
+   
+      </div>
+
+<%}%>
+
+
+
+
+ <% }) %>
+
+
+
+<%}%>
   </div>
   </div>
+  <%} else if (page=='qoutes-share-user') { %>
+    <div style="background-color:<%=qoutes.information.bgcolor%>;text-align:left">
+      <a href="/first-page/<%=user.email%>">
+        <button class="back-btn-open" style='color: <%=qoutes.information.bgcolor%>;
+        background-color:<%=qoutes.information.color%>;'>keluar</button>
+      </a>
+    </div>
+    <div class="qoutes-container">
+      <% if (qoutes.information.font_size<=30) { %>
+        <textarea class="qoutes-sign"  style="background-color: <%=qoutes_share.information.bgcolor%>;color:<%=qoutes_share.information.color%>;
+        font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes_share.information.font_size%>px;" disabled>
+          <%=qoutes_share.qoutes_value%>
+        </textarea>
+     <% }else{%>
+      <div class="qoutes-sign" id="sign" style="background-color: <%=qoutes_share.information.bgcolor%>">
+        <h1 style="color:<%=qoutes_share.information.color%>;font-size:<%=qoutes_share.information.font_size%>px;
+        font-family:<%=qoutes_share.information.font_family%>"><%=qoutes_share.qoutes_value%></h1>
+      </div>
+      <%}%>
+      <div class="qoutes-information">
+       <div class="qoutes-share-body" style="background-color:<%=qoutes.information.bgcolor%>;">
+        <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>;
+        font-family:<%=qoutes.information.font_family%>"><%=qoutes.qoutes_value %></h1>
+
+       </div>
+        <div class="information-sign" style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
+          font-family:<%=qoutes.information.font_family%>">
+            <h3>informasi</h3>
+            <p>topik:<%=qoutes.information.type%></p>
+            <p>target:<%=qoutes.information.market_share%></p>
+            <p>tanggal:<%=qoutes.information.day%></p>
+          </div>
+          <div class="information-sign"
+           style="background-color:<%=qoutes_share.information.bgcolor%>;color:<%=qoutes_share.information.color%>;
+           font-family:<%=qoutes_share.information.font_family%>">
+          <h3>informasi</h3>
+        <p>creator: <%=user_qoutes.username %></p>
+          <p>topik:<%=qoutes_share.information.type%></p>
+          <p>target:<%=qoutes_share.information.market_share%></p>
+          <p>tanggal:<%=qoutes_share.information.day%></p>
+      
+
+          </div>
+          <div class="div-option">
+            <a href="/qoutes-update-open/<%=qoutes.qoutes_id%>">
+              <button class="btn-update">update</button>
+             </a>
+             <a href="/qoutes-delete/<%=qoutes.qoutes_id%>">
+               <button class="btn-update" style="background-color:aliceblue;color:red">hapus</button>
+             </a>
+           </div>
+           <h1 style="color:orange">komentar <%=coment_list.length %></h1>
+           <form action="/post-coment" method="post" class="coment-form">
+             <input type="hidden" value="<%=user.email%>" name="user_email">
+             <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
+             <input type="text" name="coment_input" class="text-coment" placeholder="tulis komnetarmu">
+             <button class="btn-post-coment" type="submit">kirim</button>
+           </form>
+           <div class="coment-list" style="margin-top:60px;">
+           <% coment_list.forEach(coment => { %>
+            <div class="coment-card">
+             <h3><%=coment.username%></h3>
+             <p><%=coment.value%></p>
+            </div>
+   
+           <% }) %>
+           </div>
+          
+
+
+      </div>
+
+
+
+
+    </div>
+
  
-<% }%>
- 
+
+ <%}else if(page=='qoutes-open-share'){%>
+  <div style="background-color:<%=qoutes.information.bgcolor%>;text-align:left">
+    <a href="/product-navigation/<%=user.email%>">
+      <button class="back-btn-open" style='color: <%=qoutes.information.bgcolor%>;
+      background-color:<%=qoutes.information.color%>;'>keluar</button>
+    </a>
+  </div> 
+  <div class="qoutes-container">
+    <% if (qoutes.information.font_size<=30) { %>
+      <textarea class="qoutes-sign"  style="background-color: <%=qoutes_share.information.bgcolor%>;color:<%=qoutes_share.information.color%>;
+        font-family:<%=qoutes.information.font_family%>;font-size:<%=qoutes_share.information.font_size%>px" disabled>
+          <%=qoutes_share.qoutes_value%>
+        </textarea>
+    <% }else { %>
+      <div class="qoutes-sign" id="sign" style="background-color: <%=qoutes_share.information.bgcolor%>">
+       <a href="/qoutes-open/<%=user.email %>/<%=qoutes.qoutes_id %>">
+        <h1 style="color:<%=qoutes_share.information.color%>;font-size:<%=qoutes_share.information.font_size%>px;
+        font-family:<%=qoutes_share.information.font_family%>"><%=qoutes_share.qoutes_value%></h1>
+       </a>
+      </div>
+    <%}%>
+    <div class="qoutes-information">
+      <div class="qoutes-share-body" style="background-color:<%=qoutes.information.bgcolor%>;">
+        <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>;
+        font-family:<%=qoutes.information.font_family%>"><%=qoutes.qoutes_value %></h1>
+       </div>
+       <div class="information-sign" style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
+        font-family:<%=qoutes.information.font_family%>">
+          <h3>informasi</h3>
+          <p>creator:  <%=user_qoutes.username %>   </p>
+          <p>topik:<%=qoutes.information.type%></p>
+          <p>target:<%=qoutes.information.market_share%></p>
+          <p>tanggal:<%=qoutes.information.day%></p>
+        </div>
+        <div class="information-sign"
+         style="background-color:<%=qoutes_share.information.bgcolor%>;color:<%=qoutes_share.information.color%>;
+         font-family:<%=qoutes_share.information.font_family%>">
+        <h3>informasi</h3>
+      <p>creator: <%=user_qoutes_share.username %></p>
+        <p>topik:<%=qoutes_share.information.type%></p>
+        <p>target:<%=qoutes_share.information.market_share%></p>
+        <p>tanggal:<%=qoutes_share.information.day%></p>
+        </div>
+        <h1 style="color:orange">komentar <%=coment_list.length %></h1>
+        <form action="/post-coment-data" method="post" class="coment-form">
+          <input type="hidden" value="<%=user.email%>" name="user_email">
+          <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
+          <input type="text" name="coment_input" class="text-coment" placeholder="tulis komnetarmu">
+          <button class="btn-post-coment" type="submit">kirim</button>
+        </form>
+        <div class="coment-list" style="margin-top:60px;">
+        <% coment_list.forEach(coment => { %>
+         <div class="coment-card">
+          <h3><%=coment.username%></h3>
+          <p><%=coment.value%></p>
+         </div>
+
+        <% }) %>
+        </div>
+       
+
+
+
+
+       </div>
+
+
+  <%}%>
     <script>
-     
+    const styling={
+       input:{
+        color:document.getElementById('color-input'),
+        bgcolor:document.getElementById('bgcolor-share-input')
+       },
+       output:{
+        text:document.getElementById('text-input')
+       }
+    }
+styling.input.color.addEventListener('input',function(){
+  styling.output.text.style.color=styling.input.color.value
+})
+styling.input.bgcolor.addEventListener('input',function(){
+  styling.output.text.style.backgroundColor=styling.input.bgcolor.value
+})
+
+
     </script>
 </body>
 </html>

@@ -6,10 +6,10 @@ const {qoutes,coments,url}=require(process.env.router)
 const {hours,day}=require(process.env.time)
 const {ambilTigaKataPertama}=require(process.env.teks)
 
-function post_qoutes(data){
+function post_qoutes(data,qoutes_type,qoutes_id){
   const qoutes_data={
     qoutes_email:data.email,
-    qoutes_id:`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}WrBy${data.email}`,
+    qoutes_id:`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}WrBy${data.email}Type${qoutes_type}`,
     information:{
        time:`${hours.h}:${hours.m}`,
        day: `${day.d}/${day.m}/${day.y}`,
@@ -18,7 +18,9 @@ function post_qoutes(data){
        font_size:data.fontSize,
        font_family:data.fontFamily,
        market_share:data.market_share,
-       type:data.type_get
+       type:data.type_get,
+       qoutes_type:qoutes_type,
+       qoutes_id:qoutes_id
     },
     qoutes_value:data.qoutes_value
   }
@@ -88,7 +90,15 @@ function get_searchUserProduct(products, key_word) {
   );
   return product_get;
 }
+function qoutes_list_in(data){
+const qoutes_filter=qoutes.filter(data=>data.qoutes_id !=data.qoutes)
+const  qoutes_email_filter=qoutes_filter.filter(data=>data.qoutes_email !=data.user)
 
+return qoutes_email_filter
+
+
+
+}
 
 
 module.exports = {
@@ -98,5 +108,6 @@ module.exports = {
   qoutes_get,
   get_userProductList,
   get_searchUserProduct,
-  get_productNav
+  get_productNav,
+  qoutes_list_in
 };

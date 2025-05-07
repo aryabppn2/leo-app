@@ -12,6 +12,9 @@
       font-weight: bold;
       font-family: "arial";
     }
+    *{
+      font-size: 20px
+    }
 
     a {
       text-decoration: none;
@@ -28,9 +31,11 @@
 
     .search-text {
       width: 80.8%;
-      height: 45px;
+      height: 55px;
       border-radius: 19px;
       border: 0px;
+      font-size: 25p    m
+      
     }
 
     .btn-search {
@@ -107,6 +112,7 @@
     .btn-chat-bar{
       width:48.6%;
       height:50px;
+      font-size: 20px;
       border:0px
     }
     .btn-bar,.btn-chat-bar{
@@ -114,13 +120,18 @@
     }
     .chat-body{
       height:500px;
+      width:100%;
       overflow-y: auto;
       background-color: lightyellow;
+
     }
     .user-card,.reciepent-card{
         height:100px;
+        width:100%;
+        overflow-y: auto;
         margin-top: 17px;
         border-radius: 19px;
+        scrollbar-width:none;
     }
     .user-card{
       background-color: lightgreen;
@@ -134,6 +145,8 @@
     }
     .chat-user,.chat-others{
         height:67px;
+        width:100%;
+        scrollbar-width: none;
         overflow-y: auto;
         border-radius: 19px;
         margin-top:19px;
@@ -164,8 +177,11 @@
        height: 250px;
        margin-left:0px;
        overflow-y: auto;
-       margin-left:19px;
+       margin-left:0px;
        scrollbar-width:none;
+    }
+    .user-card{
+      margin-left: 0px;
     }
    }
 
@@ -250,7 +266,7 @@
      <% if (data.information.type=='chat-text') { %>
       <div class="user-card">
         <h3><%=data.reciepent.name%></h3>
-        <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>">
+ ;;       <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>">
           <p><%=data.chat.chat_value%></p>
         </a>
        </div>
@@ -378,7 +394,7 @@
 
     </div>
 
-    <%}else if(page=='chat-open-send'){%>
+    <%}else if(page=='chat-open'){%>
    <div>
     <a href="/delete-chat/<%=user.email%>/<%=chat.chat.room%>">
       <button class="btn-bar" style="background-color: aliceblue;color:red">hapus</button>
@@ -391,25 +407,33 @@
      </a>
    </div>
    <div class="chat-body">
+ <% if (chat.user.address==user.email) { %>
   <div class="chat-user">
     <h3><%=chat.chat.chat_value%></h3>
   </div>
+ <% }else{ %>
+  <div class="chat-others">
+    <h3><%=chat.chat.chat_value%></h3>
+  </div>
+
+  <%}%>
   <% chat_list.forEach(chat => { %>
-   <% if (user.email==chat.email) { %>
-    <div class="chat-user">
-      <h3><%=chat.value %></h3>
+    <% if (user.email==chat.email) { %>
+     <div class="chat-user">
+       <h3><%=chat.value %></h3>
+     </div>
+ 
+    <% }else{ %>
+    <div class="chat-others">
+     <h3><%=chat.value %></h3>
     </div>
-
-   <% }else{ %>
-   <div class="chat-others">
-    <h3><%=chat.value %></h3>
-   </div>
-
-    <%}%>
-
-
-  <% }) %>
-
+ 
+     <%}%>
+ 
+ 
+   <% }) %>
+ 
+  
   </div>
   <form action="/send-chat" method="post" class="search-form">
     <input type="hidden" value="<%=user.email%>" name="user_email">
@@ -417,201 +441,9 @@
     <input type="text" name="chat_text" placeholder="isi chat" class="search-text">
     <button class="btn-search">kirim</button>
    </form>
-
-    <%}else if(page=='chat-open-accept'){%>
-      <div>
-        <a href="/delete-chat/<%=user.email%>/<%=chat.chat.room%>">
-          <button class="btn-bar" style="background-color: aliceblue;color:red">hapus</button>
-         </a>
-        <a href="/chat-accept-list/<%=user.email%>">
-          <button class="btn-bar" style="background-color:lightgreen;color:black"><%=user.username%></button>
-         </a>
-         <a href="/open-navigation/<%=user.email%>/<%=sender.email%>">
-          <button class="btn-chat-bar"style='background-color:orange;color:aliceblue'><%=sender.username%></button>
-         </a>
-       </div>
-       <div class="chat-body">
-        <div class="chat-others">
-          <h3><%=chat.chat.chat_value%></h3>
-        </div>
-        <% chat_list.forEach(chat => { %>
-          <% if (user.email==chat.email) { %>
-           <div class="chat-user">
-             <h3><%=chat.value %></h3>
-           </div>
-       
-          <% }else{ %>
-          <div class="chat-others">
-           <h3><%=chat.value %></h3>
-          </div>
-       
-           <%}%>
-       
-       
-         <% }) %>
-
-       </div>
-       <form action="/send-chat" method="post" class="search-form">
-        <input type="hidden" value="<%=user.email%>" name="user_email">
-        <input type="hidden" value="<%=chat.chat.room%>" name="room">
-        <input type="text" name="chat_text" placeholder="isi chat" class="search-text">
-        <button class="btn-search">kirim</button>
-       </form>
-
-      <%}else if(page=='chat-share-send'){ %>
-        <div>
-          <a href="/delete-chat/<%=user.email%>/<%=chat.chat.room%>">
-            <button class="btn-bar" style="background-color: aliceblue;color:red">hapus</button>
-           </a>
-          <a href="/chat-accept-list/<%=user.email%>">
-            <button class="btn-bar" style="background-color:lightgreen;color:black"><%=user.username%></button>
-           </a>
-           <a href="/open-navigation/<%=user.email%>/<%=reciepent.email%>">
-            <button class="btn-chat-bar"style='background-color:orange;color:aliceblue'><%=reciepent.username%></button>
-           </a>
-           <div class="qoutes-body" style="background-color:<%=qoutes.information.bgcolor%>">
-              <a href="/open-navigation/<%=user.email%>/<%=user_qoutes.email%>">
-                <p style="color:<%=qoutes.information.color%>">creator:<%=user_qoutes.username%></p>
-              </a>
-              <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-                <h2  style="color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></h2>
-              </a>
-           </div>
-           </div>
-        <div class="chat-body" style="height: 200px;">
-           <div class="chat-user"><h3><%=chat.chat.chat_value%></h3></div>
-           <% chat_list.forEach(chat => { %>
-            <% if (user.email==chat.email) { %>
-              <div class="chat-user">
-                <h3><%=chat.value %></h3>
-              </div>
-          
-             <% }else{ %>
-             <div class="chat-others">
-              <h3><%=chat.value %></h3>
-             </div>
-          
-              <%}%>
-
-
-           <% }) %>
-        </div>
-        <form action="/send-chat" method="post" class="search-form">
-          <input type="hidden" value="<%=user.email%>" name="user_email">
-          <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
-          <input type="hidden" value="<%=chat.chat.room%>" name="room">
-          <input type="text" name="chat_text" placeholder="isi chat" class="search-text">
-          <button class="btn-search">kirim</button>
-         </form>
-<%}else if(page=='chat-share-reciepent'){%>
-  <div>
-    <a href="/delete-chat/<%=user.email%>/<%=chat.chat.room%>">
-      <button class="btn-bar" style="background-color: aliceblue;color:red">hapus</button>
-     </a>
-    <a href="/chat-accept-list/<%=user.email%>">
-      <button class="btn-bar" style="background-color:lightgreen;color:black"><%=user.username%></button>
-     </a>
-     <a href="/open-navigation/<%=user.email%>/<%=reciepent.email%>">
-      <button class="btn-chat-bar"style='background-color:orange;color:aliceblue'><%=reciepent.username%></button>
-     </a>
-     <div class="qoutes-body" style="background-color:<%=qoutes.information.bgcolor%>">
-        <a href="/open-navigation/<%=user.email%>/<%=user_qoutes.email%>">
-          <p style="color:<%=qoutes.information.color%>">creator:<%=user_qoutes.username%></p>
-        </a>
-        <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-          <h2 style="color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></h2>
-        </a>
-     </div>
-     </div>
-     <div class="chat-body" style="height: 200px;">
-      <div class="chat-others"><h3><%=chat.chat.chat_value%></h3></div>
-      <% chat_list.forEach(chat => { %>
-       <% if (user.email==chat.email) { %>
-         <div class="chat-user">
-           <h3><%=chat.value %></h3>
-         </div>
      
-        <% }else{ %>
-        <div class="chat-others">
-         <h3><%=chat.value %></h3>
-        </div>
-     
-         <%}%>
-
-
-      <% }) %>
-   </div>
-
-   <form action="/send-chat" method="post" class="search-form">
-    <input type="hidden" value="<%=user.email%>" name="user_email">
-    <input type="hidden" value="<%=chat.chat.room%>" name="room">
-    <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
-    <input type="text" name="chat_text" placeholder="isi chat" class="search-text">
-    <button class="btn-search">kirim</button>
-   </form>  
-
-
-   <%}else if(page=='qoutes-share'){%>
-<form action="/search-user-friends" method="post">
-  <input type="hidden" value="<%=user.email%>" name="user_email" class="search-form">
-  <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
-  <input type="text" text="<%=text_search%>" class="search-text" placeholder="cari siapa">
-  <button class="btn-search">cari</button>
-</form>
-<div class="bar" style="text-align: center;margin-top: 12px;">
-  <a href="/share-qoutes/<%=user.email%>/<%=qoutes.qoutes_id%>">
-    <button class="btn-bar-selected" style="width:48.2%">private</button>
-  </a>
-  <a href="/get-new-public-share/<%=user.email%>/<%=qoutes.qoutes_id%>">
-    <button class="btn-bar" style="width:48.2%">public</button>
-  </a>
-  <div class="qoutes-body" style="background-color:<%=qoutes.information.bgcolor%>">
-    <a href="/open-navigation/<%=user.email%>/<%=user_qoutes.email%>">
-      <b style="color:<%=qoutes.information.color%>">creator:<%=user_qoutes.username%></b>
-    </a>
-    <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-      <h2 style="color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></h2>
-    </a>
-  </div>
-</div>
-<div class="body-navigator" style="height:410px;">
-<% user.langganan.forEach(data => { %>
- <div class="user-card">
-  <h3><%=data.user%></h3>
-  <a href="/get-share-qoutes/<%=user.email%>/<%=data.email%>/<%=qoutes.qoutes_id%>">
-    <button class="btn-share">share</button>
-  </a>
- </div>
-<% }) %>
-<% user.pelanggan.forEach(data => { %>
-  <div class="user-card">
-    <h3><%=data.user%></h3>
-    <a href="/get-share-qoutes/<%=user.email%>/<%=data.email%>/<%=qoutes.qoutes_id%>">
-      <button class="btn-share">share</button>
-    </a>
-   </div>
-<% }) %>
-
-</div>
-    <%}else if(page=='qoutes-share-chat'){%>
-      <div>
-        <a href="/get-chat-open/<%=user.email%>">
-         <button class="btn-chat-bar" style="background-color:lightgreen;color:black"><%=user.username%></button>
-        </a>
-        <a href="/open-navigation/<%=user.email%>/<%=reciepent.email%>">
-         <button class="btn-chat-bar"style='background-color:orange;color:aliceblue'><%=reciepent.username%></button>
-        </a>
-      </div>
-      <div class="chat-body" style="background-color:<%=qoutes.information.bgcolor%>;text-align:center">
-        <p style="color:<%=qoutes.information.color%>">creator:<%=user_qoutes.username%></p>
-        <h2 style="color:<%=qoutes.information.color%>"><%=qoutes.qoutes_value%></h2>
-      </div>
-      <form action="/create-chat-share" method="post" class="search-form">
-        <input type="hidden" value="<%=user.email%>" name="user_email">
-        <input type="hidden" value="<%=reciepent.email%>" name="reciepent_email">
-        <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
-        <input type="text" class="search-text" placerholder="isi chat" name="chat_text">
-        <button class="btn-search">kirim </button>
-      </form>
     <%}%>
+     
+</body>
+
 </html>
