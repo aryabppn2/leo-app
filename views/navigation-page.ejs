@@ -10,7 +10,7 @@
       background-color: #F5F5DC;
       font-weight: bold;
       font-family: 'arial';
-      text-align: center;
+      
       
     }
 
@@ -18,20 +18,47 @@
       text-decoration: none;
     }
 
+.navigation-bar{
+  width:100%;
+  height: 100%;
+  display: flex;
+}
+
+
+.username-field {
+      border-radius:100px;
+      width: 70px;
+      height: 70px;
+      margin-top: 12px;
+      border: 0px;
+      font-size: 50px;
+
+    }
     .search-form {
-      width: 92.9%;
+      width: 81.9%;
       height: 49px;
       margin-bottom: 12px;
       border-radius: 19px;
       background-color: aliceblue;
+      margin-top: 40px;
+      margin-left: 12px;
 
     }
 
     .search-text {
-      width: 80.8%;
+      width: 72.8%;
       height: 45px;
       border-radius: 19px;
       border: 0px;
+      font-size: 20px;
+    }
+    .search-btn{
+      width:12.3%;
+      height: 43px;
+      border:0px;
+      background-color: aliceblue;
+      color:orange;
+      border-radius: 20px;
       font-size: 20px;
     }
 
@@ -82,32 +109,35 @@
     .search-text,
     .btn-src {
       background-color: aliceblue;
-      color: black;
+      color: orange;
       font-weight: bold;
     }
 
     .btn-bar,
     .btn-bar-selected {
-      width: 32.3%;
-      height: 50px;
+      width: 20.2%;
+      height: 40px;
       border: 0px;
       overflow-x: auto;
       margin-top: 10px;
-      font-size: 25px;
+      font-size: 20px;
       color:rgb(243, 232, 211);
       font-weight: bold;
+      border-radius:20px;
+      margin-left: 12px;
     
 
     }
 
     .btn-bar {
-      background-color: #E1C16E;
+      background-color:orange;
       color:rgb(229, 226, 219)
+
     }
 
     .btn-bar-selected {
       background-color: aliceblue;
-      color: blue;
+      color:orange;
     }
 
     
@@ -125,11 +155,21 @@
       color:orange;
    
     }
-
+.user-card{
+  width:98.9%;
+  height: 100px;
+  margin-top: 20px;
+  text-align: center;
+  margin-left: 100px;
+}
     
+.user-card>.username-field,.btn-bar,.btn-visitor{
+  margin-top:35px;
+}
+
     .btn-visitor {
-      width: 43.9%;
-      height: 40px;
+      width: 20.9%;
+      height: 50px;
       font-weight: bold;
       border: 0px;
       border-radius: 19px;
@@ -137,6 +177,7 @@
       background-color: orange;
       color: blue;
       margin-bottom: 7px;
+      margin-left: 20%;
 
     }
 
@@ -157,6 +198,7 @@
   .qoutes-card{
      width:100%;
      height: 400px;
+
   }
  
   .user-body-navigator{
@@ -177,6 +219,14 @@
 
    
     }
+    .username-field {
+        width: 90px;
+        height: 90px;
+      }
+      .btn-bar,.btn-bar-selected{
+        width:100px;
+        height: 50px;
+      }
 
 }
 
@@ -186,22 +236,26 @@
 <body>
  
     <%if (page=='qoutes-list') { %>
-      <form action="/search-qoutes-list" method="post" class="search-form">
-        <input type="hidden" value="<%=user.email%>" name="user_email">
-        <input type="text" name="search_input" class="search-text" placeholder="cari apa" value="<%=search_text%>">
-        <button class="btn-src">cari</button>
-      </form>
-     <div style="margin-top: 12px;text-align: center;">
-      <a href="/first-page/<%=user.email%>">
-        <button class="btn-bar" ><%=user.username[0]%><%=user.username[1] %></button>
-      </a>
-      <a href="/product-navigation/<%=user.email%>">
-        <button class="btn-bar-selected">navigasi</button>
-      </a>
-      <a href="/others-user/<%=user.email%>">
-        <button class="btn-bar">orang </button>
+      <div class="navigation-bar">
+     <div>
+      <a href="/first-page/<%=user.email %>">
+        <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>">
+          <%=user.username[0] %>
+        </button>
       </a>
      </div>
+     <form action="/search-qoutes-list" method="post" class="search-form">
+      <input type="hidden" value="<%=user.email %>" name="user_email">
+      <input type="text" class="search-text" name="search_input" placeholder="cari apa" value="<%=search_text %>">
+      <button class="search-btn">cari</button>
+     </form>
+      </div>
+      <a href="/product-navigation/<%=user.email %>">
+        <button class="btn-bar-selected">qoutes</button>
+      </a>
+      <a href="/others-user/<%=user.email %>">
+        <button class="btn-bar">orang</button>
+      </a>
     <div class="qoutes-body-navigator">
       <% product_data.forEach(qoutes=> { %>
         <% if (qoutes.information.qoutes_type=="qoutes") { %>
@@ -232,34 +286,38 @@
     </div>
   
     <% }else if(page=='user-nav' ){%>
-      <form action="/search-user-list" method="post" class="search-form">
-        <input type="hidden" value="<%=user.email%>" name="user_email">
-        <input type="text" name="search_input" class="search-text" placeholder="cari siapa">
-        <button class="btn-src">cari</button>
-      </form>
-      <div>
-        <a href="/first-page/<%=user.email%>">
-          <button class="btn-bar"><%=user.username[0]%><%=user.username[1] %></button>
-        </a>
-        <a href="/product-navigation/<%=user.email%>">
-          <button class="btn-bar">qoutes</button>
-        </a>
-        <a href="/others-user/<%=user.email%>">
-          <button class="btn-bar-selected">orang</button>
-        </a>
+      <div class="navigation-bar">
+     <div>
+      <a href="/first-page/<%=user.email %>">
+        <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>">
+          <%=user.username[0] %>
+        </button>
+      </a>
+     </div>
+     <form action="/search-user-list" method="post" class="search-form">
+      <input type="hidden" value="<%=user.email %>" name="user_email">
+      <input type="text" class="search-text" name="search_input" placeholder="cari apa" value="<%=search_text%>">
+      <button class="search-btn">cari</button>
+     </form>
       </div>
+      <a href="/product-navigation/<%=user.email %>">
+        <button class="btn-bar">qoutes</button>
+      </a>
+      <a href="/others-user/<%=user.email %>">
+        <button class="btn-bar-selected">orang</button>
+      </a>
       <div class="user-body-navigator">
         <% user_data.forEach(data=> { %>
           <div class="user-card">
-            <h2>
-              <%=data.username%>
-            </h2>
             
             <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-              <button class="btn-visitor">kunjungi</button>
+              <button class="username-field"
+               style="width:70px;height:70px;font-size:25px;
+               color:<%=data.style.color%>;background-color:<%=data.style.bgcolor%>;"><%=data.username[0] %></button>
             </a>
+           <button class="btn-bar" style="background-color: aliceblue;color:orange"><%=data.username %></button>
             <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
-              <button class="btn-visitor" style="background-color: rgb(147, 166, 182);">chat</button>
+              <button class="btn-visitor" style="background-color: rgb(239, 234, 205);">chat</button>
             </a>
           </div>
           <% }) %>
@@ -267,13 +325,16 @@
       <%}else if(page=='market-navigation' ){%>
         <div>
           <a href="/others-user/<%=user.email%>">
-            <button class="btn-bar">kembali</button>
+            <button class="btn-bar" style="width:50px;height: 50px;background-color: #F5F5DC;color:orange"><==</button>
           </a>
-          <a href="/get-new-chat/<%=user.email%>/<%=user_data.email%>">
-            <button class="btn-bar" style="overflow-x: auto;">
-              <%=user_data.username%>
-            </button>
-          </a>
+          <button class="username-field" style="background-color:<%=user_data.style.bgcolor%>;color:<%=user_data.style.color%>;
+          width:70px;height:70px;font-size:20px">
+            <%=user_data.username[0] %>
+          </button>
+          <button class="btn-bar" style="background-color:#F5F5DC;color:orange;font-size:30px">
+            <%=user_data.username %>
+          </button>
+
           <% if (status=='langganan' ) { %>
             <a href="/delete-langganan-user/<%=user.email%>/<%=user_data.email%>">
               <button class="btn-bar" style="background-color: lightgrey;color:blue">tinggalkan</button>

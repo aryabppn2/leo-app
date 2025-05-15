@@ -19,10 +19,15 @@
     a {
       text-decoration: none;
     }
-
+.chat-bar{
+   display: flex;
+   width: 100%;
+  }
     .search-form {
-      width: 92.9%;
-      height: 45px;
+      width: 82.9%;
+      height: 55px;
+      margin-top: 40px;
+      margin-left: 20px;
       margin-bottom: 12px;
       border-radius: 19px;
       background-color: aliceblue;
@@ -37,7 +42,15 @@
       font-size: 25p    m
       
     }
+    .username-field {
+      border-radius: 100px;
+      width: 100px;
+      height: 100px;
+      margin-top: 12px;
+      border: 0px;
+      font-size: 50px;
 
+    }
     .btn-search {
       width: 12%;
       height: 45px;
@@ -63,16 +76,17 @@
 
     .btn-bar,
     .btn-bar-selected {
-      width: 23.2%;
+      width:25.1%;
       height: 50px;
+      margin-top: 40px;
       border: 0px;
       overflow-x: auto;
       font-weight: bold;
     }
 
     .btn-bar {
-      background-color: #E1C16E;
-      color: black
+      background-color: orange;
+      color:aliceblue
     }
 
     .btn-bar-selected {
@@ -87,7 +101,7 @@
     }
 
     .btn-chat,.btn-share {
-      width: 43.9%;
+      width: 24.9%;
       height: 40px;
       font-weight: bold;
       border: 0px;
@@ -100,13 +114,15 @@
     }
     .chat-body-navigator{
      display: flex;
+     margin-left:100px;
+
 
     }
     .chat-body-navigator>div{
-       width:540px;
+       width:450px;
        height: 500px;
        overflow-y: auto;
-       margin-left:19px;
+      
        scrollbar-width:none;
     }
     .btn-chat-bar{
@@ -126,16 +142,16 @@
 
     }
     .user-card,.reciepent-card{
-        height:100px;
-        width:100%;
-        overflow-y: auto;
+        height:120px;
+        width:91.2%;
         margin-top: 17px;
         border-radius: 19px;
         scrollbar-width:none;
+        margin-left: 12px;
     }
     .user-card{
       background-color: lightgreen;
-      color:blue;
+      color:orange;
       text-align: left;
     }
     .reciepent-card{
@@ -170,19 +186,62 @@
     .chat-body-navigator{
      display: block;
      height: 500px;
+     width:100%;
+     margin-left:0px;
+
 
     }
     .chat-body-navigator>div{
-       width:98.1%;
+       width:100%;
        height: 250px;
-       margin-left:0px;
        overflow-y: auto;
-       margin-left:0px;
        scrollbar-width:none;
+       margin-left: 0px;
     }
-    .user-card{
-      margin-left: 0px;
+   
+
+.chat-bar{
+   display:flex;
+   width: 100%;
+  }
+    .search-form {
+      width:90.9%;
+      height: 55px;
+      margin-top: 10px;
+      margin-left:1px;
+      margin-bottom: 12px;
+      border-radius: 19px;
+      background-color: aliceblue;
+      text-align: center;
     }
+
+    .search-text {
+      width: 76.8%;
+      height: 55px;
+      border-radius: 19px;
+      border: 0px;
+      font-size:25px;
+      color:orange;
+      
+    }
+    .username-field {
+      border-radius: 100px;
+      width: 50px;
+      height: 50px;
+      margin-top: 12px;
+      border: 0px;
+      font-size: 30px;
+
+    }
+    .btn-search {
+      width: 13%;
+      height: 45px;
+      border: 0px;
+      font-size: 20px;
+      color:orange
+    }
+   
+
    }
 
   </style>
@@ -190,18 +249,28 @@
 
 <body>
   <% if (page=='chat-list-open' ) { %>
-  <form action="/search-friends" method="post" class="search-form">
-    <input type="hidden" value="<%=user.email%>" name="user_email" />
-    <input type="text" value="<%=search_text%>" class="search-text" name="search_input" placeholder="cari siapa" />
-    <button class="btn-search">cari</button>
-  </form>
+  <div class="chat-bar">
+    <div>
+      <a href="/get-chat-list/<%=user.email %>">
+        <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>"><%=user.username[0] %></button>
+      </a>
+    </div>
+    <form action="/search-friends" method="post" class="search-form">
+      <input type="hidden" value="<%=user.email%>" name="user_email" />
+      <input type="text" value="<%=search_text%>" class="search-text" name="search_input" placeholder="cari siapa" />
+      <button class="btn-search">cari</button>
+    </form>
+  </div>
   <div class="chat-body-navigator">
     <div>
     <% pelanggan.forEach(user_data => { %>
     <div class="user-card">
-      <h2><%=user_data.user%></h2>
+    <button class="username-field" style="width:70px;height: 70px;font-size: 30px;margin-left: 12px;"><%=user_data.user[0]%></button>
       <a href="/get-new-chat/<%=user.email%>/<%=user_data.email%>">
-        <button class="btn-chat">mulai obrolan</button>
+        <button class="btn-chat">chat</button>
+      </a>
+      <a href="/get-new-call/<%=user.email%>/<%=user_data.email%>">
+        <button class="btn-chat">call</button>
       </a>
     </div>
     <% }) %> 
@@ -209,28 +278,38 @@
     <div>
     <%langganan.forEach(user_data => { %>
     <div class="user-card" style='background-color: #fffffb;'>
-      <h2><%=user_data.user%></h2>
+      <button class="username-field" style="width:70px;height: 70px;font-size: 30px;margin-left: 12px;"><%=user_data.user[0]%></button>
       <a href="/get-new-chat/<%=user.email%>/<%=user_data.email%>">
-        <button class="btn-chat">mulai obrolan</button>
+        <button class="btn-chat">chat</button>
+      </a>
+      <a href="/get-new-call/<%=user.email %>/<%=user_data.email %>">
+        <button class="btn-chat">call</button>
       </a>
     </div>
     <% }) %>
   </div>
   </div>
-  <div style="text-align:right;margin-top: 9px;">
-  <a href="/get-chat-list/<%=user.email%>">
-    <button class="btn-chat" style="background-color: #E1C16E;margin-top: 20px;height: 50px;">kembali</button>
-  </a>
-  </div>
   <%}else if(page=='chat-new-page'){%>
-<div>
-  <a href="/get-chat-open/<%=user.email%>">
-   <button class="btn-chat-bar" style="background-color:lightgreen;color:black"><%=user.username%></button>
+<div style="display: flex;width:100%">
+  <div style="width:50%">
+<a href="/get-chat-list/<%=user.email %>">
+    <button class="btn-bar" style="width:50px;height:50px;background-color:#f5f5dc;color:orange"><<</button>
   </a>
-  <a href="/open-navigation/<%=user.email%>/<%=reciepent.email%>">
-   <button class="btn-chat-bar"style='background-color:orange;color:aliceblue'><%=reciepent.username%></button>
-  </a>
+ 
+
 </div>
+<div style="width:50%;text-align: right;">
+<button class="btn-bar" style="text-align: right;background-color:#F5F5DC;color:orange;font-size: 25px;"><%=reciepent.username %></button>
+<a href="/open-navigation/<%=user.email %>/<%=reciepent.email %>">
+  <button class="username-field" style="background-color:<%=reciepent.style.bgcolor%>;color:<%=reciepent.style.color%>">
+    <%=reciepent.username[0] %>
+  </button>
+</a>
+</div>
+
+
+</div>
+
 <div class="chat-body">
   
 </div>
@@ -238,45 +317,41 @@
  <input type="hidden" value="<%=user.email%>" name="user_email">
  <input type="hidden" value="<%=reciepent.email%>" name="reciepent_email">
  <input type="text" name="chat_text" placeholder="mulailah obrolan dengan <%=reciepent.username%>" class="search-text">
- <button class="btn-search">kirim</button>
+ <button class="btn-search">send</button>
 </form>
  <%}else if(page=='chat-list'){%>
-  <form action="/search-chat-list" method="post" class="search-form">
-    <input type="hidden" value="<%=user.email%>" name="user_email" />
-    <input type="text" value="<%=search_text%>" class="search-text" name="search_input" placeholder="cari siapa" />
-    <button class="btn-search">cari</button>
-  </form>
-  <div>
-    <a href="/first-page/<%=user.email%>">
-      <button class="btn-bar">kemabali</button>
-    </a>
-    <a href="/get-chat-list/<%=user.email%>">
-      <button class="btn-bar-selected">semua</button>
-    </a>
-    <a href="/chat-send-list/<%=user.email%>">
-      <button class="btn-bar">kirim</button>
-    </a>
-    <a href="/chat-accept-list/<%=user.email%>">
-      <button class="btn-bar">masuk</button>
-    </a>
+ <div class="chat-bar" style="display: flex;">
+    <div>
+      <a href="/first-page/<%=user.email %>">
+        <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>"><%=user.username[0] %></button>
+      </a>
+    </div>
+    <form action="/search-friends" method="post" class="search-form" style="200px">
+      <input type="hidden" value="<%=user.email%>" name="user_email" />
+      <input type="text" value="<%=search_text%>" class="search-text" name="search_input"
+      style="width:80.2%"
+      placeholder="cari siapa" />
+      <button class="btn-search">cari</button>
+    </form>
+  </div>
+  <div style="text-align: center;">
+  <a href="/get-chat-open/<%=user.email%>">
+    <button class="btn-chat-new">mulai obrolan baru</button>
+  </a>
   </div>
   <div class="chat-body-navigator">
     <div>
     <% chat.send.forEach(data=> { %>
      <% if (data.information.type=='chat-text') { %>
-      <div class="user-card">
-        <h3><%=data.reciepent.name%></h3>
- ;;       <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>">
-          <p><%=data.chat.chat_value%></p>
-        </a>
+      <div class="user-card" style="background-color:lawngreen;">
+        <button class="username-field" style="width:70px;height: 70px;"><%=data.reciepent.name[0]%></button>
+        <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>" style="color:black;margin-left: 20px;"><%=data.chat.chat_value %></a>
        </div>
   
      <% }else{ %>
-      <div class="user-card" style="background-color: greenyellow;">
-        <h3><%=data.reciepent.name%></h3>
-        <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>">
-          <p style="color:darkkhaki">share qoutes</p>
-        </a>
+      <div class="user-card" style="background-color:lawngreen;">
+        <button class="username-field" style="width:70px;height: 70px;"><%=data.reciepent.name[0]%></button>
+        <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>/<%=data.chat.qoutes_id %>" style="color:black;margin-left: 20px;">komentar atas qoutes</a>
        </div>
     <%}%>
 
@@ -287,18 +362,23 @@
     <% chat.accept.forEach(data=> { %>
       <% if (data.information.type=='chat-text') { %>
         <div class="reciepent-card">
-          <h3><%=data.user.name%></h3>
-          <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>">
-            <p><%=data.chat.chat_value%></p>
+           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>" style="color:aliceblue;margin-right: 12px;">
+          <%=data.chat.chat_value %>
           </a>
+          <button class="username-field" style="width:70px;height: 70px;" >
+            <%=data.reciepent.name[0]%>
+          </button>
+         
          </div>
     
        <% }else{ %>
-        <div class="reciepent-card" style="background-color:gray;">
-          <h3><%=data.user.name%></h3>
-          <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>">
-            <p style="color:aqua">share qoutes</p>
+        <div class="reciepent-card">
+           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>" style="color:aliceblue;margin-right: 12px;">
+            share qoutes
           </a>
+          <button class="username-field" style="width:70px;height: 70px;" >
+            <%=data.user.name[0] %>
+          </button>
          </div>
       <%}%>
 
@@ -306,106 +386,144 @@
         </div>
   </div>
   <div style="text-align: center;">
-  <a href="/get-chat-open/<%=user.email%>">
-    <button class="btn-chat-new">mulai obrolan baru</button>
-  </a>
+    <a href="/get-chat-list/<%=user.email %>">
+      <button class="btn-bar-selected">chat</button>
+    </a>
+    <a href="/chat-send-list/<%=user.email %>">
+      <button class="btn-bar">kirim</button>
+    </a>
+    <a href="/chat-accept-list/<%=user.email %>">
+      <button class="btn-bar">masuk</button>
+    </a>
   </div>
   <%}else if(page=='chat-send-list'){%>
-    <form action="/search-chat-send" method="post" class="search-form">
-      <input type="hidden" value="<%=user.email%>" name="user_email" />
-      <input type="text" value="<%=search_text%>" class="search-text" name="search_input" placeholder="cari siapa" />
-      <button class="btn-search">cari</button>
-    </form>
+    <div class="chat-bar" style="display: flex;">
     <div>
-      <a href="/first-page/<%=user.email%>">
-        <button class="btn-bar">kemabali</button>
-      </a>
-      <a href="/get-chat-list/<%=user.email%>">
-        <button class="btn-bar">semua</button>
-      </a>
-      <a href="/chat-send-list/<%=user.email%>">
-        <button class="btn-bar-selected">kirim</button>
-      </a>
-      <a href="/chat-accept-list/<%=user.email%>">
-        <button class="btn-bar">masuk</button>
+      <a href="/first-page/<%=user.email %>">
+        <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>"><%=user.username[0] %></button>
       </a>
     </div>
-    <div class="body-navigator">
+    <form action="/search-chat-send" method="post" class="search-form">
+      <input type="hidden" value="<%=user.email%>" name="user_email" />
+      <input type="text" value="<%=search_text%>" class="search-text" name="search_input"
+      style="width:80.2%"
+      placeholder="cari siapa" />
+      <button class="btn-search">cari</button>
+    </form>
+  </div>
+    <div class="chat-body">
     <% chat.forEach(data=> { %>
       <% if (data.information.type=='chat-text') { %>
-        <div class="user-card">
-          <h3><%=data.reciepent.name%></h3>
-          <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>">
-            <p><%=data.chat.chat_value%></p>
+         <div class="user-card">
+          <button class="username-field" style="width:70px;height: 70px;" >
+            <%=data.reciepent.name[0]%>
+          </button>
+          <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>" style="color:aliceblue">
+            <%=data.chat.chat_value %>
           </a>
          </div>
-    
        <% }else{ %>
-        <div class="user-card" style="background-color: greenyellow;">
-          <h3><%=data.reciepent.name%></h3>
-          <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>">
-            <p style="color:darkkhaki">share qoutes</p>
+         <div class="user-card">
+          <button class="username-field" style="width:70px;height: 70px;" >
+            <%=data.reciepent.name[0]%>
+          </button>
+          <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id %>" style="color:aliceblue">
+          qoutes koment
           </a>
          </div>
       <%}%>
      <% }) %>
     </div>
+    <div style="text-align: center;">
+    <a href="/get-chat-list/<%=user.email %>">
+      <button class="btn-bar">chat</button>
+    </a>
+    <a href="/chat-send-list/<%=user.email %>">
+      <button class="btn-bar-selected">kirim</button>
+    </a>
+    <a href="/chat-accept-list/<%=user.email %>">
+      <button class="btn-bar">masuk</button>
+    </a>
+  </div>
   <%}else if(page=='chat-accept-list'){%>
-    <form action="/search-chat-accept" method="post" class="search-form">
-      <input type="hidden" value="<%=user.email%>" name="user_email" />
-      <input type="text" value="<%=search_text%>" class="search-text" name="search_input" placeholder="cari siapa" />
-      <button class="btn-search">cari</button>
-    </form>
+    <div class="chat-bar" style="display: flex;">
     <div>
-      <a href="/first-page/<%=user.email%>">
-        <button class="btn-bar">kemabali</button>
-      </a>
-      <a href="/get-chat-list/<%=user.email%>">
-        <button class="btn-bar">semua</button>
-      </a>
-      <a href="/chat-send-list/<%=user.email%>">
-        <button class="btn-bar">kirim</button>
-      </a>
-      <a href="/chat-accept-list/<%=user.email%>">
-        <button class="btn-bar-selected">masuk</button>
+      <a href="/first-page/<%=user.email %>">
+        <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>"><%=user.username[0] %></button>
       </a>
     </div>
-    <div class="body-navigator">
+    <form action="/search-chat-accept" method="post" class="search-form" >
+      <input type="hidden" value="<%=user.email%>" name="user_email" />
+      <input type="text" value="<%=search_text%>" class="search-text" name="search_input"
+      style="width:80.2%"
+      placeholder="cari siapa" />
+      <button class="btn-search">cari</button>
+    </form>
+  </div>
+    <div class="chat-body">
       <% chat_accept.forEach(data=> { %>
         <% if (data.information.type=='chat-text') { %>
           <div class="reciepent-card">
-            <h3><%=data.reciepent.name%></h3>
-            <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>">
-              <p><%=data.chat.chat_value%></p>
-            </a>
-           </div>
+           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>" style="color:aliceblue;margin-right: 12px;">
+            <%=data.chat.chat_value %>
+          </a>
+
+          <button class="username-field" style="width:70px;height: 70px;" >
+            <%=data.reciepent.name[0]%>
+          </button>
+          
+         </div>
       
          <% }else{ %>
-          <div class="reciepent-card" style="background-color:gray;">
-            <h3><%=data.reciepent.name%></h3>
-            <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>">
-              <p style="color:aqua">share qoutes</p>
-            </a>
-           </div>
+          <div class="reciepent-card">
+            <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id %>" style="color:aliceblue;margin-right: 12px;">
+            qoutes koment
+          </a>
+          <button class="username-field" style="width:70px;height: 70px;" >
+            <%=data.reciepent.name[0]%>
+          </button>
+          
+         </div>
         <%}%>
 
 
        <% }) %>
 
     </div>
+     <div style="text-align: center;">
+    <a href="/get-chat-list/<%=user.email %>">
+      <button class="btn-bar">chat</button>
+    </a>
+    <a href="/chat-send-list/<%=user.email %>">
+      <button class="btn-bar">kirim</button>
+    </a>
+    <a href="/chat-accept-list/<%=user.email %>">
+      <button class="btn-bar-selected">masuk</button>
+    </a>
+  </div>
 
     <%}else if(page=='chat-open'){%>
-   <div>
-    <a href="/delete-chat/<%=user.email%>/<%=chat.chat.room%>">
-      <button class="btn-bar" style="background-color: aliceblue;color:red">hapus</button>
-     </a>
-    <a href="/chat-send-list/<%=user.email%>">
-      <button class="btn-bar" style="background-color:lightgreen;color:black"><%=user.username%></button>
-    </a>
-     <a href="/open-navigation/<%=user.email%>/<%=reciepent.email%>">
-      <button class="btn-chat-bar"style='background-color:orange;color:aliceblue'><%=reciepent.username%></button>
-     </a>
-   </div>
+   <div style="display: flex;width:100%">
+  <div style="width:50%">
+<a href="/get-chat-list/<%=user.email %>">
+  <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>">
+    <%=user.username[0] %>
+  </button>
+</a>
+<button class="btn-bar" style="text-align: left;background-color:#F5F5DC;color:lightgreen;font-size:25px;">
+  <%=user.username %>
+</button>
+</div>
+<div style="width:50%;text-align: right;">
+<button class="btn-bar" style="text-align: right;background-color: #F5F5DC;color:orange;font-size: 25px;"><%=reciepent.username%></button>
+<a href="/open-navigation/<%=user.email %>/<%=reciepent.email %>">
+  <button class="username-field" style="background-color:<%=reciepent.style.bgcolor%>;color:<%=reciepent.style.color%>">
+    <%=reciepent.username[0] %>
+  </button>
+</a>
+</div>
+
+</div>
    <div class="chat-body">
  <% if (chat.user.address==user.email) { %>
   <div class="chat-user">
@@ -441,7 +559,9 @@
     <input type="text" name="chat_text" placeholder="isi chat" class="search-text">
     <button class="btn-search">kirim</button>
    </form>
-     
+     <a href="/delete-chat/<%=user.email %>/<%=chat.chat.room %>">
+      <p style="color:red">hapus</p>
+     </a>
     <%}%>
      
 </body>

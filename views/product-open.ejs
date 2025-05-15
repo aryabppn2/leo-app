@@ -15,6 +15,15 @@
     a {
       text-decoration: none;
     }
+     .username-field {
+      border-radius: 100px;
+      width: 100px;
+      height: 100px;
+      margin-top: 12px;
+      border: 0px;
+      font-size: 50px;
+
+    }
 
     .qoutes-information {
       width: 50%;
@@ -315,8 +324,9 @@
         <div class="coment-list" style="margin-top:60px;">
         <% coment_list.forEach(coment => { %>
          <div class="coment-card">
-          <h3><%=coment.username%></h3>
-          <p><%=coment.value%></p>
+          <button class="username-field" style="width:50px;height:50px;font-size: 30px;
+            "><%=coment.username[0] %></button><%=coment.username %>
+       <p> <%=coment.value%></p>
          </div>
 
         <% }) %>
@@ -348,7 +358,12 @@
     <div class="information-sign" style="background-color: <%=qoutes.information.bgcolor%>;color:<%=qoutes.information.color%>;
       font-family:<%=qoutes.information.font_family%>;height:230px">
         <h3>informasi</h3>
-        <p>creator:<%=user_qoutes.username%></p>
+        <button class="username-field" style="width:50px;height:50px;font-size: 30px;margin-left: 12px;
+        color:<%=user_qoutes.style.color%>;background-color:<%=user_qoutes.style.bgcolor%>
+        "><%=user_qoutes.username[0] %></button>
+         <a href="/open-navigation/<%=user.email %>/<%=user_qoutes.email%>" ">
+          <p style="margin-left:12px;color:<%=qoutes.information.color%>;"><%=user_qoutes.username %></p>
+         </a>
         <p>topik:<%=qoutes.information.type%></p>
         <p>target:<%=qoutes.information.market_share%></p>
         <p>tanggal:<%=qoutes.information.day%></p>
@@ -373,8 +388,9 @@
       <div class="coment-list" style="margin-top:60px;">
         <% coment_list.forEach(coment => { %>
          <div class="coment-card">
-          <h3><%=coment.username%></h3>
-          <p><%=coment.value%></p>
+          <button class="username-field" style="width:50px;height:50px;font-size: 30px;
+            "><%=coment.username[0] %></button><%=coment.username %>
+       <p> <%=coment.value%></p>
          </div>
 
         <% }) %>
@@ -401,23 +417,22 @@
   <button class="btn-post-coment">kirim</button>
 </form>
 <% } else if (title=="qoutes-chat-body") { %>
-  <div class="bar-btn">
-    <% if (chat.user.address==user.email) { %>
-     <a href="/get-chat-list/<%=user.email %>">
-      <button class="btn-user"><%=user.username %></button>
-     </a>
-     <a href="/open-navigation/<%=user.email%>/<%=user_qoutes.email %>">
-      <button class="btn-others"><%=user_qoutes.username%></button>
-     </a>
-    <% }else{ %>
-      <a href="/open-navigation/<%=user.email %>/<%=chat.user.address%>">
-        <button class="btn-user"><%=chat.user.name %></button>
-       </a>
-       <a href="/get-chat-list/<%=user.email%>">
-        <button class="btn-others"><%=user.username%></button>
-       </a>
-
-    <%}%>
+  <div class="bar-btn" style="text-align: left;display:flex;width:100%" >
+    <div class="user-btn" style="wisth:50%;">
+       <a href="/get-chat-list/<%=user.email %>" style="color:lightgreen" >
+      <button class="username-field"  style="width:50px;height:50px;font-size: 20px;margin-right: 12px;
+      background-color:<%=user.style.bgcolor%>;color:<%=user.style.color%>"><%=user.username[0]%></button>
+      <%=user.username %> 
+    </a>
+    </div>
+    <div style="text-align: right;width:50%;">
+      <a href="/open-navigation/<%=user.email%>/<%=reciepent.email %>" style="color:orange">
+         <%=reciepent.username %> 
+      <button  class="username-field" style="width:50px;height:50px;font-size: 20px;margin-left: 12px;
+      background-color:<%=reciepent.style.bgcolor%>;color:<%=reciepent.style.color%>"><%=reciepent.username[0]%></button>
+      
+    </a>
+    </div>
   </div>
   <div class="chat-body">
   <% if (chat.user.address==user.email) { %>

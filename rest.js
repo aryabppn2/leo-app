@@ -5,6 +5,7 @@ const http = express();
 const url = require("fs");
 const dotenv = require("dotenv");
 const path=require('path');
+const { receiveMessageOnPort } = require("worker_threads");
 //configurasi port//
 dotenv.config();
 const port =process.env.port;
@@ -115,7 +116,7 @@ http.post('/get-account-data',function(input,output){
     })
   }
   else{
-    output.redirect(`/first-page/${email_check.data.email}`)
+    output.redirect(`/product-navigation/${email_check.data.email}`)
   }
 
 })
@@ -336,7 +337,7 @@ http.get('/open-chat/:user/:room/:qoutes',function(input,output){
       title:'qoutes-chat-body',
       chat,qoutes,
       user:user_get(input.params.user)[0],
-      reciepent:user_get(chat.reciepent.address)[0],
+      reciepent:user_get(chat.user.address)[0],
       user_qoutes:user_get(qoutes.qoutes_email)[0],
       chat_list:get_chatList(input.params.room)
     })
@@ -507,6 +508,8 @@ http.post('/post-coment-data',function(input,output){
 
 
 })
+
+//call//
 
 
 

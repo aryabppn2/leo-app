@@ -9,6 +9,10 @@ function account_registered(account){
     	  location:account.location_input,
           bord:account.ttg_lahir,
           age:account.get_age,
+          style:{
+             bgcolor:'orange',
+             color:" #F5F5DC"
+          },
           langganan:[],
           pelanggan:[],
           service_list:[]
@@ -22,7 +26,10 @@ url.writeFileSync(process.env.user_db,JSON.stringify(users))
 
 function change_username(user){
     const get_user=users.filter(data=>data.email.includes(user.email_input))[0]
+
     get_user.username=user.username_input
+    get_user.style.bgcolor=user.bgcolor
+    get_user.style.color=user.color
     url.writeFileSync(process.env.user_db,JSON.stringify(users))
 }
 function  change_userHobi(data_input){
