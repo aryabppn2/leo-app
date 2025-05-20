@@ -412,6 +412,73 @@
   </div>
 
   <div class="body-navigator">
+    <!--call keluar-->
+   <% if (user.calls.reciepent=="") { %>
+    
+   <% }else {%>
+    <% if (user.calls.status=='calling-processing') { %>
+   <div class="qoutes-card" style="background-color: lightgreen;color:aliceblue">
+    <button class="username-field"><%=user.calls.reciepent.username[0] %></button>
+      <a href="/get-call-page/<%=user.email %>/<%=user.calls.reciepent.email %>"><h2>memanggil <%=user.calls.reciepent.username %>   </h2></a>
+   </div>    
+ 
+    <% }else if(user.calls.status=='calling-running'){ %>
+    <div class="qoutes-card" style="background-color: lightgreen;color:aliceblue">
+    <button class="username-field"><%=user.calls.reciepent.username[0] %></button>
+      <a href="/get-call-page/<%=user.email %>/<%=user.calls.reciepent.email %>">
+        <h2> ngobrol dengan <%=user.calls.reciepent.username %>   </h2>
+      </a>
+   </div> 
+    <%}%>
+
+
+    <%}%>
+
+<!--call-masuk-->
+
+<% if (user.calls.calling=="") { %>
+    
+   <% }else {%>
+    <% if (user.calls.status=='calling-processing') { %>
+   <div class="qoutes-card" style="background-color:orange;color:rgb(16, 25, 33)">
+    <button class="username-field"><%=user.calls.calling.username[0] %></button>
+      <h2> <%=user.calls.calling.username %>   manggil...</h2><br>
+       <a href="/call-accept/<%=user.email %>/<%=user.calls.calling.email %>">
+        <button class="btn-bar-option" style="width:31.3%;
+        background-color: #e1c16e;color:green">terima</button>
+       </a>
+       <a href="/call-rejected/<%=user.email %>">
+        <button class="btn-bar-option" style="width:31.3%;margin-left:12px;
+        background-color:rgb(212, 171, 171);color:red">tolak</button>
+       </a>
+   </div>    
+   <% } else if (user.calls.status=='rejected-process') { %>
+      <div class="qoutes-card" style="background-color:orange;color:rgb(16, 25, 33)">
+    <button class="username-field"><%=user.calls.calling.username[0] %></button>
+      <form action="/rejected-calls" method="post" style="margin-top:40px;">
+        <input type="hidden" name="user_email" value="<%=user.email%>">
+        <input type="hidden" name="calling_email" value="<%=user.calls.calling.email %>">
+        <input type="text" name="reject_reason" placeholder="asalan tolak" class="reject-text" style="width:200px;height: 50px;border:0px;
+        background-color: aliceblue;color:orange;font-weight: bold;font-size: 25px;">
+        <button class="btn-reject" style="width:70px;height: 50px;border:0px;
+        background-color: #b9b4a5;color:orange;font-size:25px;font-weight: 25px;">ok</button>
+      </form>
+   </div>    
+ 
+    <% }else if(user.calls.status=='calling-running'){ %>
+    <div class="qoutes-card" style="background-color: orange;color:aliceblue">
+    <button class="username-field"><%=user.calls.calling.username[0] %></button>
+      <a href="/get-call-page/<%=user.email %>/<%=user.calls.calling.email %>">
+        <h2>ngobroll dengan   <%=user.calls.calling.username %>  </h2>
+      </a>
+   </div> 
+    <%}%>
+
+
+    <%}%>
+
+
+
     <%user_product.forEach(data=>{%>
     <% if (data.information.qoutes_type=='qoutes' ) { %>
     <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
@@ -518,7 +585,7 @@
           </button>
         </a>
         <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor" style="background-color: lightyellow;overflow-y: auto;"><%=user.username %></button>
+          <button class="btn-visitor" style="background-color: lightyellow;overflow-y: auto;"><%=user.user %></button>
         </a>
       </div>
       <%})%>
@@ -565,7 +632,7 @@
           </button>
         </a>
         <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor" style="background-color: lightyellow;overflow-y: auto;"><%=user.username %></button>
+          <button class="btn-visitor" style="background-color: lightyellow;overflow-y: auto;"><%=user.user %></button>
         </a>
       </div>
       <%})%>
@@ -614,7 +681,7 @@
           </button>
         </a>
         <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor" style="background-color: lightyellow;overflow-y: auto;"><%=user.username %></button>
+          <button class="btn-visitor" style="background-color: lightyellow;overflow-y: auto;"><%=data.user %></button>
         </a>
       </div>
       <% }) %>
@@ -632,7 +699,7 @@
           </button>
         </a>
         <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor" style="background-color: lightyellow;overflow-y: auto;"><%=user.username %></button>
+          <button class="btn-visitor" style="background-color: lightyellow;overflow-y: auto;"><%=data.user %></button>
         </a>
       </div>
       <% }) %>

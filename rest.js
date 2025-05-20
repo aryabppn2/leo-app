@@ -9,7 +9,7 @@ const { receiveMessageOnPort } = require("worker_threads");
 //configurasi port//
 dotenv.config();
 const port =process.env.port;
-const {users}=require(process.env.router)
+const {users,chats}=require(process.env.router)
 http.set("view engine", "ejs");
 http.use(express.urlencoded({ extended: true }));
 http.use(express.static(path.join(__dirname, "public")));
@@ -53,6 +53,17 @@ const {
    get_chatList,
    delete_chat
 } = require(process.env.chat_coment_server)
+
+const {
+  get_callingProcess,
+  call_accept_open,
+  call_cancelled,
+   mic_setting,
+  end_call,
+  rejecting_processing,
+   calling_rejected
+}=require(process.env.CALL_SERVER)
+
 //open-app//
 http.get("/leo.com", function (input, output) {
   output.render("login-page", {
@@ -510,7 +521,95 @@ http.post('/post-coment-data',function(input,output){
 })
 
 //call//
+http.get('/get-new-call/:user/:reciepent',function(input,output){
+  const data={
+     user:user_get(input.params.user)[0],
+     reciepent:user_get(input.params.reciepent)[0]
+  }
+  get_callingProcess(data)
+ output.redirect(`/get-call-page/${data.user.email}/${data.reciepent.email}`)
+})
 
+http.get('/get-call-page/:user/:reciepent',function(input,output){
+  const data={
+      user:user_get(input.params.user)[0],
+     reciepent:user_get(input.params.reciepent)[0]
+  }
+ if(data.user.calls==''){
+    output.redirect(`/first-page/${data.user.email}`)
+ }
+ else {
+   if(data.user.calls.status=='calling-processing'){
+    output.render('call-page',{
+      page:'calling-processing',data
+     
+    })
+  }
+  else if(data.user.calls.status=='calling-running'){
+  output.render('call-page',{
+    page:'calling-running',data
+  })
+  }
+ }
+  
+})
+http.get('/call-canceled/:user/:reciepent',function(input,output){
+  const data={
+      user:user_get(input.params.user)[0],
+     reciepent:user_get(input.params.reciepent)[0]
+  }
+  
+  call_cancelled(data)
+ output.redirect(`/first-page/${data.user.email}`)
+})
+
+http.get('/call-rejected/:user',function(input,output){
+  const user=user_get(input.params.user)[0]
+  rejecting_processing(user)
+  output.redirect(`/first-page/${user.email}`)
+
+})
+
+http.get('/call-accept/:user/:calling',function(input,output){
+  const data={
+      user:user_get(input.params.user)[0],
+     calling:user_get(input.params.calling)[0]
+  }
+  call_accept_open(data)
+ output.redirect(`/get-call-page/${data.user.email}/${data.calling.email}`)
+  
+})
+http.get('/mic-setting/:user/:reciepent/:setting',function(input,output){
+ const data={
+    user:user_get(input.params.user)[0],
+    reciepent:user_get(input.params.reciepent)[0]
+ }
+  mic_setting(data.user,input.params.setting)
+  output.redirect(`/get-call-page/${data.user.email}/${data.reciepent.email}`)
+})
+
+http.get('/call-end/:user/:others',function(input,output){
+  const data={
+      user:user_get(input.params.user)[0],
+      reciepent:user_get(input.params.others)[0]
+  }  
+  end_call(data);
+  
+output.redirect(`/first-page/${data.user.email}`)
+
+
+})
+
+
+http.post('/rejected-calls',function(input,output){
+  const data={
+     user:user_get(input.body.user_email)[0],
+     calling:user_get(input.body.calling_email)[0]
+  }
+ calling_rejected(data,input.body)
+
+ output.redirect(`/first-page/${data.user.email}`)
+})
 
 
 
@@ -646,6 +745,9 @@ http.post('/send-chat',function(input,output){
   if(chat.information.type=='chat-text'){
     output.redirect(`/open-chat/${get_data.user_email}/${get_data.room}`)
   }
+  else if(chat.information.type=='call-record'){
+     output.redirect(`/open-chat/${get_data.user_email}/${get_data.room}`)
+  }
   else{
     output.redirect(`/open-chat/${get_data.user_email}/${get_data.room}/${get_data.qoutes_id}`)
   }
@@ -659,4 +761,4 @@ http.get('/delete-chat/:user/:room',function(input,output){
 
 http.listen(port, function () {
   console.log("berhasil terkoneksi dengan:localhost:" + port);
-});
+})

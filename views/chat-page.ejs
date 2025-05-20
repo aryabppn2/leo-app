@@ -108,7 +108,7 @@
       border-radius: 19px;
       margin-left: 19px;
       background-color: orange;
-      color: blue;
+      color: rgb(85, 55, 13);
       margin-bottom: 7px;
 
     }
@@ -135,14 +135,14 @@
       overflow-x: auto;
     }
     .chat-body{
-      height:500px;
+      height:360px;
       width:100%;
       overflow-y: auto;
       background-color: lightyellow;
 
     }
     .user-card,.reciepent-card{
-        height:120px;
+        height:200px;
         width:91.2%;
         margin-top: 17px;
         border-radius: 19px;
@@ -161,7 +161,7 @@
     }
     .chat-user,.chat-others{
         height:67px;
-        width:100%;
+        width:46.8%;
         scrollbar-width: none;
         overflow-y: auto;
         border-radius: 19px;
@@ -170,12 +170,13 @@
     .chat-user{
       text-align:left;
       background-color: lightgreen;
-      color:blue
+      color:green
     }
     .chat-others{
       background-color: orange;
       color:aliceblue;
       text-align: right;
+      margin-left:50.8%;
     }
     .qoutes-body{
       height: 200px;
@@ -198,7 +199,9 @@
        scrollbar-width:none;
        margin-left: 0px;
     }
-   
+   .chat-body{
+    height:500px;
+   }
 
 .chat-bar{
    display:flex;
@@ -265,20 +268,27 @@
     <div>
     <% pelanggan.forEach(user_data => { %>
     <div class="user-card">
-    <button class="username-field" style="width:70px;height: 70px;font-size: 30px;margin-left: 12px;"><%=user_data.user[0]%></button>
+     <div style="margin-bottom: 50px;">
+      <button class="username-field" style="width:70px;height: 70px;font-size: 30px;margin-left: 12px;"><%=user_data.user[0]%></button>
+       <span style="font-weight: bold;color:green;font-size: 25px;"><%=user_data.user %></span>
+     </div>
       <a href="/get-new-chat/<%=user.email%>/<%=user_data.email%>">
         <button class="btn-chat">chat</button>
       </a>
       <a href="/get-new-call/<%=user.email%>/<%=user_data.email%>">
         <button class="btn-chat">call</button>
       </a>
+      
     </div>
     <% }) %> 
     </div>
     <div>
     <%langganan.forEach(user_data => { %>
     <div class="user-card" style='background-color: #fffffb;'>
-      <button class="username-field" style="width:70px;height: 70px;font-size: 30px;margin-left: 12px;"><%=user_data.user[0]%></button>
+      <div style="margin-bottom: 50px;" >
+        <button class="username-field" style="width:70px;height: 70px;font-size: 30px;margin-left: 12px;"><%=user_data.user[0]%></button>
+        <span style="font-weight: bold;color:orange;font-size: 25px;"><%=user_data.user %></span>
+      </div>
       <a href="/get-new-chat/<%=user.email%>/<%=user_data.email%>">
         <button class="btn-chat">chat</button>
       </a>
@@ -342,15 +352,34 @@
   <div class="chat-body-navigator">
     <div>
     <% chat.send.forEach(data=> { %>
+      <!--panggilan keluar-->
      <% if (data.information.type=='chat-text') { %>
       <div class="user-card" style="background-color:lawngreen;">
-        <button class="username-field" style="width:70px;height: 70px;"><%=data.reciepent.name[0]%></button>
-        <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>" style="color:black;margin-left: 20px;"><%=data.chat.chat_value %></a>
+        <div style="margin-bottom: 50px;">
+          <button class="username-field" style="width:70px;height: 70px;"><%=data.reciepent.name[0]%></button>
+          <span style="color:green;font-weight: bold;font-size: 25px;"><%=data.reciepent.name %></span>
+        </div>
+        <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>" style="color:black;margin-left: 20px;">
+          <span style="color:green;font-size:25px;"><%=data.chat.chat_value %></span>
+        </a>
+       </div>
+       <% } else if ( data.information.type=='call-record') { %>
+        <div class="user-card" style="background-color: lawngreen;">
+          <div style="margin-bottom: 50px;">
+             <button class="username-field" style="width:70px;height: 70px;"><%=data.reciepent.name[0]%></button>
+            <span style="color:green;font-size:25px;font-weight:bold;"><%=data.reciepent.name %></span>
+          </div>
+          <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>" style="color:black;margin-left: 20px;">
+          <span style="color:green;font-size:25px;"><%=data.chat.chat_value %></span>
+        </a>
        </div>
   
      <% }else{ %>
       <div class="user-card" style="background-color:lawngreen;">
-        <button class="username-field" style="width:70px;height: 70px;"><%=data.reciepent.name[0]%></button>
+        <div class="margin-bottom:50px">
+          <button class="username-field" style="width:70px;height: 70px;"><%=data.reciepent.name[0]%></button>
+           <span style="color:green;font-size:25px;font-weight:bold;"><%=data.reciepent.name %></span>
+        </div>
         <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>/<%=data.chat.qoutes_id %>" style="color:black;margin-left: 20px;">komentar atas qoutes</a>
        </div>
     <%}%>
@@ -359,43 +388,58 @@
     </div>
  
    <div>
+   
+
+
+
+
+
     <% chat.accept.forEach(data=> { %>
+       <!--untuk panggilan masuk-->
       <% if (data.information.type=='chat-text') { %>
         <div class="reciepent-card">
-           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>" style="color:aliceblue;margin-right: 12px;">
-          <%=data.chat.chat_value %>
-          </a>
-          <button class="username-field" style="width:70px;height: 70px;" >
-            <%=data.reciepent.name[0]%>
+          <div style="margin-bottom: 50px;text-align: right;">
+            <span style="color:rgb(204, 195, 179);font-size:25px;font-weight: bold;"><%=data.user.name%></span>
+            <button class="username-field" style="width:70px;height: 70px;" >
+            <%=data.user.name[0]%>
           </button>
+          </div>
+      <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>" style="color:aliceblue;margin-right: 12px;">
+          <span style="color:rgb(204, 195, 179);font-size: 25px;"><%=data.chat.chat_value %></span>
+          </a>    
+         </div>
+         <% } else if (data.information.type=='call-record') { %>
+           <div class="reciepent-card">
+            <div style="margin-bottom: 50px;">
+              <span style="color:rgb(204, 195, 179);font-size:25px;font-weight: bold;"><%=data.user.name%></span>
+             <button class="username-field" style="width:70px;height: 70px;" >
+            <%=data.user.name[0]%>
+          </button>
+          
+            </div>
+           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>" style="color:aliceblue;margin-right: 12px;">
+              <span style="color:rgb(204, 195, 179);font-size: 25px;"><%=data.chat.chat_value %></span>
+          </a>
          
          </div>
     
        <% }else{ %>
         <div class="reciepent-card">
-           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>" style="color:aliceblue;margin-right: 12px;">
-            share qoutes
-          </a>
-          <button class="username-field" style="width:70px;height: 70px;" >
+          <div style="margin-bottom: 50px;">
+            <span style="color:rgb(204, 195, 179);font-size:25px;font-weight: bold;"><%=data.user.name%></span>
+           <button class="username-field" style="width:70px;height: 70px;" >
             <%=data.user.name[0] %>
           </button>
+          </div>
+           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>" style="color:aliceblue;margin-right: 12px;">
+             <span style="color:rgb(204, 195, 179);font-size: 25px;"><%=data.chat.chat_value %></span>
+          </a>
+          
          </div>
       <%}%>
 
      <% }) %>
         </div>
-  </div>
-  <div style="text-align: center;">
-    <a href="/get-chat-list/<%=user.email %>">
-      <button class="btn-bar-selected">chat</button>
-    </a>
-    <a href="/chat-send-list/<%=user.email %>">
-      <button class="btn-bar">kirim</button>
-    </a>
-    <a href="/chat-accept-list/<%=user.email %>">
-      <button class="btn-bar">masuk</button>
-    </a>
-  </div>
   <%}else if(page=='chat-send-list'){%>
     <div class="chat-bar" style="display: flex;">
     <div>

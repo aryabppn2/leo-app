@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+        background-color: #F5F5DC;
+      font-weight: bold;
+      font-family: 'arial';
+    }
+    a{
+      text-decoration: none;
+    }
+    .chat-body{
+        display:flex;
+        text-align: center;
+        margin-left:90px;
+    }
+    .chat-body>div{
+       width:540px;
+       height: 300px;
+       background-color: rgb(202, 180, 125);
+       margin-left: 15px;
+       margin-top: 12px;
+       border-radius: 19px;
+    }
+    .username-field {
+      border-radius: 150px;
+      width: 150px;
+      height: 150px;
+      margin-top: 12px;
+      border: 0px;
+      font-size: 80px;
+
+    }
+    .call-bar{
+      margin-top:50px;
+      text-align: center;
+    }
+  .call-end,.call-setting-off,.call-setting-on,.qoutes-navigation-btn{
+      width:200px;
+      height: 67px;
+      margin-left: 70px;
+      font-size: 30px;
+      border-radius: 30px;
+
+  }
+  .call-end{
+    color:red;
+    border-color:red;
+    background-color: rgb(221, 198, 198);
+    font-weight: bold;
+
+  }
+  .call-setting-off{
+    color:orange;
+    border-color:orange;
+    background-color: rgb(239, 225, 215);
+    font-weight: bold;
+  }
+  .call-setting-on{
+    color:lightgreen;
+    border-color:lightgreen;
+    background-color: rgb(205, 222, 206);
+    font-weight: bold;
+  }
+@media screen and (max-width: 600px){
+    .chat-body{
+        display:block;
+        text-align:left;
+        margin-left:0px;
+    }
+    .chat-body>div{
+       width:90.9%;
+       height: 250px;
+       background-color: rgb(227, 203, 155);
+       margin-left: 15px;
+       margin-top: 12px;
+       border-radius: 19px;
+       text-align: center;
+    }
+    .username-field {
+      border-radius: 100px;
+      width: 100px;
+      height: 100px;
+      margin-top: 12px;
+      border: 0px;
+      font-size: 50px;
+
+    }
+    .call-bar{
+      margin-top:50px;
+      text-align:left;
+    }
+  .call-end,.call-setting-off,.call-setting-on,.qoutes-navigation-btn{
+      width:100px;
+      height: 67px;
+      margin-left: 10px;
+      font-size: 20px;
+      border-radius: 30px;
+
+  }
+  .call-end{
+    color:red;
+    border-color:red;
+    background-color: rgb(221, 198, 198);
+    font-weight: bold;
+
+  }
+  .call-setting-off{
+    color:orange;
+    border-color:orange;
+    background-color: rgb(239, 225, 215);
+    font-weight: bold;
+  }
+  .call-setting-on{
+    color:lightgreen;
+    border-color:lightgreen;
+    background-color: rgb(205, 222, 206);
+    font-weight: bold;
+  }
+}
+  </style>
+</head>
+<body>
+
+
+<% if (page=='calling-processing') { %>
+ <div class="chat-body">
+<div class="user-call-card">
+ <button class="username-field" style="margin-top: 40px;
+ color: <%=data.user.style.color%>;background-color:<%=data.user.style.bgcolor%>;"><%=data.user.username[0] %></button><br>
+ <h2>You</h2>
+</div>
+<div class="reciepent-call-card">
+  <p style="color:orange">memanggil...</p>
+  <button class="username-field" style="color: <%=data.reciepent.style.color%>;background-color:<%=data.reciepent.style.bgcolor%>;"><%=data.reciepent.username[0] %></button><br>
+  <h2><%=data.reciepent.username %></h2>
+</div>
+ </div>
+<div class="call-bar">
+<a href="/call-canceled/<%=data.user.email %>/<%=data.reciepent.email %>">
+ <button class="call-end">batal</button>
+</a>
+<a href="/first-page/<%=data.user.email %>">
+<button class="qoutes-navigation-btn">tunggu</button>
+</a>
+
+</div>
+
+
+<% }else if(page=='calling-running'){ %>
+<div class="chat-body">
+
+
+<div class="user-call-card">
+ <button class="username-field"style="margin-top: 40px;
+ color: <%=data.user.style.color%>;background-color:<%=data.user.style.bgcolor%>;"><%=data.user.username[0] %></button><br>
+ <h2 style="color:rgb(21, 57, 21)">You</h2>
+</div>
+
+<% if (data.reciepent.calls.mic=='turning-off') { %>
+ <div class="reciepent-call-card">
+  <button class="username-field"style="margin-top: 40px;
+ color: <%=data.reciepent.style.color%>;background-color:<%=data.reciepent.style.bgcolor%>;"><%=data.reciepent.username[0] %></button>
+ <br> <h2><%=data.reciepent.username %></h2>
+</div>
+ </div>
+<% }else if(data.reciepent.calls.mic=='turning-on'){ %>
+<div class="reciepent-call-card">
+  <button class="username-field"style="margin-top: 40px;
+ color: <%=data.reciepent.style.color%>;background-color:<%=data.reciepent.style.bgcolor%>;"><%=data.reciepent.username[0] %></button>
+ <br> <h2><%=data.reciepent.username %></h2>
+ <p>ngomong...</p>
+</div>
+ </div>
+  <%}%>
+
+
+
+
+
+<div class="call-bar">
+<a href="/call-end/<%=data.user.email %>/<%=data.reciepent.email %>">
+ <button class="call-end">akhiri</button>
+</a>
+
+<% if (data.user.calls.mic=='turning-off') { %>
+ <a href="/mic-setting/<%=data.user.email %>/<%=data.reciepent.email %>/turning-on">
+  <button class="call-setting-off">
+    mic (off)
+  </button>
+</a>
+<% }else if(data.user.calls.mic=='turning-on'){ %>
+<a href="/mic-setting/<%=data.user.email %>/<%=data.reciepent.email %>/turning-off">
+  <button class="call-setting-on">
+    mic (on)
+  </button>
+</a>
+
+<%}%>
+
+<a href="/share-navigation/<%=data.user.email %>">
+<button class="qoutes-navigation-btn">share</button>
+</a>
+
+</div>
+<%}%>
+
+
+</body>
+</html>
