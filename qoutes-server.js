@@ -2,7 +2,7 @@
 const dotenv=require('dotenv')
 dotenv.config
 
-const {qoutes,coments,url}=require(process.env.router)
+const {qoutes,coments,url}=require(process.env.router) 
 const {hours,day}=require(process.env.time)
 const {ambilTigaKataPertama}=require(process.env.teks)
 

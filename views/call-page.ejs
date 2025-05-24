@@ -67,6 +67,28 @@
     background-color: rgb(205, 222, 206);
     font-weight: bold;
   }
+  .note-form{
+   text-align: center;
+   margin-top: 100px;
+  }
+  .note-form>textarea{
+    width:67.7%;
+    height: 300px;
+    border:0px;
+    font-size: 20px;
+    color:orange;
+  
+  }
+  .note-form>button{
+    width:23.6%;
+    height:50px;
+    margin-bottom: 20px;
+    background-color: orange;
+    color:aliceblue;
+    border:0px;
+    font-size: 25px;
+    border-radius:19px;
+  }
 @media screen and (max-width: 600px){
     .chat-body{
         display:block;
@@ -202,13 +224,40 @@
 </a>
 
 <%}%>
-
-<a href="/share-navigation/<%=data.user.email %>">
-<button class="qoutes-navigation-btn">share</button>
+<a href="#call-notes-page">
+  <button class="qoutes-navigation-btn">catat</button>
 </a>
+</div>
+<div id="call-notes-page" >
+<form action="/notes-save" method="post"  class="note-form">
+<input type="hidden" value="<%=data.user.email%>" name="user_email">
+<input type="hidden" value="<%=data.reciepent.email %>" name="reciepent_email">
+<button type="submit">simpan</button><br>
+<textarea name="note_collabs" class="note-text" placeholder="catat yang penting aja" >
+  <%=data.user.calls.notes %>
+</textarea>
+</form>
+</div>
+
+
+<%}else if(page=='notes-save-option'){%>
+<div class="bar">
+  <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>;width:100px;height:100px">
+    <%=user.username[0] %>
+  </button>
 
 </div>
-<%}%>
+<div class="call-notes-page">
+<form action="/notes-save-private" method="post"  class="note-form" style="margin-top: 20px;">
+<input type="hidden" value="<%=user.email%>" name="user_email">
+<button type="submit">simpan</button><br>
+<textarea name="note_collabs" class="note-text" placeholder="catat yang penting aja" >
+  <%=user.calls.notes %>
+</textarea>
+</form>
+</div>
+
+  <%}%>
 
 
 </body>

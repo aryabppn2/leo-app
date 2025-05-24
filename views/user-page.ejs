@@ -277,7 +277,9 @@
     hr{
       display: none;
     }
-
+.notes-text{
+  
+}
     @media screen and (max-width: 600px) {
       .body-navigator {
         display:block;
@@ -509,9 +511,11 @@
   <%}else if(page=='setting-page' ){%>
   <div class="user-information-bar">
     <div class="username-setting" id="user-sett">
-      <button class="username-field" id="user-button" style="background-color:<%=user.style.bgcolor%>;color:<%=user.style.color%>">
+      <a href="/first-page/<%=user.email %>">
+        <button class="username-field" id="user-button" style="background-color:<%=user.style.bgcolor%>;color:<%=user.style.color%>">
         <%=user.username[0] %>
       </button>
+      </a>
       <form method='post' action='/username-change' class='search-form'>
         <input type="color" id="color-input" class="color-input" name="color" value="<%=user.style.color%>">
         <input type="color" id="bgcolor-input" class="color-input" name="bgcolor" value="<%=user.style.bgcolor%>">
@@ -519,6 +523,7 @@
         <input type='text' class='text-search' name='username_input' value='<%=user.username %>' placeholder='nama baru' style="background-color: #edeadf;color:orange">
         <button class='btn-search'>ok</button>
       </form>
+      
     </div>
     <div class="user-information">
       <p>email : <%=user.email %>
@@ -530,9 +535,11 @@
       <p>usia : <%=user.age %>
       </p>
       <hr />
-      <a href="/first-page/<%=user.email%>">
-        <button class="btn-bar-option" style="margin-left:20px;color:orange;background-color: rgb(224, 215, 198);">kemabali</button>
+
+      <a href="/user-notes-list/<%=user.email%>">
+        <button class="btn-bar-option" style="margin-left:20px;color:orange;background-color: rgb(224, 215, 198);margin-top: 12px;">catatan</button>
       </a>
+      
       <a href="/leo.com">
         <button class="btn-bar-option" style="margin-left:38.9%;color:red;background-color: rgb(233, 216, 216);">log-out</button>
       </a>
@@ -540,7 +547,44 @@
     </div>
 
   </div>
+  <% } else if (page=='notes-list') { %>
+   <div>
+    <a href="/setting-user-data/<%=user.email %>">
+      <button class="username-field" 
+      style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>"><%=user.username[0] %></button>
+    </a>
+   </div>
+   <div class="body-navigator">
+    <% user.my_notes.forEach(notes=> { %>
+     <div class="qoutes-card"  style="background-color: aliceblue;">
+      <a href="/notes-open/<%=user.email %>/<%=notes.notes_id%>">
+        <h2 style="color:orange"><%=notes.notes_value %></h2>
+      </a>
+     </div>
+    <% }) %>
+   </div>
 
+<% } else if(page=='notes-page-open') { %>
+ <div class="notes-bar">
+  <a href="/user-notes-list/<%=user.email %>">
+      <button class="username-field" 
+      style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>"><%=user.username[0] %></button>
+  </a>
+  <a href="/notes-delete/<%=user.email %>/<%=notes.notes_id%>">
+    <button class="btn-bar-option" style="color:red;background-color: lightgray;margin-left: 34.8%;">hapus</button>
+  </a>
+ </div>
+<form style="text-align: center;margin-top: 12px;">
+
+<textarea name="" id="" class="notes-text" style="width:78.8%;height: 300px;
+background-color: aliceblue;color:orange;
+font-size: 20px;">
+<%=notes.notes_value %>
+
+</textarea>
+
+
+</form>
 
 
   <%}else if(page=='langganan' ){%>

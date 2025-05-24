@@ -16,11 +16,9 @@ function account_registered(account){
           langganan:[],
           pelanggan:[],
           service_list:[],
-          calls:{
-            calling:'',
-            reciepent:'',
-            status:''
-          }
+          my_notes:[],
+          calls:'',
+          
     }
 
 
@@ -43,7 +41,16 @@ function  change_userHobi(data_input){
 
     url.writeFileSync(process.env.user_db,JSON.stringify(users))
 }
+function notes_data(user_data,id){
+ const notes_data=user_data.my_notes.filter(data=>data.notes_id.includes(id))
+ return notes_data
+}
 
+function delete_notes(address){
+    let user_data=users.filter(data=>data.email.includes(address.user))[0]
+    user_data.my_notes.filter(data=>data.notes_id !=address.notes)
+    url.writeFileSync(process.env.user_db,JSON.stringify(users))
+}
 
 function change_des(user){
     const user_data=users.filter(data=>data.email.includes(user.email))[0]
@@ -116,6 +123,8 @@ module.exports={
     account_registered,
     change_username,
      change_userHobi,
+     notes_data,
+     delete_notes,
      change_des,
      user_get,
      get_userList,

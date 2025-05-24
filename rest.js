@@ -5,6 +5,7 @@ const url = require("fs");
 const dotenv = require("dotenv");
 const path=require('path');
 const { receiveMessageOnPort } = require("worker_threads");
+const { error } = require("console");
 //configurasi port//
 dotenv.config();
 const port =process.env.port;
@@ -19,6 +20,8 @@ const {
   account_registered,
   change_username,
   change_userHobi,
+  notes_data,
+  delete_notes,
   change_des,
   user_get,
   get_userList,
@@ -58,10 +61,15 @@ const {
   call_accept_open,
   call_cancelled,
    mic_setting,
+   notes_save,
   end_call,
+   others_getOption,
   rejecting_processing,
-   calling_rejected
+   calling_rejected,
+    notes_private_save
 }=require(process.env.CALL_SERVER)
+
+
 
 //open-app//
 http.get("/leo.com", function (input, output) {
@@ -138,6 +146,23 @@ http.get("/setting-user-data/:user", function (input, output) {
     user: user_get(input.params.user)[0],
   });
 });
+http.get('/user-notes-list/:user',function(input,output){
+  output.render('user-page',{
+    page:'notes-list',user:user_get(input.params.user)[0]
+  })
+})
+http.get('/notes-open/:user/:notes',function(input,output){
+  const user=user_get(input.params.user)[0]
+  output.render('user-page',{
+    page:'notes-page-open',user,
+    notes:notes_data(user,input.params.notes)[0]
+  })
+})
+http.get('/notes-delete/:user/:notes',function(input,output){
+  delete_notes(input.params)
+  output.redirect(`/user-notes-list/${input.params.user}`)
+})
+
 http.post("/username-change", function (input, output) {
   const user = input.body;
   change_username(user);
@@ -548,7 +573,17 @@ http.get('/get-call-page/:user/:reciepent',function(input,output){
   output.render('call-page',{
     page:'calling-running',data
   })
-  }
+
+  
+}
+
+else if(data.user.calls.status=='notes-option'){
+   output.render('call-page',{
+    page:'notes-save-option',
+    user:data.user
+   })
+}
+
  }
   
 })
@@ -587,17 +622,35 @@ http.get('/mic-setting/:user/:reciepent/:setting',function(input,output){
   output.redirect(`/get-call-page/${data.user.email}/${data.reciepent.email}`)
 })
 
+http.post('/notes-save',function(input,output){
+  notes_save(input.body)
+  output.redirect(`/get-call-page/${input.body.user_email}/${input.body.reciepent_email}`)
+})
+
+
 http.get('/call-end/:user/:others',function(input,output){
   const data={
       user:user_get(input.params.user)[0],
       reciepent:user_get(input.params.others)[0]
   }  
-  end_call(data);
-  
-output.redirect(`/first-page/${data.user.email}`)
 
+if(data.user.calls.notes==''){
+end_call(data,'panggilan diakhirkan','call-record');
+output.redirect(`/first-page/${data.user.email}`)
+}
+else {
+  others_getOption(data.reciepent)
+  output.render('call-page',{
+    page:'notes-save-option',user:data.user
+  })
+}
 
 })
+
+
+
+
+
 
 
 http.post('/rejected-calls',function(input,output){
@@ -610,7 +663,10 @@ http.post('/rejected-calls',function(input,output){
  output.redirect(`/first-page/${data.user.email}`)
 })
 
-
+http.post('/notes-save-private',function(input,output){
+  notes_private_save(input.body)
+  output.redirect(`/first-page/${input.body.user_email}`)
+})
 
 //chat//
 http.get('/get-chat-open/:user',function(input,output){
@@ -759,5 +815,8 @@ http.get('/delete-chat/:user/:room',function(input,output){
 
 
 http.listen(port, function () {
+  if(error){
+    console.log('maaf  error')
+  }
   console.log("berhasil terkoneksi dengan:localhost:" + port);
 })
