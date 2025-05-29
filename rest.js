@@ -30,6 +30,8 @@ const {
   remove_langganan,
   search_langganan, 
   search_pelanggan,
+//mongodb-connection//
+
 } = require(process.env.user_server);
 const {
   post_qoutes,
@@ -60,7 +62,6 @@ const {
   get_callingProcess,
   call_accept_open,
   call_cancelled,
-   mic_setting,
    notes_save,
   end_call,
    others_getOption,
@@ -508,6 +509,14 @@ http.get("/open-navigation/:user/:market", function (input, output) {
 });
 
 
+http.get('/frieds-list/:user/:others',function(input,output){
+  output.render('navigation-page',{
+    page:'others-friends-list',
+    user:user_get(input.params.user)[0],
+    others:user_get(input.params.others)[0]
+  })
+})
+
 
 
 //coment-data//
@@ -612,14 +621,6 @@ http.get('/call-accept/:user/:calling',function(input,output){
   call_accept_open(data)
  output.redirect(`/get-call-page/${data.user.email}/${data.calling.email}`)
   
-})
-http.get('/mic-setting/:user/:reciepent/:setting',function(input,output){
- const data={
-    user:user_get(input.params.user)[0],
-    reciepent:user_get(input.params.reciepent)[0]
- }
-  mic_setting(data.user,input.params.setting)
-  output.redirect(`/get-call-page/${data.user.email}/${data.reciepent.email}`)
 })
 
 http.post('/notes-save',function(input,output){

@@ -115,8 +115,8 @@
 
     .btn-bar,
     .btn-bar-selected {
-      width: 20.2%;
-      height: 40px;
+      width: 300px;
+      height: 80px;
       border: 0px;
       overflow-x: auto;
       margin-top: 10px;
@@ -180,7 +180,17 @@
       margin-left: 20%;
 
     }
+ .btn-visitor-others {
+      width: 43.9%;
+      height: 40px;
+      font-weight: bold;
+      border: 0px;
+      border-radius: 19px;
+      margin-left: 7px;
+      margin-bottom: 7px;
+      margin-top: 12px;
 
+    }
     .qoutes-share-card {
       height: 200px;
       overflow-y: auto;
@@ -226,8 +236,9 @@
       .btn-bar,.btn-bar-selected{
         width:100px;
         height: 50px;
+        margin-bottom: 10px;
       }
-
+     
 }
 
   </style>
@@ -323,29 +334,36 @@
           <% }) %>
       </div>
       <%}else if(page=='market-navigation' ){%>
-        <div>
-          <a href="/others-user/<%=user.email%>">
-            <button class="btn-bar" style="width:50px;height: 50px;background-color: #F5F5DC;color:orange"><==</button>
-          </a>
-          <button class="username-field" style="background-color:<%=user_data.style.bgcolor%>;color:<%=user_data.style.color%>;
+        <div class="navigation-bar" style="background-color: <%=user_data.style.color%>;">
+          <div>
+            <button class="username-field" style="background-color:<%=user_data.style.bgcolor%>;color:<%=user_data.style.color%>;
           width:70px;height:70px;font-size:20px">
             <%=user_data.username[0] %>
-          </button>
-          <button class="btn-bar" style="background-color:#F5F5DC;color:orange;font-size:30px">
-            <%=user_data.username %>
-          </button>
-
+          </button><br>
+          <p style="color:<%=user_data.style.bgcolor%>;margin-left: 12px;"><%=user_data.username %></p>
+          </div>
+       <div>
+        <a href="/frieds-list/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-bar" style="background-color: antiquewhite;color:orange;
+          margin-left:20px;"><%=user_data.langganan.length+user_data.pelanggan.length %> teman</button>
+        </a>
           <% if (status=='langganan' ) { %>
             <a href="/delete-langganan-user/<%=user.email%>/<%=user_data.email%>">
-              <button class="btn-bar" style="background-color: lightgrey;color:blue">tinggalkan</button>
+              <button class="btn-bar" style="background-color: lightgrey;color:rgb(174, 51, 6)">tinggal</button>
             </a>
             <% }else if(status=='no-langganan' ){ %>
               <a href="/get-langganan/<%=user.email%>/<%=user_data.email%>">
-                <button class="btn-bar" style="background-color: aliceblue;color:gray">langganan</button>
+                <button class="btn-bar" style="background-color: aliceblue;color:gray">kenal</button>
               </a>
+    
               <%}%>
+          <a href="/others-user/<%=user.email %>">
+            <button  class="btn-bar">keluar</button>
+          </a>
+            </div>
+
         </div>
-        <div class="qoutes-body-navigator">
+        <div class="qoutes-body-navigator" >
           <% market_qoutes.forEach(qoutes=> { %>
             <div class="qoutes-card" style="background-color: <%=qoutes.information.bgcolor%>">
               <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
@@ -357,8 +375,54 @@
             <% }) %>
 
         </div>
+        
+<% } else if (page='others-friends-list') { %>
+ <div class="navigation-bar" style="background-color:<%=others.style.color%>;">
+  <div>
+    <a href="/open-navigation/<%=user.email %>/<%=others.email %>">
+      <button class="username-field" style="width:70px;height:70px;
+      background-color: <%=others.style.bgcolor%>;color:<%=others.style.color%>;
+      font-size:30px"><%=others.username[0] %></button>
+    </a><br>
+    <p style="margin-left: 12px;color:<%=others.style.bgcolor%>"><%=others.username %></p>
+  </div>
+  <div>                        
+    <h2 style="margin-left: 12px;margin-top: 40px
+      ;color:<%=others.style.bgcolor%>;">temannya ada <%=others.pelanggan.length +others.langganan.length%> </h2>
+  </div>
+ </div>
+ <div class="qoutes-body-navigator">
+  <% others.langganan.forEach(data => { %>
+    <div class="qoutes-card">
+        <a href="/get-new-chat/<%=user.email %>/<%=data.email%>">
+          <button class="username-field" style="width:100px;height:100px;font-size: 30px;
+          background-color:orange;color:aliceblue">
+            <%=data.user[0] %>
+          </button>
+        </a><br>
+        <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
+          <button class="btn-visitor-others" style="background-color: lightyellow;margin-top: 20px;"><%=data.user %></button>
+        </a>
+      </div>
+  <% }) %>
+ 
+ <% others.pelanggan.forEach(data => { %>
+    <div class="qoutes-card">
+        <a href="/get-new-chat/<%=user.email %>/<%=data.email%>">
+          <button class="username-field" style="width:100px;height:100px;font-size: 30px;
+          background-color:orange;color:aliceblue">
+            <%=data.user[0] %>
+          </button>
+        </a><br>
+        <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
+          <button class="btn-visitor-others" style="background-color: lightyellow;margin-top: 20px;"><%=data.user %></button>
+        </a>
+      </div>
+  <% }) %>
+ </div>
 
-        <%}%>
+<%}%>
+   
 </body>
 
 </html>

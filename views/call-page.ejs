@@ -211,11 +211,7 @@
 </a>
 
 <% if (data.user.calls.mic=='turning-off') { %>
- <a href="/mic-setting/<%=data.user.email %>/<%=data.reciepent.email %>/turning-on">
-  <button class="call-setting-off">
-    mic (off)
-  </button>
-</a>
+ 
 <% }else if(data.user.calls.mic=='turning-on'){ %>
 <a href="/mic-setting/<%=data.user.email %>/<%=data.reciepent.email %>/turning-off">
   <button class="call-setting-on">

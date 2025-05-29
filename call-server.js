@@ -50,10 +50,7 @@ function call_cancelled(address){
     url.writeFileSync(process.env.user_db,JSON.stringify(users))
 }
 
-function  mic_setting(user,mic_setting){
-  users.filter(data=>data.email.includes(user.email))[0].calls.mic=mic_setting
-  url.writeFileSync(process.env.user_db,JSON.stringify(users))
-}
+
 
 function notes_save(address){
   users.filter(data=>data.email==address.user_email)[0].calls.notes=address.note_collabs
@@ -157,7 +154,6 @@ module.exports=
   get_callingProcess,
   call_accept_open,
   call_cancelled,
-   mic_setting,
    notes_save,
    end_call, 
     others_getOption,
