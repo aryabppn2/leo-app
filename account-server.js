@@ -16,11 +16,8 @@ function account_registered(account){
           langganan:[],
           pelanggan:[],
           service_list:[],
-          calls:{
-            calling:'',
-            reciepent:'',
-            status:''
-          }
+          calls:'',
+          my_notes:[]
     }
 
 
