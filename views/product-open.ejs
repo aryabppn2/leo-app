@@ -469,7 +469,9 @@
     <input type="text" name="chat_text" placeholder="isi chat" class="text-coment">
     <button class="btn-post-coment">kirim</button>
   </form>
-  
+  <a href="/delete-chat/<%=user.email %>/<%=chat.chat.room %>">
+     <p style="color:red">hapus</p>
+  </a>
   
 
 <%}else if(title=='qoutes-public-coment'){%>
