@@ -46,8 +46,7 @@ function notes_data(user_data,id){
 }
 
 function delete_notes(address){
-    let user_data=users.filter(data=>data.email.includes(address.user))[0]
-    user_data.my_notes.filter(data=>data.notes_id !=address.notes)
+   users.filter(data=>data.email.includes(address.user))[0].my_notes.filter(notes=>notes.notes_id !=address.notes)
     url.writeFileSync(process.env.user_db,JSON.stringify(users))
 }
 

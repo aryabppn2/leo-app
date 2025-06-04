@@ -16,6 +16,14 @@ http.use(express.static(path.join(__dirname, "public")));
 
 
 //file configuration//
+
+//server mongodb//
+const {mongodb_connect}=require('./database_connect/mongodb-connect.js')
+const {showAllData,user_data}=require('./database_connect/user-db.js')
+
+//server all//
+
+
 const {
   account_registered,
   change_username,
@@ -30,9 +38,10 @@ const {
   remove_langganan,
   search_langganan, 
   search_pelanggan,
-//mongodb-connection//
 
-} = require(process.env.user_server);
+
+}
+= require(process.env.user_server);
 const {
   post_qoutes,
   delete_product,
@@ -69,6 +78,36 @@ const {
    calling_rejected,
     notes_private_save
 }=require(process.env.CALL_SERVER)
+
+
+ 
+
+//connect with database//
+mongodb_connect()
+
+http.get('/user-data-list',async function(input,output){
+  output.json({
+    status:'succes to get data',
+    data:await showAllData()
+  })
+})
+
+
+
+http.get('/user-data',async function(input,output){
+  const user=await user_data('aryaBalikpapan')
+  output.json({
+  status:'success to get data',
+  data_toshow:{
+     username:user.username,
+     age:user.bord,
+  }
+   
+})
+})
+
+
+
 
 
 
