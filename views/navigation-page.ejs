@@ -283,7 +283,7 @@
             <a href="/qoutes-share-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
               <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
                 <%=qoutes.qoutes_value%>
-              </h1>
+              </h1>                                                                                                                                                                      
             </a>
           </div>
 
@@ -295,16 +295,15 @@
 
 
               <% }) %>
-
+5              
   <% study_data.forEach(data => { %>
    <div class="qoutes-card" style="background-color:aliceblue;border-radius:0px">
             <a href="/study-open/<%=user.email %>/<%=data.study_id %>">
               <h1 style="color:orange"><%=data.study_value %></h1>
             </a>
           </div>
-  <% }) %>
-      
-
+  <% }) %>                                                   
+                                          
     </div>
   
     <% }else if(page=='user-nav' ){%>

@@ -7,13 +7,13 @@ const path=require('path');
 const { receiveMessageOnPort } = require("worker_threads");
 const { error } = require("console");
 //configurasi port//
-dotenv.config();
+dotenv.config();                                    
 const port =process.env.port;
 const {users,chats}=require(process.env.router)
 http.set("view engine", "ejs");
 http.use(express.urlencoded({ extended: true }));
 http.use(express.static(path.join(__dirname, "public")));
-
+                                             
 
 //file configuration//
 
@@ -86,10 +86,10 @@ const {
   study_dataList,
   get_searchStudy,
   answer_post,
-  delete_study
+  delete_study                                                                                                                                                                                  
 }
 =require(process.env.study_server)
- 
+                                                           
 
 //connect with database//
 mongodb_connect()
