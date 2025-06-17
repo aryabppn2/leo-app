@@ -221,8 +221,8 @@
     height:550px;
     overflow-y: auto;
   } 
-  .qoutes-container>div{
-    width:100%;
+  .qoutes-container>div,.qoutes-container>textarea{
+    width:98.9%;
     height:500px;
     overflow-y: auto;
   }
@@ -434,6 +434,7 @@
     </a>
     </div>
   </div>
+  
   <div class="chat-body">
   <% if (chat.user.address==user.email) { %>
    <div class="chat-user" >
@@ -685,9 +686,7 @@ style="color:<%=qoutes.information.color%>;background-color:<%=qoutes.informatio
 
 
        </div>
-
-
-  <%}%>
+<% }%>
     <script>
     const styling={
        input:{
@@ -704,6 +703,11 @@ styling.input.color.addEventListener('input',function(){
 styling.input.bgcolor.addEventListener('input',function(){
   styling.output.text.style.backgroundColor=styling.input.bgcolor.value
 })
+
+
+
+
+
 
 
     </script>

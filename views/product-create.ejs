@@ -17,30 +17,35 @@
 
     .btn-bar,
     .btn-bar-selected {
-      width: 31.3%;
-      height: 45px;
+      width:300px;
+      height: 50px;
+      margin-right: 40px;
+      margin-left: 40px;
       border: 0px;
+      border-radius: 20px;
       font-weight: bold;
+      margin-bottom: 20px;
     }
 
     .btn-bar {
-      background-color: #E1C16E;
+      background-color:orange;
       color: black;
     }
 
     .btn-bar-selected {
-      background-color: #F5F5DC;
+      background-color:aliceblue;
       color: black;
     }
   .form-create{
     display: flex;
+    margin-left: 20px;
     width: 100%;
   }
 
   .form-create>.qoutes-style{
      width:200px;
      height: 450px;
-     background-color: #E1C16E;
+     background-color:orange;
 
   }
   .form-create-qoutes-form{
@@ -54,6 +59,7 @@
   background-color: aliceblue;
   border:0px;
   margin-top:0px;
+  color:orange
 
   }
   .color-input{
@@ -97,12 +103,69 @@
      width:200px;
      height: 50px;
      border:0px;
-     background-color: #E1C16E;
+     background-color:rgb(182, 149, 87);
      color:#F5F5DC;
      border-radius: 20px;
-     margin-top: 10px;
+     margin-top: 30px;
+     margin-left: 20px;
   }
 
+
+  .text-study-input{
+    width:98.9%;
+    height: 250px;
+    border:0px;
+    background-color: aliceblue;
+    color:orange;
+    font-size: 20px;
+  }
+  .kriteria-input-container{
+    display:flex;
+    margin-top: 40px;
+    text-align: center;
+    margin-left: 30px;
+  }
+  .kriteria-input-container>div{
+    width:260px;
+    height: 230px;
+    margin-left: 19px;
+    background-color: orange;
+    border-radius: 20px;
+    text-align: center;
+    
+  }
+  .kriteria-input{
+    width:210px;
+    height: 50px;
+    border-radius: 19px;
+    border:0px;
+    margin:30px;
+    margin-left:20px;
+    font-size: 20px;
+   color:orange;
+   background-color:aliceblue;
+  }
+ .number-kr-input{
+    width:100px;
+    height:30px;
+    border:0px;
+    border-radius: 10px;
+    font-size: 20px;
+    background-color: aliceblue;
+    color:orange;
+    
+    
+ }
+
+ .alternatif-text{
+  width:230px;
+  height: 40px;
+  margin: 30px;
+  font-size: 20px;
+  color:orange;
+  background-color: aliceblue;
+  border:0px
+ }
 
   @media screen and (max-width:600px) {
     .form-create{
@@ -110,19 +173,33 @@
       height:550px;
       overflow-y: auto;
       display:block;
+      margin-left:0px;
+      background-color: orange;
     }
     .form-create>.qoutes-style{
-      width:100%;
+      width:98.9%;
       height:78px;
-      background-color: #E1C16E;
-
+      background-color:orange;
+    
     }
   .color-input,.qoutes-style>select{
     width:22.2%;
     height: 50px;
     font-size: 20px;
+    
   }
 
+  .btn-bar,
+    .btn-bar-selected {
+      width:100px;
+      height: 50px;
+      margin-right:10px;
+      margin-left: 10px;
+      border: 0px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
 
     .text-input{
@@ -130,15 +207,52 @@
       width:100%
     }
    .qoutes-completer-form>select,.qoutes-completer-form>input{
-   width:100%;
+   width:94.2%;
    height: 70px;
    margin-bottom:20px;
    margin-left: 0px;
    font-size: 27px;
 
    }  
-   
+    .btn-post-product{
+     width:300px;
+     height: 70px;
+     border:0px;
+     background-color:rgb(182, 149, 87);
+     color:#F5F5DC;
+     border-radius: 20px;
+     margin-top: 30px;
+     margin-left: 10px;
+  }
+   .topic-input-text{
+      width:98.7%;
+      height:300px;
+      margin-top: 10px;
+      margin-left: 20px;
+      border:0px;
+      font-size: 20px;
+      background-color: aliceblue;
+      color:orange
+
+  }
+     .kriteria-input-container{
+    display:block;
+    margin-top: 312px;
+    margin-bottom: 312px;
+    text-align: center;
+    margin-left: 30px;
+
+  }
+    .kriteria-input-container>div{
+    width:96.3%;
+    height: 230px;
+    margin-left: 3px;
+    background-color: orange;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 20px;
     
+  }
   
   }
   </style>
@@ -153,8 +267,8 @@
     <a href="/create-new-product/<%=user.email%>">
       <button class="btn-bar-selected">qoutes</button>
     </a>
-    <a href="/create-new-slides/<%=user.email%>">
-      <button class="btn-bar">slides</button>
+    <a href="/create-new-study/<%=user.email%>">
+      <button class="btn-bar">penelitian </button>
     </a>
   </div>
   <div class='form-create'style="text-align: center">
@@ -228,8 +342,8 @@
       <a href="/create-new-product/<%=user.email%>">
         <button class="btn-bar-selected">qoutes</button>
       </a>
-      <a href="/create-new-slides/<%=user.email%>">
-        <button class="btn-bar">slides</button>
+      <a href="/create-new-studi/<%=user.email%>/<%=qoutes.qoutes_id%>">
+        <button class="btn-bar">penelitian</button>
       </a>
     </div>
      
@@ -293,6 +407,76 @@
         )">update</button>  
       </div>
       </form>
+
+  <%}else if(page=='studi-page-create'){%>
+    <div class="create-page-bar">
+    <a href="/first-page/<%=user.email%>">
+      <button class="btn-bar">kembali</button>
+    </a>
+    <a href="/create-new-product/<%=user.email%>">
+      <button class="btn-bar">qoutes</button>
+    </a>
+    <a href="/create-new-study/<%=user.email%>">
+      <button class="btn-bar-selected">penelitian </button>
+    </a>
+  </div>
+  <form action="/post-study-data" method="post" style="text-align: center;height:500px;overflow-y: auto;" >
+    <input type="hidden" name="user_email" value="<%=user.email %>">
+    <textarea name="study_value" class="text-study-input" placeholder="isi penelitian" id="textarea"></textarea><br>
+      <a href="#kriteria-input">
+        <h2 style="color:orange">kriteria</h2>
+      </a>
+
+
+    <div class="kriteria-input-container" id="kriteria-input">
+    <a href="#textarea">
+      <h2 style="color:orange">cek topik</h2><br>
+    </a>
+   <div class="kriteria-body-input">
+   <input type="text" name="kriteria_1" class="kriteria-input" placeholder="kriteria 1"><br>
+   <select name="type_1" class="kriteria-input">
+    <option value="none">tipe</option>
+    <option value="max_type">maximal</option>
+    <option value="min_type">minimal</option>
+   </select>
+   </div>
+ <div class="kriteria-body-input">
+   <input type="text" name="kriteria_2" class="kriteria-input" placeholder="kriteria 2"><br>
+   <select name="type_2" class="kriteria-input">
+    <option value="none">tipe</option>
+    <option value="max_type">maximal</option>
+    <option value="min_type">minimal</option>
+   </select>
+   </div>
+ <div class="kriteria-body-input">
+   <input type="text" name="kriteria_3" class="kriteria-input" placeholder="kriteria 3"><br>
+   <select name="type_3" class="kriteria-input">
+    <option value="none">tipe</option>
+    <option value="max_type">maximal</option>
+    <option value="min_type">minimal</option>
+   </select>
+   </div>
+    <div class="kriteria-body-input">
+   <input type="text" name="kriteria_4" class="kriteria-input" placeholder="kriteria 4"><br>
+   <select name="type_4" class="kriteria-input">
+    <option value="none">tipe</option>
+    <option value="max_type">maximal</option>
+    <option value="min_type">minimal</option>
+   </select>
+   </div>
+   <a href="#alternatif"><h1 style="color:orange">pilihan </h1></a>
+     </div>
+  <div class="alternatif-input-body" id="alternatif">
+    <a href="#kriteria-input">
+      <h2 style="color:orange">balik</h2>
+    </a>
+    <input type="text" name="alternatif_1" class="alternatif-text" placeholder="alternatif 1">
+    <input type="text" name="alternatif_2" class="alternatif-text" placeholder="alternatif 2">
+    <input type="text" name="alternatif_3" class="alternatif-text" placeholder="alternatif 3">
+    <input type="text" name="alternatif_4" class="alternatif-text" placeholder="alternatif 4">
+  </div>
+  <button type="submit" class="btn-bar" style="color:aliceblue;font-size: 20px;">posting</button>
+    </form>
 
   <%}%>
     

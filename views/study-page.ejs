@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+<style>
+  body {
+      background-color: #f5f5dc;
+      font-weight: bold;
+      font-family: "arial";
+    }
+
+    a {
+      text-decoration: none;
+    }
+     .username-field {
+      border-radius: 100px;
+      width: 100px;
+      height: 100px;
+      margin-top: 12px;
+      border: 0px;
+      font-size: 50px;
+      margin-left:12px;
+
+    }
+    
+    .question-header{
+       width:98.9%;
+       height:230px;
+       background-color: aliceblue;
+       margin-bottom:20px;
+
+    }
+    .study-information{
+      width:98.9%;
+      margin-top: 100px;
+      
+
+    }
+    .study-information>p{
+      margin-left: 20px;
+    }
+    .study-btn{
+      width:200px;
+      height: 56px;
+     border:0px;
+     border-radius: 19px;
+     background-color: orange;
+     color:aliceblue;
+     font-weight: bold;
+     margin-left: 50px;
+     font-size: 30px;
+
+    }
+ .bobot-input-bar{
+   margin-top: 200px;
+   margin-bottom: 200px;
+   margin-left: 12px;
+
+ }
+ .bobot-input{
+  width:200px;
+  height:50px;
+  border:0px;
+  background-color: aliceblue;
+  color:orange;
+  margin-left: 30px;
+  font-size:21px;
+  margin-top: 200px;
+  margin-bottom: 200px;
+ }
+.study-body{
+  margin-left: 20px;
+  margin-top: 200px;
+  margin-bottom: 200px;
+}
+
+.btn-return-answer{
+  width:250px;
+  height:60px;
+  margin-left: 520px;
+  font-size: 20px;
+  margin-top: 50px;
+  border:0px;
+  border-radius: 20px;
+  background-color: orange;
+  color:aliceblue
+}
+.alternatif-card{
+  width:97.9%;
+  height:170px;
+  text-align: center;
+  background-color: aliceblue;
+  border-radius:20px
+}
+.alternatif-card>h2{
+  color:orange;
+}
+
+.alternatif-card>select{
+  width:200px;
+  height:60px;
+  border:0px;
+  background-color: rgb(214, 193, 154);
+  color:aliceblue;
+  margin-left:20px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.answer-form{
+  width:98.9%;
+  height: 250px;
+
+
+}
+.rangking-card-value{
+  margin-left:20px;
+  width:97.9%;
+  height:150px;
+  border-radius: 20px;
+  background-color: aliceblue;
+  color:orange;
+}
+
+</style>
+
+
+</head>
+
+<body>
+  <%if(page=='open-user-study'){%>
+    <div class="study-open-">
+      <a href="/first-page/<%=user.email %>">
+        <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>">
+          <%=user.username[0]%>
+        </button>
+      </a>
+      <a href="/show-study-question/<%=study.study_id %>">
+        <button class="btn-bar-study-user">
+          <%=user.username[0] %>
+        </button>
+      </a>
+      <a href=""></a>
+    </div>
+
+    <div class="study-body">
+      <% study.answered.forEach(st=> { %>
+
+        <% }) %>
+
+
+
+
+
+    </div>
+
+
+
+    <%}else if(page=='open-study' ){%>
+
+      <div class="study-head" id="head">
+        <a href="/product-navigation/<%=user.email %>">
+          <button class="username-field" style="color:orange;background-color: aliceblue;
+          font-size: 30px;width:100px;height:100px">back</button>
+        </a>
+    <div class="question-header">
+     <h2 style="color:orange" >
+      <%=study.study_value %>
+     </h2>
+    </div>
+<a href="#study-information">
+  <button  class="study-btn">informasi</button>
+</a>
+<a href="#bobot-input">
+  <button  class="study-btn">isi study</button>
+</a>
+       </div>
+
+<div class="study-information" id="study-information" style="color: orange">
+<a href="/open-navigation/<%=user.email %>/<%=user_study.email %>">
+  <button class="username-field" style="width:70px;height:70px;
+  background-color:<%=user_study.style.bgcolor%>;color:<%=user_study.style.color%>;
+  mar" ><%=user_study.username[0] %></button>
+  <span style="color:orange;font-size: 30px;"><%=user_study.username %></span>
+</a>
+
+<a href="#head">
+  <button class="study-btn">penjelasan</button> 
+</a>
+<a href="#bobot-input">
+  <button class="study-btn">isi </button>
+</a>
+<hr/>
+<p style="color:orange;font-size: 30px;">tanggal buat: <%=study.information.day %></p>
+<hr/>
+<p style="color:orange;font-size: 30px;">jam :<%=study.information.time %></p>
+<hr/>
+ <p style="color:orange;font-size: 30px;">ada 12 penjawab</p>
+ <hr/>
+ 
+</div>
+
+
+
+        </div>
+        
+
+        <div class="bobot-input-bar" id="bobot-input">
+          <a href="#study-information">
+            <button class="study-btn">info</button>
+          </a>
+          <a href="#head">
+            <button class="study-btn">penjelasan</button>
+          </a>
+          <a href="#fill-data-value">
+           <button class="study-btn">isi pilihan</button>
+          </a>
+      <hr/>
+        <h2 style="color:orange">isi bobot dibawah ini</h2>
+         <select  id="input-bobot1" class="bobot-input">
+          <option value=0>bobot <%=study.alternatif1.kriteria[0].krt%></option>
+          <option value=0.4>tinggi</option>
+          <option value=0.3>sedang</option>
+          <option value=0.2>rendah</option>
+          <option value=0.1>sangat rendah</option>
+         </select>
+         <input type="hidden" id="bobot1-output" value="" class="bobot-output">
+         <select  id="input-bobot2" class="bobot-input">
+          <option value=0>bobot <%=study.alternatif1.kriteria[1].krt%></option>
+          <option value=0.4>tinggi</option>
+          <option value=0.3>sedang</option>
+          <option value=0.2>rendah</option>
+          <option value=0.1>sangat rendah</option>
+         </select>
+         <input type="hidden" id="bobot2-output" value="" class="bobot-output">
+         <select  id="input-bobot3" class="bobot-input">
+          <option value=0>bobot <%=study.alternatif1.kriteria[2].krt%></option>
+          <option value=0.4>tinggi</option>
+          <option value=0.3>sedang</option>
+          <option value=0.2>rendah</option>
+          <option value=0.1>sangat rendah</option>
+         </select>
+         <input type="hidden" id="bobot3-output" value="" class="bobot-output">
+         <select  id="input-bobot4" class="bobot-input">
+          <option value=0>bobot <%=study.alternatif1.kriteria[3].krt%></option>
+          <option value=0.4>tinggi</option>
+          <option value=0.3>sedang</option>
+          <option value=0.2>rendah</option>
+          <option value=0.1>sangat rendah</option>
+         </select>
+         <input type="hidden" id="bobot4-output" value="" class="bobot-output">
+          
+
+          
+        </div>
+
+
+      </div>
+
+      <div class="study-body" id="fill-data-value">
+    <a href="#study-information">
+            <button class="study-btn">info</button>
+          </a>
+          <a href="#head">
+            <button class="study-btn">penjelasan</button>
+          </a>
+          <a href="#bobot-input">
+           <button class="study-btn">bobot</button>
+          </a>
+          <hr/>
+        <h2 style="color:orange">isi pilihan</h2>
+  <div class="alternatif-card">
+    <h2 id="alt1-name" style="color:orange"><%=study.alternatif1.nama%></h2>
+    <select  id="krt11-option"  class="krt-input">
+      <option value="none"> <%=study.alternatif1.kriteria[0].krt %></option>
+    <option value=10>sempurna <%=study.alternatif1.kriteria[0].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[0].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[0].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[0].krt %></option>
+       <option value=6> sedang <%=study.alternatif1.kriteria[0].krt %></option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[0].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[0].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[0].krt %></option>
+      </select>
+     <select  id="krt12-option"  class="krt-input">
+      <option value="none"> <%=study.alternatif1.kriteria[1].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[1].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[1].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[1].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[1].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[1].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[1].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[1].krt %></option>
+      </select>
+       <select  id="krt13-option"  class="krt-input">
+        <option value="none"> <%=study.alternatif1.kriteria[2].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[2].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[2].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[2].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[2].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[2].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[2].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[2].krt %></option>
+      </select>
+      <select class="krt-input" id="krt14-option">
+        <option value="none"> <%=study.alternatif1.kriteria[3].krt %></option>
+       <option value=10> sempurna <%=study.alternatif1.kriteria[3].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[3].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[3].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[3].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[3].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[3].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[3].krt %></option>
+      </select> 
+    <div>
+    <input type="hidden"  id="krt11-output" value="">
+    <input type="hidden" id="krt12-output" value="">
+    <input type="hidden" id="krt13-output" value="">
+    <input type="hidden" id="krt14-output" value="">
+    <input type="hidden" id="total-all1" value="">
+    </div>
+  </div>
+ <div class="alternatif-card">
+    <h2 id="alt2-name"><%=study.alternatif2.nama%></h2>
+    <select  id="krt21-option"  class="krt-input">
+    <option value="none"> <%=study.alternatif1.kriteria[0].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[0].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[0].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[0].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[0].krt %></option>
+       <option value=6> sedang <%=study.alternatif1.kriteria[0].krt %></option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[0].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[0].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[0].krt %></option>
+      </select>
+     <select  id="krt22-option"  class="krt-input">
+    <option value="none"> <%=study.alternatif1.kriteria[1].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[1].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[1].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[1].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[1].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[1].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[1].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[1].krt %></option>
+      </select>
+       <select  id="krt23-option"  class="krt-input">
+      <option value="none"> <%=study.alternatif1.kriteria[2].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[2].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[2].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[2].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[2].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[2].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[2].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[2].krt %></option>
+      </select>
+      <select class="krt-input" id="krt24-option">\
+        <option value="none"> <%=study.alternatif1.kriteria[3].krt %></option>
+       <option value=10> sempurna <%=study.alternatif1.kriteria[3].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[3].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[3].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[3].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[3].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[3].krt %></option>
+         <option value=1>sa
+          ngat rendah <%=study.alternatif1.kriteria[3].krt %></option>
+      </select>
+    <div>
+      <input type="hidden"  id="krt21-output" value="">
+    <input type="hidden" id="krt22-output" value="">
+    <input type="hidden" id="krt23-output" value="">
+    <input type="hidden" id="krt24-output" value="">
+    <input type="hidden" id="total-all2" value="">
+    </div>
+  </div>
+
+
+   <div class="alternatif-card">
+    <h2 id="alt3-name"><%=study.alternatif3.nama%></h2>
+    <select  id="krt31-option"  class="krt-input">
+      <option value="none"><%=study.alternatif1.kriteria[1].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[0].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[0].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[0].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[0].krt %></option>
+       <option value=6> sedang <%=study.alternatif1.kriteria[0].krt %></option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[0].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[0].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[0].krt %></option>
+      </select>
+     <select  id="krt32-option"  class="krt-input">
+      <option value="none"> <%=study.alternatif1.kriteria[1].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[1].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[1].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[1].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[1].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[1].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[1].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[1].krt %></option>
+      </select>
+       <select  id="krt33-option"  class="krt-input">
+        <option value="none"> <%=study.alternatif1.kriteria[2].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[2].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[2].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[2].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[2].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[2].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[2].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[2].krt %></option>
+      </select>
+      <select class="krt-input" id="krt34-option">
+        <option value="none"> <%=study.alternatif1.kriteria[3].krt %></option>
+       <option value=10> sempurna <%=study.alternatif1.kriteria[3].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[3].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[3].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[3].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[3].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[3].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[3].krt %></option>
+      </select>
+    <div>
+      <input type="hidden"  id="krt31-output" value="">
+    <input type="hidden" id="krt32-output" value="">
+    <input type="hidden" id="krt33-output" value="">
+    <input type="hidden" id="krt34-output" value="">
+    <input type="hidden" id="total-all3" value="">
+    </div>
+  </div>
+
+ <div class="alternatif-card">
+    <h2 id="alt4-name"><%=study.alternatif4.nama%></h2>
+    <select  id="krt41-option"  class="krt-input">
+      <option value="none"><%=study.alternatif1.kriteria[0].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[0].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[0].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[0].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[0].krt %></option>
+       <option value=6> sedang <%=study.alternatif1.kriteria[0].krt %></option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[0].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[0].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[0].krt %></option>
+      </select>
+     <select  id="krt42-option"  class="krt-input">
+      <option value="none"><%=study.alternatif1.kriteria[1].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[1].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[1].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[1].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[1].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[1].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[1].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[1].krt %></option>
+      </select>
+       <select  id="krt43-option"  class="krt-input">
+        <option value="none"><%=study.alternatif1.kriteria[2].krt %></option>
+    <option value=10> sempurna <%=study.alternatif1.kriteria[2].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[2].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[2].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[2].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[2].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[2].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[2].krt %></option>
+      </select>
+      <select class="krt-input" id="krt44-option">
+        <option value="none"><%=study.alternatif1.kriteria[3].krt %></option>
+       <option value=10> sempurna <%=study.alternatif1.kriteria[3].krt %></option>
+     <option value=9> sangat <%=study.alternatif1.kriteria[3].krt %></option>
+     <option value=8> <%=study.alternatif1.kriteria[3].krt %></option>
+      <option value=7> lumayan <%=study.alternatif1.kriteria[3].krt %></option>
+       <option value=6> sedang </option>
+        <option value=5> biasa <%=study.alternatif1.kriteria[3].krt %></option>
+         <option value=2> rendah <%=study.alternatif1.kriteria[3].krt %></option>
+         <option value=1>sangat rendah <%=study.alternatif1.kriteria[3].krt %></option>
+      </select>
+      </div>
+    <div>
+      <input type="hidden"  id="krt41-output" value="">
+    <input type="hidden" id="krt42-output" value="">
+    <input type="hidden" id="krt43-output" value="">
+    <input type="hidden" id="krt44-output" value="">
+    <input type="hidden" id="total-all4" value="">
+    </div>
+    
+      <a href="#form-answer">
+  <button class="btn-return-answer" onclick="wp_processing(
+    {
+     total1:document.getElementById('total-all1'),
+     total2:document.getElementById('total-all2'),
+     total3:document.getElementById('total-all3'),
+     total4:document.getElementById('total-all4')
+    },
+    document.getElementById('output-container')
+
+  )">eksekusi</button>
+</a>
+    
+
+    
+  </div>
+
+
+
+
+      </div>
+
+
+
+  
+<a href="#fill-data-value">
+  <button class="study-btn">kembali</button>
+</a>
+<hr/>
+    <form action="/post-answer" method="post" class="answer-form" id="form-answer">
+      <input type="hidden" value="<%=user.email %>" name="user_email">
+      <input type="hidden" value="<%=study.study_id %>" name="study_id">
+      <div id="output-container">
+<div class='rangking-card-value' style="margin-bottom: 100px;background-color: rgb(121, 221, 208);color:rgb(144, 105, 33)">
+<input type="hidden" id="name1-output" name="name1">
+<p id="action1"></p>
+<h2 id='name1'></h2>
+</div>
+<hr/>
+<div class='rangking-card-value'>
+<input type="hidden" id="name2-output" name="name2">
+<h2 id="name2"></h2>
+<p id="action2"></p>
+</div>
+<div class='rangking-card-value'>
+<input type="hidden" id="name3-output" name="name3">
+<h2 id="name3"></h2>
+<p id="action3"></p>
+</div>
+<div class='rangking-card-value'>
+<input type='hidden' id="name4-output"  name='name4'>
+<h2 id="name4"></h2>
+<p id="action4"></p>
+</div>
+
+
+
+      </div>
+      <button class="send-answer" type="btn-send">kirim jawaban </button>     
+
+    </form>
+
+      <%}else if(page=='study-after-fill'){%>
+   <div class="study-bar">
+    <a href="/product-navigation/<%=user.email %>">
+      <button class="username-field" style="
+        background-color:aliceblue;color:orange;
+        width:90px;height:90px;
+        font-size:20px;font-weight: bold;">keluar</button>
+    </a>
+   </div>
+
+
+
+   
+
+      <%}%>
+
+
+<script>
+  // bobot processing //
+ const bobot={
+    input:{
+        bobot1:document.getElementById('input-bobot1'),
+        bobot2:document.getElementById('input-bobot2'),
+        bobot3:document.getElementById('input-bobot3'),
+        bobot4:document.getElementById('input-bobot4')
+
+    },
+    output:{
+      bobot1:document.getElementById('bobot1-output'),
+      bobot2:document.getElementById('bobot2-output'),
+      bobot3:document.getElementById('bobot3-output'),
+      bobot4:document.getElementById('bobot4-output'),
+      total:document.getElementById('bobot-all-value')
+    }
+ }
+
+
+bobot.input.bobot4.addEventListener('input',function(){
+  bobot.output.bobot1.value=
+  Number(bobot.input.bobot1.value)/Number(bobot.input.bobot1.value)+Number(bobot.input.bobot2.value)+Number(bobot.input.bobot3.value)+
+  Number(bobot.input.bobot4.value)
+
+   bobot.output.bobot2.value=
+  Number(bobot.input.bobot2.value)/Number(bobot.input.bobot1.value)+Number(bobot.input.bobot2.value)+Number(bobot.input.bobot3.value)+
+  Number(bobot.input.bobot4.value)
+ 
+  bobot.output.bobot3.value=
+  Number(bobot.input.bobot3.value)/Number(bobot.input.bobot1.value)+Number(bobot.input.bobot2.value)+Number(bobot.input.bobot3.value)+
+  Number(bobot.input.bobot4.value)
+
+  bobot.output.bobot4.value=
+  Number(bobot.input.bobot4.value)/Number(bobot.input.bobot1.value)+Number(bobot.input.bobot2.value)+Number(bobot.input.bobot3.value)+
+  Number(bobot.input.bobot4.value)
+  
+ 
+})
+
+
+// data processing//
+ //alt1//
+ const alt1={
+    input:{
+       kr1:document.getElementById('krt11-option'),
+       kr2:document.getElementById('krt12-option'),
+       kr3:document.getElementById('krt13-option'),
+       kr4:document.getElementById('krt14-option')
+    },
+    output:{
+         kr1:document.getElementById('krt11-output'),
+       kr2:document.getElementById('krt12-output'),
+       kr3:document.getElementById('krt13-output'),
+       kr4:document.getElementById('krt14-output'),
+       total:document.getElementById('total-all1')
+    }
+ }
+
+
+alt1.input.kr1.addEventListener('input',function(){
+  alt1.output.kr1.value=alt1.input.kr1.value**bobot.output.bobot1.value
+})
+alt1.input.kr2.addEventListener('input',function(){
+  alt1.output.kr2.value=alt1.input.kr2.value**bobot.output.bobot2.value
+})
+
+alt1.input.kr3.addEventListener('input',function(){
+  alt1.output.kr3.value=alt1.input.kr3.value**bobot.output.bobot3.value
+})
+alt1.input.kr4.addEventListener('input',function(){
+  alt1.output.kr4.value=alt1.input.kr4.value**bobot.output.bobot4.value
+  alt1.output.total.value=
+  alt1.output.kr1.value*alt1.output.kr2.value*alt1.output.kr3.value*alt1.output.kr4.value
+})
+//alt2
+ const alt2={
+    input:{
+       kr1:document.getElementById('krt21-option'),
+       kr2:document.getElementById('krt22-option'),
+       kr3:document.getElementById('krt23-option'),
+       kr4:document.getElementById('krt24-option')
+    },
+    output:{
+         kr1:document.getElementById('krt21-output'),
+       kr2:document.getElementById('krt22-output'),
+       kr3:document.getElementById('krt23-output'),
+       kr4:document.getElementById('krt24-output'),
+       total:document.getElementById('total-all2')
+    }
+ }
+
+
+alt2.input.kr1.addEventListener('input',function(){
+  alt2.output.kr1.value=alt2.input.kr1.value**bobot.output.bobot1.value
+})
+alt2.input.kr2.addEventListener('input',function(){
+  alt2.output.kr2.value=alt2.input.kr2.value**bobot.output.bobot2.value
+})
+
+alt2.input.kr3.addEventListener('input',function(){
+  alt2.output.kr3.value=alt2.input.kr3.value**bobot.output.bobot3.value
+})
+alt2.input.kr4.addEventListener('input',function(){
+  alt2.output.kr4.value=alt2.input.kr4.value**bobot.output.bobot4.value
+   alt2.output.total.value=
+  alt2.output.kr1.value*alt2.output.kr2.value*alt2.output.kr3.value*alt2.output.kr4.value
+})
+//alt 3
+ const alt3={
+    input:{
+       kr1:document.getElementById('krt31-option'),
+       kr2:document.getElementById('krt32-option'),
+       kr3:document.getElementById('krt33-option'),
+       kr4:document.getElementById('krt34-option')
+    },
+    output:{
+         kr1:document.getElementById('krt31-output'),
+       kr2:document.getElementById('krt32-output'),
+       kr3:document.getElementById('krt33-output'),
+       kr4:document.getElementById('krt34-output'),
+       total:document.getElementById('total-all3')
+    }
+ }
+
+
+alt3.input.kr1.addEventListener('input',function(){
+  alt3.output.kr1.value=alt3.input.kr1.value**bobot.output.bobot1.value
+})
+alt3.input.kr2.addEventListener('input',function(){
+  alt3.output.kr2.value=alt3.input.kr2.value**bobot.output.bobot2.value
+})
+
+alt3.input.kr3.addEventListener('input',function(){
+  alt3.output.kr3.value=alt3.input.kr3.value**bobot.output.bobot3.value
+})
+alt3.input.kr4.addEventListener('input',function(){
+  alt3.output.kr4.value=alt3.input.kr4.value**bobot.output.bobot4.value
+   alt3.output.total.value=
+  alt3.output.kr1.value*alt3.output.kr2.value*alt3.output.kr3.value*alt3.output.kr4.value
+})
+//alt 4
+ const alt4={
+    input:{
+       kr1:document.getElementById('krt41-option'),
+       kr2:document.getElementById('krt42-option'),
+       kr3:document.getElementById('krt43-option'),
+       kr4:document.getElementById('krt44-option')
+    },
+    output:{
+         kr1:document.getElementById('krt41-output'),
+       kr2:document.getElementById('krt42-output'),
+       kr3:document.getElementById('krt43-output'),
+       kr4:document.getElementById('krt44-output'),
+       total:document.getElementById('total-all4')
+    }
+ }
+
+
+alt4.input.kr1.addEventListener('input',function(){
+  alt4.output.kr1.value=alt4.input.kr1.value**bobot.output.bobot1.value
+})
+alt4.input.kr2.addEventListener('input',function(){
+  alt4.output.kr2.value=alt4.input.kr2.value**bobot.output.bobot2.value
+})
+
+alt4.input.kr3.addEventListener('input',function(){
+  alt4.output.kr3.value=alt4.input.kr3.value**bobot.output.bobot3.value
+})
+alt4.input.kr4.addEventListener('input',function(){
+  alt4.output.kr4.value=alt4.input.kr4.value**bobot.output.bobot4.value
+   alt4.output.total.value=
+  alt4.output.kr1.value*alt4.output.kr2.value*alt4.output.kr3.value*alt4.output.kr4.value
+})
+
+function wp_processing(input,output){
+  const process_total=[
+    {
+          name:document.getElementById('alt1-name').innerHTML,
+          total:Number(alt1.output.total.value)/Number(alt1.output.total.value)+Number(alt2.output.total.value)+Number(alt3.output.total.value)+Number(alt4.output.total.value),
+         },
+         {
+          name:document.getElementById('alt2-name').innerHTML,
+         total:Number(alt2.output.total.value)/Number(alt1.output.total.value)+Number(alt2.output.total.value)+Number(alt3.output.total.value)+Number(alt4.output.total.value),
+         },
+         {
+          name:document.getElementById('alt3-name').innerHTML,
+         total:Number(alt3.output.total.value)/Number(alt1.output.total.value)+Number(alt2.output.total.value)+Number(alt3.output.total.value)+Number(alt4.output.total.value),
+         },
+         {
+          name:document.getElementById('alt4-name').innerHTML,
+          total:Number(alt4.output.total.value)/Number(alt1.output.total.value)+Number(alt2.output.total.value)+Number(alt3.output.total.value)+Number(alt4.output.total.value),
+         },
+         
+      ]
+      const output_process=document.getElementById('output-container')
+
+
+const process_data=process_total.sort((a, b) => b.total - a.total);
+
+document.getElementById('name1').innerHTML=process_data[0].name
+ document.getElementById('name1-output').setAttribute('value',process_data[0].name)
+ document.getElementById('action1').innerHTML='pilihan anda adalah'
+
+document.getElementById('name2').innerHTML=process_data[1].name
+ document.getElementById('name2-output').setAttribute('value',process_data[1].name)
+ document.getElementById('action2').innerHTML='peringkat ke dua'
+
+
+document.getElementById('name3').innerHTML=process_data[2].name
+ document.getElementById('name3-output').setAttribute('value',process_data[2].name)
+ document.getElementById('action3').innerHTML='pilihan anda adalah'
+
+ document.getElementById('name4').innerHTML=process_data[3].name
+ document.getElementById('name4-output').setAttribute('value',process_data[3].name)
+ document.getElementById('action4').innerHTML='pilihan anda adalah'
+
+
+
+
+
+
+
+} 
+
+
+
+</script>
+
+
+</body>
+
+</html>

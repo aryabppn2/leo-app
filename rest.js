@@ -19,7 +19,8 @@ http.use(express.static(path.join(__dirname, "public")));
 
 //server mongodb//
 const {mongodb_connect}=require('./database_connect/mongodb-connect.js')
-const {showAllData,user_data}=require('./database_connect/user-db.js')
+const {showAllData,user_data}=require('./database_connect/user-db.js');
+const { study_data } = require("./study-server.js");
 
 //server all//
 
@@ -37,9 +38,7 @@ const {
   add_langganan,
   remove_langganan,
   search_langganan, 
-  search_pelanggan,
-
-
+  search_pelanggan
 }
 = require(process.env.user_server);
 const {
@@ -79,7 +78,15 @@ const {
     notes_private_save
 }=require(process.env.CALL_SERVER)
 
-
+const {
+  post_studiData,
+  get_userStudy,
+  study_get,
+  study_dataList,
+  get_searchStudy,
+  answer_post,
+}
+=require(process.env.study_server)
  
 
 //connect with database//
@@ -227,16 +234,19 @@ http.get("/first-page/:user_address", function (input, output) {
     text_search: "",
     user: user_get(input.params.user_address)[0],
     user_product:get_userProductList(input.params.user_address),
+    user_study:get_userStudy(input.params.user_address)
   });
 });
 
 http.post("/search-user-product", function (input, output) {
   const product_user = get_userProductList(input.body.user_email);
+  const study=get_userStudy(input.body.user_email)
   output.render("user-page", {
     page: "user-product-list",
     text_search: input.body.search_input,
     user: user_get(input.body.user_email)[0],
     user_product: get_searchUserProduct(product_user, input.body.search_input),
+    user_study:get_searchStudy(study,input.body.search_input)
   });
 });
 http.get("/get-langganan/:user/:market", function (input, output) {
@@ -319,6 +329,15 @@ http.get("/create-new-product/:email", function (input, output) {
     user: user_get(input.params.email)[0],
   });
 });
+http.get('/create-new-study/:user',function(input,output){
+  output.render('product-create',{
+    page:'studi-page-create',
+    user:user_get(input.params.user)[0]
+  })
+})
+
+
+
 http.get("/qoutes-delete/:qoutes", function (input, output) {
   const qoutes=qoutes_get(input.params.qoutes)[0]
   const user= user_get(qoutes.qoutes_email)[0]
@@ -334,6 +353,61 @@ http.post("/post-qoutes", function (input, output) {
    
 
 });
+
+//study
+
+
+http.post('/post-study-data',function(input,output){
+post_studiData(input.body);
+output.redirect(`/first-page/${input.body.user_email}`)
+
+
+})
+
+http.get('/study-open/:study_id',function(input,output){
+const study=study_get(input.params.study_id)[0]
+output.render('study-page',{
+  page:'open-user-study',
+  user:user_get(study.study_email)[0],study
+  
+
+})
+
+
+
+})
+
+http.post('/post-answer',function(input,output){
+  answer_post(input.body)
+  output.redirect(`/study-open/${input.body.user_email}/${input.body.study_id}`)
+})
+
+
+http.get('/study-open/:user/:study',function(input,output){
+  const study=study_get(input.params.study)[0]
+  const coment=get_coments(study.study_id)
+ const coment_check=coment.some((data)=>data.email ===input.params.user)
+  if(coment_check==true){
+    output.render('study-page',{
+      page:'study-after-fill',
+      user:user_get(input.params.user)[0],
+      user_study:user_get(study.study_email)[0],
+      study,coment,
+      
+    })
+  }
+  else {
+    output.render('study-page',{
+      page:'open-study',
+      user:user_get(input.params.user)[0],
+      user_study:user_get(study.study_email)[0],
+      study
+    })
+  }
+ 
+})
+
+
 
 http.get('/open-qoutes-user/:qoutes',function(input,output){
   const qoutes=qoutes_get(input.params.qoutes)[0]
@@ -489,6 +563,7 @@ http.get("/product-navigation/:user", function (input, output) {
   output.render("navigation-page", {
     page: "qoutes-list",
     product_data: get_productNav(input.params.user),
+    study_data:study_dataList(input.params.user),
     user: user_get(input.params.user)[0],
     search_text: "",
   });
@@ -498,11 +573,13 @@ http.get("/product-navigation/:user", function (input, output) {
 
 http.post('/search-qoutes-list',function(input,output){
   const qoutes_list=get_productNav(input.body.user_email)
+  const study_list=study_dataList(input.params.user)
   output.render('navigation-page',{
     page:'qoutes-list',
     user:user_get(input.body.user_email)[0],
     search_text:input.body.search_input,
-    product_data:get_searchUserProduct(qoutes_list,input.body.search_input)
+    product_data:get_searchUserProduct(qoutes_list,input.body.search_input),
+    study_data:get_searchStudy(study_list,input.body.search_input)
   })
 })
 
@@ -852,6 +929,9 @@ http.get('/delete-chat/:user/:room',function(input,output){
   delete_chat(input.params)
   output.redirect(`/get-chat-list/${input.params.user}`)
 })
+
+
+
 
 
 http.listen(port, function () {

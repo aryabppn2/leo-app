@@ -264,6 +264,7 @@
       <a href="/product-navigation/<%=user.email %>">
         <button class="btn-bar-selected">qoutes</button>
       </a>
+      
       <a href="/others-user/<%=user.email %>">
         <button class="btn-bar">orang</button>
       </a>
@@ -294,6 +295,16 @@
 
 
               <% }) %>
+
+  <% study_data.forEach(data => { %>
+   <div class="qoutes-card" style="background-color:aliceblue;border-radius:0px">
+            <a href="/study-open/<%=user.email %>/<%=data.study_id %>">
+              <h1 style="color:orange"><%=data.study_value %></h1>
+            </a>
+          </div>
+  <% }) %>
+      
+
     </div>
   
     <% }else if(page=='user-nav' ){%>
@@ -375,7 +386,7 @@
             <% }) %>
 
         </div>
-        
+       
 <% } else if (page='others-friends-list') { %>
  <div class="navigation-bar" style="background-color:<%=others.style.color%>;">
   <div>

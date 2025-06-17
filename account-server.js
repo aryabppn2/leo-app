@@ -117,6 +117,7 @@ function search_pelanggan(pelanggan,username){
 }
 
 
+
 module.exports={
     account_registered,
     change_username,
@@ -130,5 +131,6 @@ module.exports={
     add_langganan,
 remove_langganan,
 search_langganan,
-search_pelanggan
+search_pelanggan,
+
 }
