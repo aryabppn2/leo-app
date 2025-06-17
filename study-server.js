@@ -149,7 +149,12 @@ url.writeFileSync(process.env.coment_db,JSON.stringify(coments))
 
 }
 
-module.exports={post_studiData,get_userStudy,study_get,study_dataList,get_searchStudy,answer_post}
+function delete_study(study_id){
+  const study_data=study.filter(data=>data.study_id !=study_id)
+  url.writeFileSync(process.env.study_db,JSON.stringify(study_data))
+}
+
+module.exports={post_studiData,get_userStudy,study_get,study_dataList,get_searchStudy,answer_post,delete_study}
 
 
 

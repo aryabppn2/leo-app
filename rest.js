@@ -63,7 +63,8 @@ const {
    get_chat,
    send_chat,
    get_chatList,
-   delete_chat
+   delete_chat,
+   get_alt
 } = require(process.env.chat_coment_server)
 
 const {
@@ -85,6 +86,7 @@ const {
   study_dataList,
   get_searchStudy,
   answer_post,
+  delete_study
 }
 =require(process.env.study_server)
  
@@ -368,13 +370,28 @@ http.get('/study-open/:study_id',function(input,output){
 const study=study_get(input.params.study_id)[0]
 output.render('study-page',{
   page:'open-user-study',
-  user:user_get(study.study_email)[0],study
+  user:user_get(study.study_email)[0],study,
+  coment:get_coments(study.study_id),
+  coment_list:{
+    alt1:get_alt(get_coments(study.study_id),study.alternatif1.nama).length,
+    alt2:get_alt(get_coments(study.study_id),study.alternatif2.nama).length,
+    alt3:get_alt(get_coments(study.study_id),study.alternatif3.nama).length,
+     alt4:get_alt(get_coments(study.study_id),study.alternatif4.nama).length,
+  }
   
 
 })
 
 
 
+})
+
+http.get('/delete-study/:study_id',function(input,output){
+  const study_data=study_get(input.params.study_id)[0]
+
+  delete_study(input.params.study_id)
+
+  output.redirect(`/first-page/${study_data.study_email}`)
 })
 
 http.post('/post-answer',function(input,output){
@@ -393,6 +410,12 @@ http.get('/study-open/:user/:study',function(input,output){
       user:user_get(input.params.user)[0],
       user_study:user_get(study.study_email)[0],
       study,coment,
+       coment_list:{
+    alt1:get_alt(get_coments(study.study_id),study.alternatif1.nama).length,
+    alt2:get_alt(get_coments(study.study_id),study.alternatif2.nama).length,
+    alt3:get_alt(get_coments(study.study_id),study.alternatif3.nama).length,
+     alt4:get_alt(get_coments(study.study_id),study.alternatif4.nama).length,
+  }
       
     })
   }

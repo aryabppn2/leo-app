@@ -135,29 +135,47 @@
   <%if(page=='open-user-study'){%>
     <div class="study-open-">
       <a href="/first-page/<%=user.email %>">
-        <button class="username-field" style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>">
-          <%=user.username[0]%>
+        <button class="username-field" style="color:orange;background-color:aliceblue;
+        width:90px;height:90px;font-size:20px;" >
+          keluar
         </button>
       </a>
       <a href="/show-study-question/<%=study.study_id %>">
-        <button class="btn-bar-study-user">
-          <%=user.username[0] %>
+        <button class="study-btn">
+          lihat soal
         </button>
       </a>
-      <a href=""></a>
+      <a href="/delete-study/<%=study.study_id %>">
+        <button class="study-btn" style="background-color: aliceblue;color:red">hapus</button>
+      </a>
+      <div class="study-statistic"></div>
     </div>
 
     <div class="study-body">
-      <% study.answered.forEach(st=> { %>
-
-        <% }) %>
-
+    <div class="alternatif-card">
+      <h1 style="color:orange"><%=study.alternatif1.nama %></h1>
+      <p style="color:orange"><%=coment_list.alt1 %></p>
+    </div>
+    <div class="alternatif-card">
+      <h1 style="color:orange"><%=study.alternatif2.nama %></h1>
+      <p style="color:orange"><%=coment_list.alt2 %></p>
+    </div>
+    <div class="alternatif-card">
+      <h1 style="color:orange"><%=study.alternatif3.nama %></h1>
+      <p style="color:orange"><%=coment_list.alt3 %></p>
+    </div>
+    <div class="alternatif-card">
+      <h1 style="color:orange"><%=study.alternatif4.nama %></h1>
+      <p style="color:orange"><%=coment_list.alt4 %></p>
+    </div>
+    
 
 
 
 
     </div>
-
+ <div class="studi-answer"></div>
+ <div class="study-result"></div>
 
 
     <%}else if(page=='open-study' ){%>
@@ -565,10 +583,27 @@
         font-size:20px;font-weight: bold;">keluar</button>
     </a>
    </div>
+ <div class="study-body">
+    <div class="alternatif-card">
+      <h1 style="color:orange"><%=study.alternatif1.nama %></h1>
+      <p style="color:orange"><%=coment_list.alt1 %></p>
+    </div>
+    <div class="alternatif-card">
+      <h1 style="color:orange"><%=study.alternatif2.nama %></h1>
+      <p style="color:orange"><%=coment_list.alt2 %></p>
+    </div>
+    <div class="alternatif-card">
+      <h1 style="color:orange"><%=study.alternatif3.nama %></h1>
+      <p style="color:orange"><%=coment_list.alt3 %></p>
+    </div>
+    <div class="alternatif-card">
+      <h1 style="color:orange"><%=study.alternatif4.nama %></h1>
+      <p style="color:orange"><%=coment_list.alt4 %></p>
+    </div>
+    </div>
+<div class="coment-fields"></div>
 
 
-
-   
 
       <%}%>
 

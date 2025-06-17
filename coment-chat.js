@@ -110,6 +110,12 @@ function delete_chat(chat){
     url.writeFileSync(process.env.chat_list,JSON.stringify(chat_list))
 }
 
+
+function get_alt(coment,alt){
+    const coment_data=coment.filter(data=>data.value.includes(alt))
+    return coment_data
+}
+
 module.exports={
     post_coment,
     get_coments,
@@ -121,6 +127,7 @@ module.exports={
    get_chat,
    send_chat,
    get_chatList,
-   delete_chat
+   delete_chat,
+   get_alt
 }
 
