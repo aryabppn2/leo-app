@@ -34,7 +34,13 @@
       font-size: 25px;
       color: aliceblue
     }
-
+  .username-field{
+     width:100px;
+     height:100px;
+     border-radius:100px;
+     border:0px;
+     font-size:30px;
+  }
 
 
     .body-navigator {
@@ -336,6 +342,10 @@
       .username-field {
         width: 90px;
         height: 90px;
+        border:0px;
+        border-radius:100px;
+        font-size:30px;
+
       }
 
       
@@ -491,14 +501,6 @@
 
 
               <%})%>
- <% user_study.forEach(data => { %>
-   <div class="qoutes-card" style="background-color:aliceblue;border-radius:20px">
-    <a href="/study-open/<%=data.study_id %> ">
-      <h1 style="color:orange"><%=data.study_value %></h1>
-    </a>
-     
-    </div>
- <% }) %>
 
   </div>
 

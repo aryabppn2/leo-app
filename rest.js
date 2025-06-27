@@ -20,7 +20,6 @@ http.use(express.static(path.join(__dirname, "public")));
 //server mongodb//
 const {mongodb_connect}=require('./database_connect/mongodb-connect.js')
 const {showAllData,user_data}=require('./database_connect/user-db.js');
-const { study_data } = require("./study-server.js");
 
 //server all//
 
@@ -79,17 +78,7 @@ const {
     notes_private_save
 }=require(process.env.CALL_SERVER)
 
-const {
-  post_studiData,
-  get_userStudy,
-  study_get,
-  study_dataList,
-  get_searchStudy,
-  answer_post,
-  delete_study                                                                                                                                                                                  
-}
-=require(process.env.study_server)
-                                                           
+                                      
 
 //connect with database//
 mongodb_connect()
@@ -236,19 +225,17 @@ http.get("/first-page/:user_address", function (input, output) {
     text_search: "",
     user: user_get(input.params.user_address)[0],
     user_product:get_userProductList(input.params.user_address),
-    user_study:get_userStudy(input.params.user_address)
+  
   });
 });
 
 http.post("/search-user-product", function (input, output) {
   const product_user = get_userProductList(input.body.user_email);
-  const study=get_userStudy(input.body.user_email)
   output.render("user-page", {
     page: "user-product-list",
     text_search: input.body.search_input,
     user: user_get(input.body.user_email)[0],
     user_product: get_searchUserProduct(product_user, input.body.search_input),
-    user_study:get_searchStudy(study,input.body.search_input)
   });
 });
 http.get("/get-langganan/:user/:market", function (input, output) {
@@ -331,9 +318,9 @@ http.get("/create-new-product/:email", function (input, output) {
     user: user_get(input.params.email)[0],
   });
 });
-http.get('/create-new-study/:user',function(input,output){
+http.get('/create-new-market/:user',function(input,output){
   output.render('product-create',{
-    page:'studi-page-create',
+    page:'market-page-create',
     user:user_get(input.params.user)[0]
   })
 })
@@ -355,80 +342,6 @@ http.post("/post-qoutes", function (input, output) {
    
 
 });
-
-//study
-
-
-http.post('/post-study-data',function(input,output){
-post_studiData(input.body);
-output.redirect(`/first-page/${input.body.user_email}`)
-
-
-})
-
-http.get('/study-open/:study_id',function(input,output){
-const study=study_get(input.params.study_id)[0]
-output.render('study-page',{
-  page:'open-user-study',
-  user:user_get(study.study_email)[0],study,
-  coment:get_coments(study.study_id),
-  coment_list:{
-    alt1:get_alt(get_coments(study.study_id),study.alternatif1.nama).length,
-    alt2:get_alt(get_coments(study.study_id),study.alternatif2.nama).length,
-    alt3:get_alt(get_coments(study.study_id),study.alternatif3.nama).length,
-     alt4:get_alt(get_coments(study.study_id),study.alternatif4.nama).length,
-  }
-  
-
-})
-
-
-
-})
-
-http.get('/delete-study/:study_id',function(input,output){
-  const study_data=study_get(input.params.study_id)[0]
-
-  delete_study(input.params.study_id)
-
-  output.redirect(`/first-page/${study_data.study_email}`)
-})
-
-http.post('/post-answer',function(input,output){
-  answer_post(input.body)
-  output.redirect(`/study-open/${input.body.user_email}/${input.body.study_id}`)
-})
-
-
-http.get('/study-open/:user/:study',function(input,output){
-  const study=study_get(input.params.study)[0]
-  const coment=get_coments(study.study_id)
- const coment_check=coment.some((data)=>data.email ===input.params.user)
-  if(coment_check==true){
-    output.render('study-page',{
-      page:'study-after-fill',
-      user:user_get(input.params.user)[0],
-      user_study:user_get(study.study_email)[0],
-      study,coment,
-       coment_list:{
-    alt1:get_alt(get_coments(study.study_id),study.alternatif1.nama).length,
-    alt2:get_alt(get_coments(study.study_id),study.alternatif2.nama).length,
-    alt3:get_alt(get_coments(study.study_id),study.alternatif3.nama).length,
-     alt4:get_alt(get_coments(study.study_id),study.alternatif4.nama).length,
-  }
-      
-    })
-  }
-  else {
-    output.render('study-page',{
-      page:'open-study',
-      user:user_get(input.params.user)[0],
-      user_study:user_get(study.study_email)[0],
-      study
-    })
-  }
- 
-})
 
 
 
@@ -584,25 +497,45 @@ http.get('/qoutes-share-open/:user/:qoutes',function(input,output){
 
 http.get("/product-navigation/:user", function (input, output) {
   output.render("navigation-page", {
-    page: "qoutes-list",
+    page: "all-data-show",
     product_data: get_productNav(input.params.user),
-    study_data:study_dataList(input.params.user),
+    user_data:get_userList(input.params.user),
     user: user_get(input.params.user)[0],
     search_text: "",
   });
 });
 
 
+http.get('/qoutes-navigation/:user',function(input,output){
+   output.render("navigation-page", {
+    page: "qoutes-list",
+    product_data: get_productNav(input.params.user),
+    user: user_get(input.params.user)[0],
+    search_text: "",
+  });
+})
+
+http.post('/search-all-data-show',function(input,output){
+  const dataset={
+      user_data:get_userList(input.body.user_email),
+      qoutes_list:get_productNav(input.body.user_email)
+  }
+  output.render("navigation-page", {
+    page: "all-data-show",
+    product_data: get_searchUserProduct(dataset.qoutes_list,input.body.search_input),
+    user_data:search_userList(dataset.user_data, input.body.search_input),
+    user: user_get(input.body.user_email)[0],
+    search_text:input.body.search_input,
+  });
+})
 
 http.post('/search-qoutes-list',function(input,output){
   const qoutes_list=get_productNav(input.body.user_email)
-  const study_list=study_dataList(input.params.user)
   output.render('navigation-page',{
     page:'qoutes-list',
     user:user_get(input.body.user_email)[0],
     search_text:input.body.search_input,
     product_data:get_searchUserProduct(qoutes_list,input.body.search_input),
-    study_data:get_searchStudy(study_list,input.body.search_input)
   })
 })
 

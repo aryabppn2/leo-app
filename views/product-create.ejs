@@ -268,7 +268,7 @@
       <button class="btn-bar-selected">qoutes</button>
     </a>
     <a href="/create-new-study/<%=user.email%>">
-      <button class="btn-bar">penelitian </button>
+      <button class="btn-bar">product</button>
     </a>
   </div>
   <div class='form-create'style="text-align: center">
@@ -407,9 +407,8 @@
         )">update</button>  
       </div>
       </form>
-
-  <%}else if(page=='studi-page-create'){%>
-    <div class="create-page-bar">
+  <%}else if(page=='market-page-create'){%>
+<div class="create-page-bar">
     <a href="/first-page/<%=user.email%>">
       <button class="btn-bar">kembali</button>
     </a>
@@ -417,66 +416,10 @@
       <button class="btn-bar">qoutes</button>
     </a>
     <a href="/create-new-study/<%=user.email%>">
-      <button class="btn-bar-selected">penelitian </button>
+      <button class="btn-bar-selected">produk</button>
     </a>
   </div>
-  <form action="/post-study-data" method="post" style="text-align: center;height:500px;overflow-y: auto;" >
-    <input type="hidden" name="user_email" value="<%=user.email %>">
-    <textarea name="study_value" class="text-study-input" placeholder="isi penelitian" id="textarea"></textarea><br>
-      <a href="#kriteria-input">
-        <h2 style="color:orange">kriteria</h2>
-      </a>
-
-
-    <div class="kriteria-input-container" id="kriteria-input">
-    <a href="#textarea">
-      <h2 style="color:orange">cek topik</h2><br>
-    </a>
-   <div class="kriteria-body-input">
-   <input type="text" name="kriteria_1" class="kriteria-input" placeholder="kriteria 1"><br>
-   <select name="type_1" class="kriteria-input">
-    <option value="none">tipe</option>
-    <option value="max_type">maximal</option>
-    <option value="min_type">minimal</option>
-   </select>
-   </div>
- <div class="kriteria-body-input">
-   <input type="text" name="kriteria_2" class="kriteria-input" placeholder="kriteria 2"><br>
-   <select name="type_2" class="kriteria-input">
-    <option value="none">tipe</option>
-    <option value="max_type">maximal</option>
-    <option value="min_type">minimal</option>
-   </select>
-   </div>
- <div class="kriteria-body-input">
-   <input type="text" name="kriteria_3" class="kriteria-input" placeholder="kriteria 3"><br>
-   <select name="type_3" class="kriteria-input">
-    <option value="none">tipe</option>
-    <option value="max_type">maximal</option>
-    <option value="min_type">minimal</option>
-   </select>
-   </div>
-    <div class="kriteria-body-input">
-   <input type="text" name="kriteria_4" class="kriteria-input" placeholder="kriteria 4"><br>
-   <select name="type_4" class="kriteria-input">
-    <option value="none">tipe</option>
-    <option value="max_type">maximal</option>
-    <option value="min_type">minimal</option>
-   </select>
-   </div>
-   <a href="#alternatif"><h1 style="color:orange">pilihan </h1></a>
-     </div>
-  <div class="alternatif-input-body" id="alternatif">
-    <a href="#kriteria-input">
-      <h2 style="color:orange">balik</h2>
-    </a>
-    <input type="text" name="alternatif_1" class="alternatif-text" placeholder="alternatif 1">
-    <input type="text" name="alternatif_2" class="alternatif-text" placeholder="alternatif 2">
-    <input type="text" name="alternatif_3" class="alternatif-text" placeholder="alternatif 3">
-    <input type="text" name="alternatif_4" class="alternatif-text" placeholder="alternatif 4">
-  </div>
-  <button type="submit" class="btn-bar" style="color:aliceblue;font-size: 20px;">posting</button>
-    </form>
+  
 
   <%}%>
     
@@ -504,12 +447,14 @@ style.size.addEventListener('input',function(){
   if(style.size.value<=30){
     document.getElementById('text-input').style.fontSize=style.size.value+'px'
     document.getElementById('text-input').style.textAlign='left'
-    document.getElementById('font-size-output').setAttribute('value',style.size.value)    
+    document.getElementById('font-size-output').setAttribute('value',style.size.value) 
+    document.getElementById('topic-input').setAttribute('placeholder','judul')
   }
   else{
     document.getElementById('text-input').style.fontSize=style.size.value+'px'
     document.getElementById('text-input').style.textAlign='center'
     document.getElementById('font-size-output').setAttribute('value',style.size.value)
+     document.getElementById('topic-input').setAttribute('placeholder','topik')
   }
 
 
