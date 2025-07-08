@@ -1,13 +1,16 @@
 
 require('dotenv').config()
 const {users,url}=require(process.env.router)
+const {encryptVigenere}=require(process.env.enkripsi_data)
+
+
+
 function account_registered(account){
     const account_data={
     	  username:`${account.email_input[0]}${account.email_input[1]}`,
     	  email:account.email_input,
     	  password:account.password_input,
-    	  location:account.location_input,
-          bord:account.ttg_lahir,
+          user_id_enkripsi:encryptVigenere(account.email_input+'leoappcomqoutesisreal',account.password_input+'leoappcomqoutesisreal'),
           age:account.get_age,
           style:{
              bgcolor:'orange',
@@ -15,7 +18,6 @@ function account_registered(account){
           },
           langganan:[],
           pelanggan:[],
-          service_list:[],
           calls:'',
           my_notes:[]
     }

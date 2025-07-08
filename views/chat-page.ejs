@@ -57,7 +57,7 @@
       border: 0px;
     }
     .btn-chat-new{
-      width:50%;
+      width:45.2%;
       height: 45px;
       background-color: orange;
       color:#504327;
@@ -156,7 +156,7 @@
     }
     .reciepent-card{
       background-color: orange;
-      color:aliceblue;
+      color:black;
       text-align: right;
     }
     .chat-user,.chat-others{
@@ -174,7 +174,7 @@
     }
     .chat-others{
       background-color: orange;
-      color:aliceblue;
+      color:black;
       text-align: right;
       margin-left:50.8%;
     }
@@ -345,8 +345,11 @@
     </form>
   </div>
   <div style="text-align: center;">
+    <a href="/create-new-group/<%=user.email %>">
+      <button class="btn-chat-new" style="background-color: aqua;color:black">buat group</button>
+    </a>
   <a href="/get-chat-open/<%=user.email%>">
-    <button class="btn-chat-new">mulai obrolan baru</button>
+    <button class="btn-chat-new">chat baru</button>
   </a>
   </div>
   <div class="chat-body-navigator">

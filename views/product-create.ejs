@@ -66,6 +66,9 @@
     width:90px;
     height:50px;
     margin-top:10px;
+    font-size: 30px;
+    border:0px;
+    
   }
   .qoutes-style>select{
    width:90px;
@@ -274,9 +277,9 @@
   <div class='form-create'style="text-align: center">
   <form class="form-create" id="qoutes-form">
     <div class="qoutes-style">
-      <input type="color" id="sign-color-input" class="color-input" value="">
-      <input type="color" id="bgcolor-input" class="color-input" value="">
-
+      <input type="color" id="sign-color-input" class="color-input" value="<%=user.style.color %>">
+      <input type="color" id="bgcolor-input" class="color-input" value="<%=user.style.bgcolor %>">
+  
       <select  id="font-size-input">
         <option value="11">normal</option>
          <option value="19">6</option>
@@ -299,13 +302,14 @@
     </div>
     <div class="qoutes-form">
     <input type="hidden" name="email" value="<%=user.email%>">
-    <input type="hidden" name="bg_color" value="" id="bgcolor-output-hidden">
-   <input type="hidden" name="sign_color" value="" id="sign-color-output-hidden">
+    <input type="hidden" name="bg_color" value="<%=user.style.bgcolor %>" id="bgcolor-output-hidden">
+   <input type="hidden" name="sign_color" value="<%-user.style.color %>" id="sign-color-output-hidden">
    <input type="hidden" name="fontSize" value="11" id="font-size-output">
    <input type="hidden" name="fontFamily" value="" id="font-family-output-hidden">
    <input type="hidden" name="type_get" id="topic-output" value="">
    <input type="hidden" name="market_share" id="market-share-output" value="">
-    <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"></textarea>
+    <textarea name="qoutes_value" class="text-input" placeholder="tulis isi pikiranmu" id="text-input"
+     style="color:<%=user.style.color%>;background-color:<%=user.style.bgcolor%>"></textarea>
     </div>
     <div class="qoutes-completer-form">
       <input type="text" id="topic-input" placeholder="topik" class="topic-input-text"><br>
