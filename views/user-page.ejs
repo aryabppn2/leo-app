@@ -52,6 +52,7 @@
       height: 500px;
       overflow-y: auto;
       width: 100%;
+      scrollbar-width:none;
     }
 
     .qoutes-card {
@@ -317,9 +318,38 @@
         height: 400px;
       }
 
-      .search-form {
-        margin-top: 40px;
-      }
+     
+       .search-form {
+      width:auto;
+      height: 45px;
+      margin-top: 40px;
+      margin-left: 20px;
+      border-radius: 19px;
+      background-color: aliceblue;
+    }
+
+    .text-search,
+    .btn-search {
+      background-color: aliceblue;
+      color: black;
+      font-weight: bold;
+    }
+
+    .text-search {
+      width:71.8%;
+      height: 45px;
+      border-radius: 19px;
+      border: 0px;
+      font-size: 20px;
+      height: 45px;
+    }
+
+    .btn-search {
+      width: 12%;
+      height: 45px;
+      border: 0px;
+      font-size: 20px;
+    }
 
       .btn-bar-option {
         width: 100px;
@@ -501,7 +531,39 @@
 
 
               <%})%>
+    <%pelanggan.forEach(user_data => { %>
+     <div class="qoutes-card">
+         <a href="/open-navigation/<%=user.email %>/<%=user_data.email %>">
+          <button class="username-field" style="margin-top: 12px;color:orange; font-weight: bold;"><%=user_data.user[0] %></button>
+         </a>
+           <br>
 
+         <a href="/get-new-chat/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto;background-color: #edeadf;color:orange">chat</button>
+         </a>
+         <a href="/get-new-call/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto">call</button>
+         </a>
+
+        
+      
+     </div>
+    <% }) %>
+  <% pelanggan.forEach(user_data => { %>
+    <div class="qoutes-card">
+         <a href="/open-navigation/<%=user.email %>/<%=user_data.email %>">
+          <button class="username-field" style="margin-top: 12px;color:orange; font-weight: bold;"><%=user_data.user[0] %></button>
+         </a>
+           <br>
+
+         <a href="/get-new-chat/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto;background-color: #edeadf;color:orange">chat</button>
+         </a>
+         <a href="/get-new-call/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto">call</button>
+         </a>
+     </div>
+  <% }) %>
   </div>
 
 
@@ -613,22 +675,25 @@ font-size: 20px;">
     </div>
 
   </div>
-
+<h1 style="color:orange">aku berteman dengan <%=langganan.length %> orang</h1>
   <div class="body-navigator">
-  
-      <h3 style="color:orange">langganan (<%=langganan.length %>)</h3>
-      <%langganan.forEach(data=>{%>
+      <%langganan.forEach(user_data=>{%>
       <div class="qoutes-card">
-       <a href="/get-new-chat/<%=user.email %>/<%=data.email%>">
-          <button class="username-field" style="width:100px;height:100px;font-size: 30px;
-          background-color:orange;color:aliceblue">
-            <%=data.user[0] %>
-          </button>
-        </a><br>
-        <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor" style="background-color: lightyellow;margin-top: 20px;"><%=data.user %></button>
-        </a>
-      </div>
+         <a href="/open-navigation/<%=user.email %>/<%=user_data.email %>">
+          <button class="username-field" style="margin-top: 12px;color:orange; font-weight: bold;"><%=user_data.user[0] %></button>
+         </a>
+           <br>
+
+         <a href="/get-new-chat/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto;background-color: #edeadf;color:orange">chat</button>
+         </a>
+         <a href="/get-new-call/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto">call</button>
+         </a>
+
+        
+      
+     </div>
       <%})%>
   </div>
   <%}else if(page=='pelanggan' ){%>
@@ -660,21 +725,22 @@ font-size: 20px;">
     </div>
 
   </div>
-
+  <h1 style="color:orange" style="margin-left: 20px;"><%=user.pelanggan.length %> teman ku</h1>
   <div class="body-navigator">
-      <h3 style="color:orange">pelanggan (<%=pelanggan.length %>)</h3>
-      <%pelanggan.forEach(data=>{%>
+      <%pelanggan.forEach(user_data=>{%>
       <div class="qoutes-card">
-       <a href="/get-new-chat/<%=user.email %>/<%=data.email%>">
-          <button class="username-field" style="width:100px;height:100px;font-size: 30px;
-          background-color:orange;color:aliceblue">
-            <%=data.user[0] %>
-          </button>
-        </a><br>
-        <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor" style="background-color: lightyellow;margin-top: 20px;"><%=data.user %></button>
-        </a>
-      </div>
+         <a href="/open-navigation/<%=user.email %>/<%=user_data.email %>">
+          <button class="username-field" style="margin-top: 12px;color:orange; font-weight: bold;"><%=user_data.user[0] %></button>
+         </a>
+           <br>
+
+         <a href="/get-new-chat/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto;background-color: #edeadf;color:orange">chat</button>
+         </a>
+         <a href="/get-new-call/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto">call</button>
+         </a>
+     </div>
       <%})%>
   </div>
 
@@ -688,7 +754,7 @@ font-size: 20px;">
       </a>
     </div>
     <div class="user-bar-information" id="user-info">
-      <button class="btn-user-bar" style="background-color: none;">teman</button>
+      
       <input type="hidden" value="<%=user.email %>" id="user-address">
       <button onclick="get_search(
     {
@@ -703,43 +769,57 @@ font-size: 20px;">
   
         )" class="btn-user-bar">cari</button>
         
-      
-<a href="/user-langganan/<%=user.email %>">
-  <span style="color:orange;font-size: 20px;margin-left: 20px;"><%=user.langganan.length %> berteman</span>
-</a>
-<a href="/user-pelanggan/<%=user.email %>">
-  <span style="color:orange;font-size: 20px;margin-left: 20px;"><%=user.pelanggan.length %> temanku</span>
-</a>
+      <a href="#friends-bar">
+        <button class="btn-user-bar" style="background-color: none;width:auto">
+      teman temanku ada <%=user.langganan.length+user.pelanggan.length %> orang
+      </button>
+      </a>
+
     </div>
 
   </div>
   <div class="body-navigator">    
-      <% langganan.forEach(data=> { %>
+      <% langganan.forEach(user_data=> { %>
       <div class="qoutes-card">
-        <a href="/get-new-chat/<%=user.email %>/<%=data.email%>">
-          <button class="username-field" style="width:100px;height:100px;font-size: 30px;
-          background-color:orange;color:aliceblue">
-            <%=data.user[0] %>
-          </button><br>
-        </a>
-        <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor" style="background-color: lightyellow;margin-top: 20px;"><%=data.user %></button>
-        </a>
-      </div>
+         <a href="/open-navigation/<%=user.email %>/<%=user_data.email %>">
+          <button class="username-field" style="margin-top: 12px;color:orange; font-weight: bold;"><%=user_data.user[0] %></button>
+         </a>
+           <br>
+
+         <a href="/get-new-chat/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto;background-color: #edeadf;color:orange">chat</button>
+         </a>
+         <a href="/get-new-call/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto">call</button>
+         </a>
+     </div>
       <% }) %>
-      <% pelanggan.forEach(data=> { %>
+      <% pelanggan.forEach(user_data=> { %>
       <div class="qoutes-card">
-        <a href="/get-new-chat/<%=user.email %>/<%=data.email%>">
-          <button class="username-field" style="width:100px;height:100px;font-size: 30px;
-          background-color:orange;color:aliceblue">
-            <%=data.user[0] %>
-          </button>
-        </a><br>
-        <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor" style="background-color: lightyellow;margin-top: 20px;"><%=data.user %></button>
-        </a>
-      </div>
+         <a href="/open-navigation/<%=user.email %>/<%=user_data.email %>">
+          <button class="username-field" style="margin-top: 12px;color:orange; font-weight: bold;"><%=user_data.user[0] %></button>
+         </a>
+           <br>
+
+         <a href="/get-new-chat/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto;background-color: #edeadf;color:orange">chat</button>
+         </a>
+         <a href="/get-new-call/<%=user.email %>/<%=user_data.email %>">
+          <button class="btn-user-bar" style="width:auto">call</button>
+         </a>
+
+        
+      
+     </div>
       <% }) %>
+  </div>
+  <div id="friends-bar">
+    <a href="/user-langganan/<%=user.email %>">
+  <button class="btn-user-bar" style="width: auto;"><%=user.langganan.length %> berteman</button>
+</a>
+<a href="/user-pelanggan/<%=user.email %>">
+  <button class="btn-user-bar" style="width:auto"><%=user.pelanggan.length %> temanku</button>
+</a>
   </div>
 
   <%}%>
@@ -765,7 +845,8 @@ font-size: 20px;">
                 function get_search(input, output) {
                   output.btn.setAttribute('href', input.link)
                   output.info.innerHTML =
-                    `  <form method="post" action="${input.post}" class="search-form">
+ `  
+ <form method="post" action="${input.post}" class="search-form">
     <input type="hidden" name="user_email" value="${input.address.value}" />
     <input type="text" name="search_input" placeholder="cari apa"  class="text-search" />
     <button class="btn-search">cari</button>

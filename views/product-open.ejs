@@ -314,7 +314,7 @@
            <button class="btn-update" style="background-color:aliceblue;color:red">hapus</button>
          </a>
        </div>
-        <h1 style="color:orange">komentar <%=coment_list.length %></h1>
+        <h1 style="color:orange">komentar <%=qoutes.coment_list.length %></h1>
         <form action="/post-coment" method="post" class="coment-form">
           <input type="hidden" value="<%=user.email%>" name="user_email">
           <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
@@ -322,7 +322,7 @@
           <button class="btn-post-coment" type="submit">kirim</button>
         </form>
         <div class="coment-list" style="margin-top:60px;">
-        <% coment_list.forEach(coment => { %>
+        <% qoutes.coment_list.forEach(coment => { %>
          <div class="coment-card">
           <button class="username-field" style="width:50px;height:50px;font-size: 30px;
             "><%=coment.username[0] %></button><%=coment.username %>
@@ -378,7 +378,7 @@
          </a>
          
       </div>
-      <h2 style="color:orange">komentar: <%=coment_list.length  %></h3>
+      <h2 style="color:orange">komentar: <%=qoutes.coment_list.length  %></h3>
       <form action="/post-coment-data" method="post" class="coment-form" style="margin-top: 100px;">
         <input type="hidden" value="<%=user.email%>" name="user_email">
         <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
@@ -386,7 +386,7 @@
         <button class="btn-post-coment" type="submit">kirim</button>
       </form>
       <div class="coment-list" style="margin-top:60px;">
-        <% coment_list.forEach(coment => { %>
+        <% qoutes.coment_list.forEach(coment => { %>
          <div class="coment-card">
           <button class="username-field" style="width:50px;height:50px;font-size: 30px;
             "><%=coment.username[0] %></button><%=coment.username %>
@@ -593,7 +593,7 @@ style="color:<%=qoutes.information.color%>;background-color:<%=qoutes.informatio
                <button class="btn-update" style="background-color:aliceblue;color:red">hapus</button>
              </a>
            </div>
-           <h1 style="color:orange">komentar <%=coment_list.length %></h1>
+           <h1 style="color:orange">komentar <%=qoutes.coment_list.length %></h1>
            <form action="/post-coment" method="post" class="coment-form">
              <input type="hidden" value="<%=user.email%>" name="user_email">
              <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
@@ -601,7 +601,7 @@ style="color:<%=qoutes.information.color%>;background-color:<%=qoutes.informatio
              <button class="btn-post-coment" type="submit">kirim</button>
            </form>
            <div class="coment-list" style="margin-top:60px;">
-           <% coment_list.forEach(coment => { %>
+           <% qoutes.coment_list.forEach(coment => { %>
             <div class="coment-card">
              <h3><%=coment.username%></h3>
              <p><%=coment.value%></p>
@@ -664,7 +664,7 @@ style="color:<%=qoutes.information.color%>;background-color:<%=qoutes.informatio
         <p>target:<%=qoutes_share.information.market_share%></p>
         <p>tanggal:<%=qoutes_share.information.day%></p>
         </div>
-        <h1 style="color:orange">komentar <%=coment_list.length %></h1>
+        <h1 style="color:orange">komentar <%=qoutes.coment_list.length %></h1>
         <form action="/post-coment-data" method="post" class="coment-form">
           <input type="hidden" value="<%=user.email%>" name="user_email">
           <input type="hidden" value="<%=qoutes.qoutes_id%>" name="qoutes_id">
@@ -672,7 +672,7 @@ style="color:<%=qoutes.information.color%>;background-color:<%=qoutes.informatio
           <button class="btn-post-coment" type="submit">kirim</button>
         </form>
         <div class="coment-list" style="margin-top:60px;">
-        <% coment_list.forEach(coment => { %>
+        <% qoutes.coment_list.forEach(coment => { %>
          <div class="coment-card">
           <h3><%=coment.username%></h3>
           <p><%=coment.value%></p>

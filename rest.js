@@ -53,7 +53,6 @@ const {
 
 const {
   post_coment,
-  get_coments,
    create_newChat,
    get_chatSend,
    get_chatReciepent,
@@ -61,9 +60,7 @@ const {
    search_chatAccept,
    get_chat,
    send_chat,
-   get_chatList,
    delete_chat,
-   get_alt
 } = require(process.env.chat_coment_server)
 
 const {
@@ -225,6 +222,8 @@ http.get("/first-page/:user_address", function (input, output) {
     text_search: "",
     user: user_get(input.params.user_address)[0],
     user_product:get_userProductList(input.params.user_address),
+    pelanggan:user_get(input.params.user_address)[0].pelanggan,
+    langganan:user_get(input.params.user_address)[0].langganan
   
   });
 });
@@ -236,6 +235,8 @@ http.post("/search-user-product", function (input, output) {
     text_search: input.body.search_input,
     user: user_get(input.body.user_email)[0],
     user_product: get_searchUserProduct(product_user, input.body.search_input),
+    pelanggan:search_pelanggan(user_get(input.body.user_email)[0].pelanggan, input.body.search_input),
+    langganan:search_pelanggan(user_get(input.body.user_email)[0].langganan,input.body.search_input)
   });
 });
 http.get("/get-langganan/:user/:market", function (input, output) {
@@ -350,7 +351,6 @@ http.get('/open-qoutes-user/:qoutes',function(input,output){
   output.render('product-open',{
     page:'qoutes-user-page',qoutes,
     title:"qoutes-user-body",
-    coment_list:get_coments(qoutes.qoutes_id),
     user:user_get(qoutes.qoutes_email)[0]
     
   })
@@ -381,7 +381,6 @@ http.get("/qoutes-open/:user/:qoutes", function (input, output) {
     title:'qoutes-body',qoutes,
     user: user_get(input.params.user)[0],
     user_qoutes:user_get(qoutes.qoutes_email)[0],
-    coment_list:get_coments(qoutes.qoutes_id)
   });
 });
 http.get('/qoutes-private-coment/:user/:qoutes',function(input,output){
@@ -412,7 +411,6 @@ http.get('/open-chat/:user/:room/:qoutes',function(input,output){
       user:user_get(input.params.user)[0],
       reciepent:user_get(chat.reciepent.address)[0],
       user_qoutes:user_get(qoutes.qoutes_email)[0],
-      chat_list:get_chatList(input.params.room)
     })
    
   }
@@ -424,7 +422,6 @@ http.get('/open-chat/:user/:room/:qoutes',function(input,output){
       user:user_get(input.params.user)[0],
       reciepent:user_get(chat.user.address)[0],
       user_qoutes:user_get(qoutes.qoutes_email)[0],
-      chat_list:get_chatList(input.params.room)
     })
   }
 })
@@ -468,11 +465,11 @@ output.redirect(`/first-page/${input.body.email}`)
 http.get('/open-qoutes-user-share/:qoutes',function(input,output){
   const qoutes=qoutes_get(input.params.qoutes)[0]
   output.render('product-open',{
-    page:'qoutes-share-user',
+    page:'qoutes-share-user',qoutes,
     user:user_get(qoutes.qoutes_email)[0],
     qoutes_share:qoutes_get(qoutes.information.qoutes_id)[0], 
     user_qoutes:user_get(qoutes_get(qoutes.information.qoutes_id)[0].qoutes_email)[0],
-    coment_list:get_coments(qoutes.qoutes_id),qoutes
+    
   })
 })
 
@@ -486,7 +483,6 @@ http.get('/qoutes-share-open/:user/:qoutes',function(input,output){
     qoutes_share:qoutes_get(qoutes.information.qoutes_id)[0],
     user_qoutes:user_get(qoutes.qoutes_email)[0],
     user_qoutes_share:user_get(qoutes_share.qoutes_email)[0],
-    coment_list:get_coments(qoutes.qoutes_id)
   })
 })
 
@@ -848,8 +844,7 @@ http.get('/open-chat/:user/:room',function(input,output){
       page:'chat-open',chat,
       user:user_get(input.params.user)[0],
       reciepent:user_get(chat.reciepent.address)[0],
-      chat_list:get_chatList(input.params.room)
-
+      
       
     })
   }
@@ -857,8 +852,7 @@ http.get('/open-chat/:user/:room',function(input,output){
        output.render('chat-page',{
         page:'chat-open',chat,
         user:user_get(input.params.user)[0],
-        reciepent:user_get(chat.user.address)[0],
-        chat_list:get_chatList(input.params.room)
+        reciepent:user_get(chat.user.address)[0]
   
        })
   }
@@ -869,11 +863,11 @@ http.get('/open-chat/:user/:room',function(input,output){
 http.post('/send-chat',function(input,output){
   const get_data=input.body
   const chat=get_chat(get_data.room)[0]
-  send_chat(get_data)
-  if(chat.information.type=='chat-text'){
+  send_chat(input.body)
+  if(chat.chat.type=='chat-text'){
     output.redirect(`/open-chat/${get_data.user_email}/${get_data.room}`)
   }
-  else if(chat.information.type=='call-record'){
+  else if(chat.chat.type=='call-record'){
      output.redirect(`/open-chat/${get_data.user_email}/${get_data.room}`)
   }
   else{

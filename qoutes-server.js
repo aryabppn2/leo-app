@@ -5,11 +5,14 @@ dotenv.config
 const {qoutes,coments,url}=require(process.env.router) 
 const {hours,day}=require(process.env.time)
 const {ambilTigaKataPertama}=require(process.env.teks)
+const {encryptVigenere}=require(process.env.enkripsi_data)
+const {user_data}=require(process.env.user_server)
+
 
 function post_qoutes(data,qoutes_type,qoutes_id){
   const qoutes_data={
     qoutes_email:data.email,
-    qoutes_id:`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}WrBy${data.email}Type${qoutes_type}`,
+    qoutes_id:encryptVigenere(`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}WrBy${data.email}Type${qoutes_type}`,`${user_data(data.email).password}qoutes`),
     information:{
        time:`${hours.h}:${hours.m}`,
        day: `${day.d}/${day.m}/${day.y}`,
@@ -22,22 +25,10 @@ function post_qoutes(data,qoutes_type,qoutes_id){
        qoutes_type:qoutes_type,
        qoutes_id:qoutes_id
     },
-    qoutes_value:data.qoutes_value
+    qoutes_value:data.qoutes_value,
+    coment_list:[]
   }
 
-
-if(data.sign_color==""){
-  qoutes_data.information.color='orange'
-}
-else if(data.bg_color==""){
-  qoutes_data.information.bgcolor="aliceblue"
-}
-else if(data.market_share==""){
-  qoutes_data.information.market_share=='semua'
-}
-else if(data.type_get==""){
-  qoutes_data.information.type="bebas"
-}
 qoutes.push(qoutes_data)
 url.writeFileSync(process.env.qoutes_db,JSON.stringify(qoutes))
 }

@@ -304,19 +304,20 @@
 
 
               <% }) %>        
-               <% user_data.forEach(data=> { %>
-          <div class="qoutes-card">
-            
-            <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-              <button class="username-field"
-               style="width:70px;height:70px;font-size:25px;width:100px;height:100px;font-size:40px;border:100px;
-               color:<%=data.style.color%>;background-color:<%=data.style.bgcolor%>;"><%=data.username[0] %></button>
-            </a><br>
-            <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
-              <button class="btn-bar" style="margin-left: 12px;" id="chat-btn">chat</button>
+               <% user_data.forEach(user_data=> { %>
+              <div class="qoutes-card" style="background-color: <%=user_data.style.color%>;">
+            <a href="/open-navigation/<%=user.email %>/<%=user_data.email %>">
+              <button class="username-field" style="background-color: <%=user_data.style.bgcolor%>;color:<%=user_data.style.color%>">
+                <%=user_data.username[0] %>
+              </button>
             </a>
-          </div>
-          <% }) %>
+               <h2 style="color:<%=user_data.style.bgcolor%>"><%=user_data.username %></h2>
+
+              </div>
+              
+               
+               
+                <% }) %>
                                                   
                                           
     </div>
@@ -397,20 +398,17 @@
       <a href="/others-user/<%=user.email %>">
         <button class="btn-bar-selected">orang</button>
       </a>
-      <div class="user-body-navigator">
-        <% user_data.forEach(data=> { %>
-          <div class="user-card">
-            
-            <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-              <button class="username-field"
-               style="width:70px;height:70px;font-size:25px;
-               color:<%=data.style.color%>;background-color:<%=data.style.bgcolor%>;"><%=data.username[0] %></button>
+      <div class="qoutes-body-navigator">
+        <% user_data.forEach(user_data=> { %>
+          <div class="qoutes-card" style="background-color: <%=user_data.style.color%>;">
+            <a href="/open-navigation/<%=user.email %>/<%=user_data.email %>">
+              <button class="username-field" style="background-color: <%=user_data.style.bgcolor%>;color:<%=user_data.style.color%>">
+                <%=user_data.username[0] %>
+              </button>
             </a>
-           <button class="btn-bar" style="background-color: aliceblue;color:orange"><%=data.username %></button>
-            <a href="/get-new-chat/<%=user.email%>/<%=data.email%>">
-              <button class="btn-visitor" style="background-color: rgb(239, 234, 205);">chat</button>
-            </a>
-          </div>
+               <h2 style="color:<%=user_data.style.bgcolor%>"><%=user_data.username %></h2>
+
+              </div>
           <% }) %>
       </div>
       <%}else if(page=='market-navigation' ){%>

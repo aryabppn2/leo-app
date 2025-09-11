@@ -2,29 +2,28 @@ const dotenv=require('dotenv')
 dotenv.config()
 
 
-const {coments,chats,chats_list,url}=require(process.env.router)
+const {qoutes,chats,url}=require(process.env.router)
 const {user_get}=require(process.env.user_server)
 const {hours,day}=require(process.env.time)
+const {ambilTigaKataPertama}=require(process.env.teks)
+const {encryptVigenere}=require(process.env.enkripsi_data)
+
 
 
 function post_coment(data){
 const user_data=user_get(data.user_email)[0]
+const qoutes_data=qoutes.filter(data=>data.qoutes_id===data.qoutes_id)[0]
 const coment_data={
    username:user_data.username,
-   email:user_data.email,
-   qoutes_id:data.qoutes_id,
    value:data.coment_input,
    
 }
-coments.push(coment_data)
-url.writeFileSync(process.env.coment_db,JSON.stringify(coments))
+qoutes_data.coment_list.push(coment_data)
+url.writeFileSync(process.env.qoutes_db,JSON.stringify(qoutes))
 
 }
 
-function get_coments(qoutes){
-   const coment=coments.filter(data=>data.qoutes_id.includes(qoutes))
-   return coment
-}
+
 
 function create_newChat(data,type,qoutes_id){
   const data_address={
@@ -41,17 +40,15 @@ function create_newChat(data,type,qoutes_id){
           name:data_address.reciepent.username
       },
       chat:{
-          room:`chat_${data.chat_text}Wr${data_address.user.email}To${data_address.reciepent.email}Type${type}`,
-          chat_value:data.chat_text,
-          qoutes_id:qoutes_id
-          
+          room:encryptVigenere(`${ambilTigaKataPertama(data.chat_text)}${data_address.user.email}${data_address.reciepent.email}`,
+          `chat${data_address.user.password}`),
+          chat_value:ambilTigaKataPertama(data.chat_text),
+          qoutes_id:qoutes_id,
+          time:`${hours.h}:${hours.m}`,
+          day:`${day.d}/${day.m}/${day.y}`,
+          type:type,
       },
-      information:{
-        time:`${hours.h}:${hours.m}`,
-        day:`${day.d}/${day.m}/${day.y}`,
-        type:type,
-        
-    }
+    chat_list:[{email:data_address.user.email,value:data.chat_text}]
   }
   chats.push(chat_data)
   url.writeFileSync(process.env.chat_db,JSON.stringify(chats))
@@ -94,12 +91,12 @@ function get_chatList(room){
 function send_chat(input){
     const chat__data={
          email:input.user_email,
-         room:input.room,
          value:input.chat_text,
 
     }
-    chats_list.push(chat__data)
-    url.writeFileSync(process.env.chat_list,JSON.stringify(chats_list))
+   const chat_dat=chats.filter(get=>get.chat.room.includes(input.room))[0]
+   chat_dat.chat_list.push(chat__data)
+    url.writeFileSync(process.env.chat_db,JSON.stringify(chats))
 }
 
 function delete_chat(chat){
@@ -118,7 +115,6 @@ function get_alt(coment,alt){
 
 module.exports={
     post_coment,
-    get_coments,
     create_newChat,
     get_chatSend,
    get_chatReciepent,
@@ -126,8 +122,6 @@ module.exports={
    search_chatAccept,
    get_chat,
    send_chat,
-   get_chatList,
    delete_chat,
-   get_alt
 }
 

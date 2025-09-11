@@ -65,6 +65,11 @@ function user_get(email){
 }
 
 
+function userENk_get(enk_id){
+    const user=users.filter(data=>data.user_id_enkripsi===enk_id)[0]
+    return user
+}
+
 function get_userList(email){
     const user_data=users.filter(data=>data.email !=email)
     return user_data
@@ -128,6 +133,7 @@ module.exports={
      delete_notes,
      change_des,
      user_get,
+     userENk_get,
      get_userList,
      search_userList,
     add_langganan,
