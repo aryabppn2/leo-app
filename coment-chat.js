@@ -12,7 +12,7 @@ const {encryptVigenere}=require(process.env.enkripsi_data)
 
 function post_coment(data){
 const user_data=user_get(data.user_email)[0]
-const qoutes_data=qoutes.filter(data=>data.qoutes_id===data.qoutes_id)[0]
+const qoutes_data=qoutes.filter(get=>get.qoutes_id===data.qoutes_id)[0]
 const coment_data={
    username:user_data.username,
    value:data.coment_input,
@@ -108,10 +108,7 @@ function delete_chat(chat){
 }
 
 
-function get_alt(coment,alt){
-    const coment_data=coment.filter(data=>data.value.includes(alt))
-    return coment_data
-}
+
 
 module.exports={
     post_coment,

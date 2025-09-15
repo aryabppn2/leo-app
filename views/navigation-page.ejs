@@ -471,29 +471,31 @@
  </div>
  <div class="qoutes-body-navigator">
   <% others.langganan.forEach(data => { %>
-    <div class="qoutes-card">
+    <div class="qoutes-card" style="background-color: <%=others.style.bgcolor%>;">
         <a href="/get-new-chat/<%=user.email %>/<%=data.email%>">
           <button class="username-field" style="width:100px;height:100px;font-size: 30px;
-          background-color:orange;color:aliceblue">
+          background-color:<%=others.style.bgcolor%>;color:<%=others.style.color%>">
             <%=data.user[0] %>
           </button>
         </a><br>
         <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor-others" style="background-color: lightyellow;margin-top: 20px;"><%=data.user %></button>
+          <button class="btn-visitor-others" style="
+            background-color:<%=others.style.color%>;
+            color:<%=others.style.bgcolor%>;margin-top: 20px;"><%=data.user %></button>
         </a>
       </div>
   <% }) %>
  
  <% others.pelanggan.forEach(data => { %>
-    <div class="qoutes-card">
+    <div class="qoutes-card" style="background-color: <%=others.style.bgcolor%>;">
         <a href="/get-new-chat/<%=user.email %>/<%=data.email%>">
           <button class="username-field" style="width:100px;height:100px;font-size: 30px;
-          background-color:orange;color:aliceblue">
+          background-color:<%=others.style.bgcolor%>;color:<%=others.style.color%>">
             <%=data.user[0] %>
           </button>
         </a><br>
         <a href="/open-navigation/<%=user.email%>/<%=data.email%>">
-          <button class="btn-visitor-others" style="background-color: lightyellow;margin-top: 20px;"><%=data.user %></button>
+          <button class="btn-visitor-others" style="background-color:<%=others.style.color%>;color:<%=others.style.bgcolor%>;margin-top: 20px;"><%=data.user %></button>
         </a>
       </div>
   <% }) %>

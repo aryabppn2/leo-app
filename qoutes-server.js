@@ -6,13 +6,13 @@ const {qoutes,coments,url}=require(process.env.router)
 const {hours,day}=require(process.env.time)
 const {ambilTigaKataPertama}=require(process.env.teks)
 const {encryptVigenere}=require(process.env.enkripsi_data)
-const {user_data}=require(process.env.user_server)
+const {user_get}=require(process.env.user_server)
 
 
 function post_qoutes(data,qoutes_type,qoutes_id){
   const qoutes_data={
     qoutes_email:data.email,
-    qoutes_id:encryptVigenere(`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}WrBy${data.email}Type${qoutes_type}`,`${user_data(data.email).password}qoutes`),
+    qoutes_id:encryptVigenere(`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}WrBy${data.email}Type${qoutes_type}`,`${user_get(data.email)[0].password}qoutes`),
     information:{
        time:`${hours.h}:${hours.m}`,
        day: `${day.d}/${day.m}/${day.y}`,
@@ -37,10 +37,8 @@ url.writeFileSync(process.env.qoutes_db,JSON.stringify(qoutes))
 
 
 function delete_product(qoute) {
-  const qoutes_get = qoutes.filter((data) => data.qoutes_id !=qoute);
-  const coment_get=coments.filter(data=> data.qoutes_id !=qoute)
+  const qoutes_get = qoutes.filter((data) => data.qoutes_id !=qoute); 
   url.writeFileSync(process.env.qoutes_db, JSON.stringify(qoutes_get));
-  url.writeFileSync(process.env.coment_db,JSON.stringify(coment_get))
 }
 
 

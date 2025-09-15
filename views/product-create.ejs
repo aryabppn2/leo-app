@@ -301,6 +301,7 @@
       </select>
     </div>
     <div class="qoutes-form">
+   
     <input type="hidden" name="email" value="<%=user.email%>">
     <input type="hidden" name="bg_color" value="<%=user.style.bgcolor %>" id="bgcolor-output-hidden">
    <input type="hidden" name="sign_color" value="<%-user.style.color %>" id="sign-color-output-hidden">
@@ -453,6 +454,7 @@ style.size.addEventListener('input',function(){
     document.getElementById('text-input').style.textAlign='left'
     document.getElementById('font-size-output').setAttribute('value',style.size.value) 
     document.getElementById('topic-input').setAttribute('placeholder','judul')
+    document.getElementById('')
   }
   else{
     document.getElementById('text-input').style.fontSize=style.size.value+'px'
