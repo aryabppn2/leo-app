@@ -42,6 +42,7 @@ function create_newChat(data,type,qoutes_id){
       chat:{
           room:encryptVigenere(`${ambilTigaKataPertama(data.chat_text)}${data_address.user.email}${data_address.reciepent.email}`,
           `chat${data_address.user.password}`),
+          room_d:`${ambilTigaKataPertama(data.chat_text)}${data_address.user.email}${data_address.reciepent.email}`,
           chat_value:ambilTigaKataPertama(data.chat_text),
           qoutes_id:qoutes_id,
           time:`${hours.h}:${hours.m}`,
@@ -99,12 +100,9 @@ function send_chat(input){
     url.writeFileSync(process.env.chat_db,JSON.stringify(chats))
 }
 
-function delete_chat(chat){
-    const chat_data=chats.filter(data=>data.chat.room !=chat.room)
-    const chat_list=chats_list.filter(data=>data.room !=chat.room)
-
-    url.writeFileSync(process.env.chat_db,JSON.stringify(chat_data))
-    url.writeFileSync(process.env.chat_list,JSON.stringify(chat_list))
+function delete_chat(chat_input){
+    const chat_after=chats.filter(data=>data.chat.chat_value != chat_input.chat)
+    url.writeFileSync(process.env.chat_db,JSON.stringify(chat_after))
 }
 
 

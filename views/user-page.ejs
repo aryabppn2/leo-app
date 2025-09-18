@@ -510,23 +510,24 @@
 
 
     <%user_product.forEach(data=>{%>
-    <% if (data.information.qoutes_type=='qoutes' ) { %>
+    <% if (data.qoutes_share=='none' ) { %>
     <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;">
-      <a href="/open-qoutes-user/<%=data.qoutes_id%>">
+      <a href="/qoutes-open/<%=user.email %>/<%=data.qoutes_id %>">
         <h1 style="color:<%=data.information.color%>;font-size:<%=data.information.font_size%>px;font-family:<%=data.information.font_family%>">
           <%=data.qoutes_value%>
         </h1>
       </a>
     </div>
-    <% }else if(data.information.qoutes_type=="qoutes-coment-share" ) {%>
-    <div class="qoutes-card" style="background-color:<%=data.information.bgcolor%>;border-radius:0px">
+    <% }else {%>
+    <div class="qoutes-card" style="background-color: <%=data.information.bgcolor%>;">
+     <div style="width:91.9%;height:200px;overflow-y: auto;">
+      <h2><%=data.qoutes_share.qoutes_value %></h2>
+     </div>
+    <a href="/qoutes-share-open/<%=user.email%>/<%=data.qoutes_id%>">
+     <h1 style="color:<%=data.information.color%>">lihat </h1>
+    </a>
+    </div>
 
-      <a href="/open-qoutes-user-share/<%=data.qoutes_id%>">
-        <h1 style="color:<%=data.information.color%>;font-size:<%=data.information.font_size%>px;font-family:<%=data.information.font_family%>">
-          <%=data.qoutes_value%>
-        </h1>
-      </a>
-    </div>
     <%}%>
 
 

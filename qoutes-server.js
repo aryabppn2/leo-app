@@ -2,14 +2,14 @@
 const dotenv=require('dotenv')
 dotenv.config
 
-const {qoutes,coments,url}=require(process.env.router) 
+const {qoutes,url}=require(process.env.router) 
 const {hours,day}=require(process.env.time)
 const {ambilTigaKataPertama}=require(process.env.teks)
 const {encryptVigenere}=require(process.env.enkripsi_data)
 const {user_get}=require(process.env.user_server)
 
 
-function post_qoutes(data,qoutes_type,qoutes_id){
+function post_qoutes(data,qoutes_type,qoutes_share){
   const qoutes_data={
     qoutes_email:data.email,
     qoutes_id:encryptVigenere(`writeQoutes${ambilTigaKataPertama(data.qoutes_value)}WrBy${data.email}Type${qoutes_type}`,`${user_get(data.email)[0].password}qoutes`),
@@ -21,10 +21,9 @@ function post_qoutes(data,qoutes_type,qoutes_id){
        font_size:data.fontSize,
        font_family:data.fontFamily,
        market_share:data.market_share,
-       type:data.type_get,
-       qoutes_type:qoutes_type,
-       qoutes_id:qoutes_id
+  
     },
+    qoutes_share:qoutes_share,
     qoutes_value:data.qoutes_value,
     coment_list:[]
   }

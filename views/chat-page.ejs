@@ -80,6 +80,8 @@
        display: grid;
       grid-template-columns: repeat(3, 1fr);
        gap: 20px; /* jarak antar kotak */
+       height: 100%;
+       overflow-y: auto;
     }
 .chat-body-navigator>div{
      width:300px;
@@ -91,6 +93,7 @@
       text-align: center;
       margin-top: 19px;
       scrollbar-width:none;
+      text-align: center;
 
 }
 .btn-chat,.btn-call{
@@ -212,7 +215,7 @@
    
 .chat-body-navigator{
   display: block;
-  height: 100%;
+  height:450px;
   overflow-y: auto;
 
 }
@@ -283,7 +286,7 @@ hr{
   </div>
   <div class="chat-body-navigator">
     <% pelanggan.forEach(user_data => { %>
-    <div class="user-card">
+    <div class="user-card" >
      <div style="margin-bottom: 50px;">
       <button class="username-field" style="width:70px;height: 70px;font-size: 30px;margin-left: 12px;"><%=user_data.user[0]%></button>
        <h2><%=user_data.user %></h2>
@@ -373,6 +376,11 @@ hr{
         <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>" style="color:black;margin-left: 20px;">
           <span style="color:green;font-size:25px;"><%=data.chat.chat_value %></span>
         </a>
+        <div>
+         <a href="/delete-chat/<%=user.email %>/<%=data.chat.chat_value %>">
+          <button class="btn-bar">hapus</button>
+         </a>
+        </div>
        </div>
        <% } else if (data.chat.type=='call-record') { %>
         <div class="user-card" style="background-color: lawngreen;">
@@ -383,15 +391,16 @@ hr{
           <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>" style="color:black;margin-left: 20px;">
           <span style="color:green;font-size:25px;"><%=data.chat.chat_value %></span>
         </a>
+
        </div>
   
      <% }else{ %>
-      <div class="user-card" style="background-color:lawngreen;">
+      <div class="user-card" style="background-color:lawngreen;text-align: center;">
         <div style="margin-bottom:50px">
           <button class="username-field" style="width:70px;height: 70px;"><%=data.reciepent.name[0]%></button>
            <h3 style="color:green;font-size:25px;font-weight:bold;"><%=data.reciepent.name %></h3>
         </div>
-        <a href="/open-chat/<%=user.email %>/<%=data.chat.room%>/<%=data.chat.qoutes_id %>" style="color:black;margin-left: 20px;">komentar atas qoutes</a>
+        <a href="/open-chat-qoutesL/<%=user.email %>/<%=data.chat.room%>/<%=data.chat.qoutes_id %>" style="color:black;margin-left: 20px;"><%=data.chat.chat_value %></a>
        </div>
     <%}%>
 
@@ -400,7 +409,7 @@ hr{
        <!--untuk panggilan masuk-->
       <% if (data.chat.type=='chat-text') { %>
         <div class="reciepent-card">
-          <div style="margin-bottom: 50px;text-align: right;">
+          <div>
             <button class="username-field" style="width:70px;height: 70px;" >
             <%=data.user.name[0]%>
           </button>
@@ -427,16 +436,16 @@ hr{
          </div>
     
        <% }else{ %>
-        <div class="reciepent-card">
+        <div class="reciepent-card" style="color:brown"> 
           <div style="margin-bottom: 50px;">
             <button class="username-field" style="width:70px;height: 70px;" >
             <%=data.user.name[0] %>
           </button>
-           <button class="username-field" style="width:70px;height: 70px;" >
-          
+          <h3><%=data.user.name %></h3>
         </div>
-           <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>" style="color:aliceblue;margin-right: 12px;">
-             <span style="color:rgb(204, 195, 179);font-size: 25px;"><%=data.chat.chat_value %></span>
+        <hr/>
+           <a href="/open-chat-qoutesL/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id%>" style="color:aliceblue;margin-right: 12px;">
+             <span style="color:rgb(71, 55, 25);font-size: 25px;"><%=data.chat.chat_value %></span>
           </a>
           
          </div>
@@ -474,8 +483,8 @@ hr{
           <button class="username-field" style="width:70px;height: 70px;" >
             <%=data.reciepent.name[0]%>
           </button>
-          <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id %>" style="color:aliceblue">
-          qoutes koment
+          <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>" style="color:aliceblue">
+          <%=chat.chat_value %>
           </a>
          </div>
       <%}%>
@@ -523,7 +532,7 @@ hr{
       
          <% }else{ %>
           <div class="reciepent-card">
-            <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>/<%=data.chat.qoutes_id %>" style="color:aliceblue;margin-right: 12px;">
+            <a href="/open-chat/<%=user.email%>/<%=data.chat.room%>" style="color:aliceblue;margin-right: 12px;">
             qoutes koment
           </a>
           <button class="username-field" style="width:70px;height: 70px;" >
@@ -599,9 +608,7 @@ hr{
     <input type="text" name="chat_text" placeholder="isi chat" class="search-text">
     <button class="btn-search">kirim</button>
    </form>
-     <a href="/delete-chat/<%=user.email %>/<%=chat.chat.room %>">
-      <p style="color:red">hapus</p>
-     </a>
+     
     <%}%>
      
 </body>
