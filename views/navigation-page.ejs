@@ -288,13 +288,14 @@
             </a>
           </div>
         <% }else {%>
-          <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>;border-radius:0px">
-            <a href="/qoutes-share-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
-              <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
-                <%=qoutes.qoutes_value%>
-              </h1>                                                                                                                                                                      
-            </a>
-          </div>
+          <div class="qoutes-card" style="background-color: <%=qoutes.information.bgcolor%>;">
+     <div style="width:91.9%;height:200px;overflow-y: auto;">
+      <h2><%=qoutes.qoutes_share.qoutes_value %></h2>
+     </div>
+    <a href="/qoutes-share-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
+     <h1 style="color:<%=qoutes.information.color%>">lihat </h1>
+    </a>
+    </div>
 
 
         <%}%>
@@ -348,7 +349,7 @@
       </a>
     <div class="qoutes-body-navigator">
       <% product_data.forEach(qoutes=> { %>
-        <% if (qoutes.information.qoutes_type=="qoutes") { %>
+        <% if (qoutes.qoutes_share=="none") { %>
           <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>">
             <a href="/qoutes-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
               <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
@@ -356,7 +357,7 @@
               </h1>
             </a>
           </div>
-        <% }else if(qoutes.information.qoutes_type=="qoutes-coment-share") {%>
+        <% }else{%>
           <div class="qoutes-card" style="background-color:<%=qoutes.information.bgcolor%>;border-radius:0px">
             <a href="/qoutes-share-open/<%=user.email%>/<%=qoutes.qoutes_id%>">
               <h1 style="color:<%=qoutes.information.color%>;font-size:<%=qoutes.information.font_size%>px;font-family:<%=qoutes.information.font_family%>">
@@ -367,11 +368,6 @@
 
 
         <%}%>
-
-
-
-
-
               <% }) %>        
   
     <% }else if(page=='user-nav' ){%>

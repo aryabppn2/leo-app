@@ -45,6 +45,7 @@ const {
   delete_product,
   update_qoutes,
   qoutes_get,
+  QoutesComentDelete,
   get_userProductList,
   get_searchUserProduct,
   get_productNav,
@@ -481,6 +482,7 @@ if(input.params.user==qoutes.qoutes_email){
     page:'qoutes-share-user',qoutes,qoutes_share,
     user:user_get(qoutes.qoutes_email)[0], 
     
+    
   })
 }
 else{
@@ -505,14 +507,23 @@ http.get('/coment-open-qoutes-share/:user/:qoutes',function(input,output){
 else{
    output.render('product-open',{
     page:'qoutes-share-coment',
-    user:user_get(input.params.user)[0],qoutes,qoutes_share
+    user:user_get(input.params.user)[0],qoutes,qoutes_share,
+    user_qoutes:user_get(qoutes.qoutes_email)[0]
    })
 }
   
   
 })
-
-
+http.get('/coment-delete/:qoutes',function(input,output){
+  const qoutes=qoutes_get(input.params.qoutes)[0]
+  QoutesComentDelete(qoutes)
+  if(qoutes.qoutes_share=='none'){
+    output.redirect(`/coment-open/${qoutes.qoutes_email}/${qoutes.qoutes_id}`)
+  }
+  else {
+    output.redirect(`/coment-open-qoutes-share/${qoutes.qoutes_email}/${qoutes.qoutes_id}`)
+  }
+})
 //navigation  page//
 
 http.get("/product-navigation/:user", function (input, output) {

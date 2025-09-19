@@ -59,7 +59,12 @@ function qoutes_get(qoute){
    const qoutes_data=qoutes.filter(data=>data.qoutes_id.includes(qoute))
   return qoutes_data
 }
+function QoutesComentDelete(qoutes_get){
+  const  qoutes_data=qoutes.filter(data=>data.qoutes_id===qoutes_get.qoutes_id)[0]
+  qoutes_data.coment_list.length=0
 
+  url.writeFileSync(process.env.qoutes_db,JSON.stringify(qoutes))
+}
 
 function get_userProductList(email) {
   const product_data = qoutes.filter((data) =>
@@ -94,6 +99,7 @@ module.exports = {
   delete_product,
   update_qoutes,
   qoutes_get,
+  QoutesComentDelete,
   get_userProductList,
   get_searchUserProduct,
   get_productNav,
